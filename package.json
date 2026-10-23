@@ -1,0 +1,25 @@
+{
+	"name": "oauth-mock-connectors",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": "24"
+	},
+	"packageManager": "pnpm@10.15.0",
+	"scripts": {
+		"lint": "biome check packages examples",
+		"typecheck": "pnpm --filter @oauth-mock/connect-better-auth build && pnpm --filter @oauth-mock/connect-authjs build && pnpm -r typecheck",
+		"build": "pnpm -r build",
+		"test": "vitest run",
+		"docs:check": "node scripts/docs-check.mjs",
+		"release": "changeset publish"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.14",
+		"@types/node": "^22.20.2",
+		"typescript": "^5.9.2",
+		"vitest": "^3.2.4",
+		"@changesets/cli": "^2.29.7"
+	}
+}

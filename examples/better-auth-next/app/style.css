@@ -1,0 +1,27 @@
+* { box-sizing: border-box; }
+body { font: 16px system-ui; margin: 4rem auto; padding: 0 1.25rem; max-width: 42rem; color: #302044; background: #f7f3fc; }
+.app-header { display: flex; align-items: center; gap: .85rem; margin-bottom: 2.5rem; }
+.app-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: #7e22ce; color: white; font-size: 13px; font-weight: 700; }
+.app-name { display: block; font-size: 20px; font-weight: 700; }
+.app-label { display: block; margin-top: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; color: #7e22ce; }
+h1 { font-size: 30px; letter-spacing: -.035em; }
+p { color: #73627f; line-height: 1.7; }
+section { background: white; padding: 1.5rem; border: 1px solid #e9ddf5; border-top: 4px solid #7e22ce; border-radius: 14px; margin: 2rem 0; box-shadow: 0 12px 35px #30204408; }
+section h2 { margin-top: 0; }
+button { font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; padding: .8rem 1rem; background: #7e22ce; color: white; border: none; border-radius: 8px; }
+button:hover { background: #6b21a8; }
+button:disabled { opacity: .6; }
+button:focus-visible, a:focus-visible { outline: 3px solid #d8b4fe; outline-offset: 3px; }
+a { color: #7e22ce; text-underline-offset: 3px; }
+[role=alert] { color: #b91c1c; }
+@media (max-width: 480px) { body { margin: 2rem auto; } }
+.sign-in-options { display: flex; flex-wrap: wrap; gap: .75rem; }
+.login-details { margin-top: 1.75rem; border-top: 1px solid #e9ddf5; }
+.login-details h3 { font-size: 15px; margin: 1.5rem 0 .5rem; }
+.details { margin: 0; display: grid; gap: .1rem; }
+.details div { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); gap: 1rem; padding: .4rem 0; border-bottom: 1px solid #f3ecfa; font-size: 14px; }
+.details dt { color: #73627f; }
+.details dd { margin: 0; overflow-wrap: anywhere; }
+.details code { font-size: 13px; }
+.hint { font-size: 13px; margin: .5rem 0 0; }
+@media (max-width: 480px) { .details div { grid-template-columns: 1fr; gap: .1rem; } }
