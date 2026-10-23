@@ -1,6 +1,6 @@
 # Mockatoo connectors
 
-Open source connectors, examples, and documentation for [Mockatoo](https://oauth-mock.com). The connectors and documentation are MIT licensed. The hosted oauth server is accessed in [https://oauth-mock.com.](https://oauth-mock.com)
+Open source connectors, examples, and documentation for [Mockatoo](https://oauth-mock.com). The connectors and documentation are MIT licensed. The hosted oauth server is accessed in [https://app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com)[.](https://oauth-mock.com)
 
 ## Install
 
