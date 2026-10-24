@@ -10,4 +10,10 @@ pnpm add @mockatoo/connect-better-auth
 pnpm add @mockatoo/connect-authjs
 ```
 
-See the [documentation](https://www.mockatoo.com/docs) and [examples](examples/) for setup instructions.
+For agent-assisted setup, discover the public skill with:
+
+```sh
+npx skills add mockatoo/connectors --skill mockatoo
+```
+
+See the [documentation](https://www.mockatoo.com/docs), [Mockatoo skill](skills/mockatoo/SKILL.md), and [examples](examples/) for setup instructions.
