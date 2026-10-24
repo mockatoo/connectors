@@ -27,7 +27,7 @@ export function mockMicrosoft(options: MockMicrosoftOptions = {}) {
 	return mockSocialPlugin(
 		provider,
 		"microsoft",
-		"oauth-mock-microsoft",
+		"mockatoo-microsoft",
 		rest.disableImplicitSignUp,
 	);
 }

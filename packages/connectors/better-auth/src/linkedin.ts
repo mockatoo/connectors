@@ -70,7 +70,7 @@ export function mockLinkedIn(options: MockLinkedInOptions = {}) {
 	return mockSocialPlugin(
 		provider,
 		"linkedin",
-		"oauth-mock-linkedin",
+		"mockatoo-linkedin",
 		config.disableImplicitSignUp,
 	);
 }

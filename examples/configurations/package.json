@@ -1,5 +1,5 @@
 {
-	"name": "@oauth-mock/example-configurations",
+	"name": "@mockatoo/example-configurations",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
@@ -7,8 +7,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@oauth-mock/connect-authjs": "workspace:*",
-		"@oauth-mock/connect-better-auth": "workspace:*",
+		"@mockatoo/connect-authjs": "workspace:*",
+		"@mockatoo/connect-better-auth": "workspace:*",
 		"@auth/core": "0.41.3",
 		"@auth/unstorage-adapter": "2.11.3",
 		"better-auth": "1.7.6",

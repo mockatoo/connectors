@@ -3,7 +3,7 @@
  * accounts only. Microsoft is registered single-tenant (or for any work
  * account, `organizations`), and Google is limited to one Workspace domain.
  */
-import { mockGoogle, mockMicrosoft } from "@oauth-mock/connect-better-auth";
+import { mockGoogle, mockMicrosoft } from "@mockatoo/connect-better-auth";
 import { betterAuth } from "better-auth";
 import { memoryAdapter } from "better-auth/adapters/memory";
 

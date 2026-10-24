@@ -8,7 +8,7 @@
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
 	"ignore": [
-		"@oauth-mock/example-better-auth",
-		"@oauth-mock/example-configurations"
+		"@mockatoo/example-better-auth",
+		"@mockatoo/example-configurations"
 	]
 }

@@ -51,7 +51,7 @@ export function mockGoogle(options: MockGoogleOptions = {}) {
 	return mockSocialPlugin(
 		provider,
 		"google",
-		"oauth-mock-google",
+		"mockatoo-google",
 		config.disableImplicitSignUp,
 	);
 }

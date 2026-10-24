@@ -6,8 +6,8 @@ import { createSaasAuth } from "../../configurations/saas";
  */
 function createAuth() {
 	const origin =
-		process.env.OAUTH_MOCK_URL ??
-		`https://localhost:${process.env.OAUTH_MOCK_PORT || "4001"}`;
+		process.env.MOCKATOO_URL ??
+		`https://localhost:${process.env.MOCKATOO_PORT || "4001"}`;
 	const { auth } = createSaasAuth({
 		baseURL:
 			process.env.EXAMPLE_URL ??

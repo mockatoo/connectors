@@ -1,5 +1,5 @@
 {
-	"name": "@oauth-mock/connect-authjs",
+	"name": "@mockatoo/connect-authjs",
 	"version": "0.1.0",
 	"private": false,
 	"type": "module",

@@ -18,7 +18,7 @@ Sources: [Sign in with Apple REST API](https://developer.apple.com/documentation
 
 ```ts
 // Better Auth: pass the same options you give socialProviders.apple
-import { mockApple } from "@oauth-mock/connect-better-auth";
+import { mockApple } from "@mockatoo/connect-better-auth";
 const apple = { clientId: process.env.APPLE_CLIENT_ID!,
                 clientSecret: process.env.APPLE_CLIENT_SECRET! };
 export const auth = betterAuth({
@@ -28,7 +28,7 @@ export const auth = betterAuth({
 
 // Auth.js
 import Apple from "next-auth/providers/apple";
-import { MockApple } from "@oauth-mock/connect-authjs";
+import { MockApple } from "@mockatoo/connect-authjs";
 providers: [process.env.NODE_ENV === "production" ? Apple() : MockApple()],
 ```
 

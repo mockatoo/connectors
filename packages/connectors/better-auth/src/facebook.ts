@@ -95,7 +95,7 @@ export function mockFacebook(options: MockFacebookOptions = {}) {
 	return mockSocialPlugin(
 		provider,
 		"facebook",
-		"oauth-mock-facebook",
+		"mockatoo-facebook",
 		config.disableImplicitSignUp,
 	);
 }

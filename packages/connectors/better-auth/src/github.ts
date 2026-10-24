@@ -93,7 +93,7 @@ export function mockGitHub(options: MockGitHubOptions = {}) {
 	return mockSocialPlugin(
 		provider,
 		"github",
-		"oauth-mock-github",
+		"mockatoo-github",
 		config.disableImplicitSignUp,
 	);
 }

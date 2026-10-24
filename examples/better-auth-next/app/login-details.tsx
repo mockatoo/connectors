@@ -22,7 +22,7 @@ type LoginInfo = {
 };
 
 const PROVIDERS: Record<string, string> = {
-	"oauth-mock": "Mockatoo",
+	mockatoo: "Mockatoo",
 	google: "Google",
 	microsoft: "Microsoft",
 	github: "GitHub",

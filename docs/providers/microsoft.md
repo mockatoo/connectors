@@ -21,7 +21,7 @@ Sources: [authorization code flow](https://learn.microsoft.com/en-us/entra/ident
 
 ```ts
 // Better Auth: pass the same options you give socialProviders.microsoft
-import { mockMicrosoft } from "@oauth-mock/connect-better-auth";
+import { mockMicrosoft } from "@mockatoo/connect-better-auth";
 const microsoft = { clientId: process.env.MICROSOFT_CLIENT_ID!,
                     clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
                     tenantId: "common" };
@@ -32,7 +32,7 @@ export const auth = betterAuth({
 
 // Auth.js
 import MicrosoftEntraID from "next-auth/providers/microsoft-entra-id";
-import { MockMicrosoftEntraID } from "@oauth-mock/connect-authjs";
+import { MockMicrosoftEntraID } from "@mockatoo/connect-authjs";
 providers: [process.env.NODE_ENV === "production" ? MicrosoftEntraID() : MockMicrosoftEntraID()],
 ```
 

@@ -1,7 +1,7 @@
-export const MOCK_ORIGIN = "https://oauth-mock.com";
+export const MOCK_ORIGIN = "https://mockatoo.com";
 export const MOCK_CLIENT = {
-	clientId: "oauth-mock",
-	clientSecret: "oauth-mock-secret",
+	clientId: "mockatoo",
+	clientSecret: "mockatoo-secret",
 } as const;
 
 export function mockOrigin(origin?: string): string {

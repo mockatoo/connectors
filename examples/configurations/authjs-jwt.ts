@@ -6,11 +6,11 @@
 import type { AuthConfig } from "@auth/core";
 import {
 	MockApple,
+	MockatooProvider,
 	MockGitHub,
 	MockGoogle,
 	MockMicrosoftEntraID,
-	MockOAuthProvider,
-} from "@oauth-mock/connect-authjs";
+} from "@mockatoo/connect-authjs";
 import Apple from "next-auth/providers/apple";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
@@ -36,7 +36,7 @@ export function createAuthJsJwtConfig({
 					MockMicrosoftEntraID({ origin, issuer: microsoftIssuer }),
 					MockApple({ origin }),
 					// Lets developers and agents sign in with any Mockatoo account.
-					MockOAuthProvider({ origin }),
+					MockatooProvider({ origin }),
 				]
 			: [Google, GitHub, MicrosoftEntraID({ issuer: microsoftIssuer }), Apple],
 	};

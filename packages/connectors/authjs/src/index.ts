@@ -8,12 +8,12 @@ export type MockProfile = {
 	email_verified: boolean;
 };
 /** Auth.js derives its callback URL from the application configuration. */
-export default function MockOAuthProvider(
+export default function MockatooProvider(
 	options: { origin?: string } = {},
 ): OAuthConfig<MockProfile> {
 	const origin = mockOrigin(options.origin);
 	return {
-		id: "oauth-mock",
+		id: "mockatoo",
 		name: "Mockatoo",
 		type: "oauth",
 		...MOCK_CLIENT,
@@ -43,4 +43,4 @@ export {
 	type MockMicrosoftEntraIDOptions,
 } from "./microsoft";
 export { MockTwitter, type MockTwitterOptions } from "./twitter";
-export { MockOAuthProvider };
+export { MockatooProvider };

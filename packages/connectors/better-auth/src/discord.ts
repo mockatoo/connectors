@@ -79,7 +79,7 @@ export function mockDiscord(options: MockDiscordOptions = {}) {
 	return mockSocialPlugin(
 		provider,
 		"discord",
-		"oauth-mock-discord",
+		"mockatoo-discord",
 		config.disableImplicitSignUp,
 	);
 }

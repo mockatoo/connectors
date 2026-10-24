@@ -17,7 +17,7 @@ Sources: [OAuth 2.0 authorization code flow](https://docs.x.com/fundamentals/aut
 
 ```ts
 // Better Auth: pass the same options you give socialProviders.twitter
-import { mockTwitter } from "@oauth-mock/connect-better-auth";
+import { mockTwitter } from "@mockatoo/connect-better-auth";
 const twitter = { clientId: process.env.TWITTER_CLIENT_ID!,
                   clientSecret: process.env.TWITTER_CLIENT_SECRET! };
 export const auth = betterAuth({
@@ -27,7 +27,7 @@ export const auth = betterAuth({
 
 // Auth.js
 import Twitter from "next-auth/providers/twitter";
-import { MockTwitter } from "@oauth-mock/connect-authjs";
+import { MockTwitter } from "@mockatoo/connect-authjs";
 providers: [process.env.NODE_ENV === "production" ? Twitter() : MockTwitter()],
 ```
 

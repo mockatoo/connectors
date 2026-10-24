@@ -12,10 +12,10 @@ export type MockOptions<T extends { clientId?: unknown }> = Omit<
 	origin?: string;
 };
 
-export const MOCK_ORIGIN = "https://oauth-mock.com";
+export const MOCK_ORIGIN = "https://mockatoo.com";
 export const MOCK_CLIENT = {
-	clientId: "oauth-mock",
-	clientSecret: "oauth-mock-secret",
+	clientId: "mockatoo",
+	clientSecret: "mockatoo-secret",
 } as const;
 
 export function withMockClient<T extends object>(options: T) {

@@ -63,7 +63,7 @@ export default function SignIn() {
 						<button
 							type="button"
 							disabled={busy}
-							onClick={() => signIn("oauth-mock")}
+							onClick={() => signIn("mockatoo")}
 						>
 							Sign in with Mockatoo
 						</button>

@@ -21,7 +21,7 @@ export type MockAppleOptions = MockOptions<AppleOptions>;
  */
 export function mockApple(options: MockAppleOptions = {}) {
 	const { origin: configured, ...rest } = options;
-	const origin = new URL(configured ?? "https://oauth-mock.com").origin;
+	const origin = new URL(configured ?? "https://mockatoo.com").origin;
 	const base = mockBase(origin, "apple");
 	const tokenEndpoint = `${base}/auth/token`;
 	const config = withMockClient(rest);
@@ -52,7 +52,7 @@ export function mockApple(options: MockAppleOptions = {}) {
 	return mockSocialPlugin(
 		provider,
 		"apple",
-		"oauth-mock-apple",
+		"mockatoo-apple",
 		config.disableImplicitSignUp,
 		{
 			options: {

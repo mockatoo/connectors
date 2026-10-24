@@ -6,7 +6,7 @@
  * app's real configuration rather than one assembled for the test.
  */
 import {
-	createMockOauthPlugin,
+	createMockatooPlugin,
 	mockApple,
 	mockDiscord,
 	mockFacebook,
@@ -15,7 +15,7 @@ import {
 	mockLinkedIn,
 	mockMicrosoft,
 	mockTwitter,
-} from "@oauth-mock/connect-better-auth";
+} from "@mockatoo/connect-better-auth";
 import { betterAuth } from "better-auth";
 import { memoryAdapter } from "better-auth/adapters/memory";
 
@@ -115,7 +115,7 @@ export function createSaasAuth({
 		plugins: mock
 			? [
 					// Lets developers and agents sign in with any Mockatoo account.
-					createMockOauthPlugin({ origin: mock.origin }),
+					createMockatooPlugin({ origin: mock.origin }),
 					mockGoogle({ ...google, origin: mock.origin }),
 					mockGitHub({ ...github, origin: mock.origin }),
 					mockMicrosoft({ ...microsoft, origin: mock.origin }),

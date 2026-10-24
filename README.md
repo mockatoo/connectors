@@ -1,13 +1,13 @@
 # Mockatoo connectors
 
-Open source connectors, examples, and documentation for [Mockatoo](https://oauth-mock.com). The connectors and documentation are MIT licensed. The hosted oauth server is accessed in [https://app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com)[.](https://oauth-mock.com)
+Open source connectors, examples, and documentation for [Mockatoo](https://mockatoo.com). The connectors and documentation are MIT licensed. The hosted oauth server is accessed in [https://app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com)[.](https://mockatoo.com)
 
 ## Install
 
 ```sh
-pnpm add @oauth-mock/connect-better-auth
+pnpm add @mockatoo/connect-better-auth
 # or
-pnpm add @oauth-mock/connect-authjs
+pnpm add @mockatoo/connect-authjs
 ```
 
-See the [documentation](https://www.oauth-mock.com/docs) and [examples](examples/) for setup instructions.
+See the [documentation](https://www.mockatoo.com/docs) and [examples](examples/) for setup instructions.

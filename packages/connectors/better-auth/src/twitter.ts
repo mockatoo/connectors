@@ -101,7 +101,7 @@ export function mockTwitter(options: MockTwitterOptions = {}) {
 	return mockSocialPlugin(
 		provider,
 		"twitter",
-		"oauth-mock-twitter",
+		"mockatoo-twitter",
 		config.disableImplicitSignUp,
 	);
 }

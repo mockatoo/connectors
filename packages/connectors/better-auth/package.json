@@ -1,5 +1,5 @@
 {
-	"name": "@oauth-mock/connect-better-auth",
+	"name": "@mockatoo/connect-better-auth",
 	"version": "0.1.0",
 	"private": false,
 	"type": "module",

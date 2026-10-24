@@ -19,7 +19,7 @@ Sources: [manual web login flow](https://developers.facebook.com/docs/facebook-l
 
 ```ts
 // Better Auth: pass the same options you give socialProviders.facebook
-import { mockFacebook } from "@oauth-mock/connect-better-auth";
+import { mockFacebook } from "@mockatoo/connect-better-auth";
 const facebook = { clientId: process.env.FACEBOOK_CLIENT_ID!,
                    clientSecret: process.env.FACEBOOK_CLIENT_SECRET! };
 export const auth = betterAuth({
@@ -29,7 +29,7 @@ export const auth = betterAuth({
 
 // Auth.js
 import Facebook from "next-auth/providers/facebook";
-import { MockFacebook } from "@oauth-mock/connect-authjs";
+import { MockFacebook } from "@mockatoo/connect-authjs";
 providers: [process.env.NODE_ENV === "production" ? Facebook() : MockFacebook()],
 ```
 

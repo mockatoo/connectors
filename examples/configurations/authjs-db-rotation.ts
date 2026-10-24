@@ -10,7 +10,7 @@ import {
 	MockGitHub,
 	MockGoogle,
 	MockMicrosoftEntraID,
-} from "@oauth-mock/connect-authjs";
+} from "@mockatoo/connect-authjs";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import MicrosoftEntraID from "next-auth/providers/microsoft-entra-id";
@@ -81,9 +81,9 @@ export function createAuthJsDbConfig({
 					const response = await fetch(googleTokenUrl, {
 						method: "POST",
 						body: new URLSearchParams({
-							client_id: mock ? "oauth-mock" : (google.clientId ?? ""),
+							client_id: mock ? "mockatoo" : (google.clientId ?? ""),
 							client_secret: mock
-								? "oauth-mock-secret"
+								? "mockatoo-secret"
 								: (google.clientSecret ?? ""),
 							grant_type: "refresh_token",
 							refresh_token: account.refresh_token,

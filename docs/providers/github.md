@@ -18,7 +18,7 @@ Sources: [OAuth App web flow](https://docs.github.com/en/apps/oauth-apps/buildin
 
 ```ts
 // Better Auth: pass the same options you give socialProviders.github
-import { mockGitHub } from "@oauth-mock/connect-better-auth";
+import { mockGitHub } from "@mockatoo/connect-better-auth";
 const github = { clientId: process.env.GITHUB_CLIENT_ID!,
                  clientSecret: process.env.GITHUB_CLIENT_SECRET! };
 export const auth = betterAuth({
@@ -28,7 +28,7 @@ export const auth = betterAuth({
 
 // Auth.js
 import GitHub from "next-auth/providers/github";
-import { MockGitHub } from "@oauth-mock/connect-authjs";
+import { MockGitHub } from "@mockatoo/connect-authjs";
 providers: [process.env.NODE_ENV === "production" ? GitHub() : MockGitHub()],
 ```
 

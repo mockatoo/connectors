@@ -1,18 +1,18 @@
 import { genericOAuth } from "better-auth/plugins";
 import { MOCK_CLIENT, MOCK_ORIGIN } from "./shared";
 
-export type MockOauthPlugin = ReturnType<typeof genericOAuth<"oauth-mock">>;
+export type MockatooPlugin = ReturnType<typeof genericOAuth<"mockatoo">>;
 
 export { MOCK_ORIGIN };
 /** Override the origin only when running a local or self-hosted provider. */
-export function createMockOauthPlugin(
+export function createMockatooPlugin(
 	options: { origin?: string; redirectURI?: string } = {},
-): MockOauthPlugin {
+): MockatooPlugin {
 	const origin = new URL(options.origin ?? MOCK_ORIGIN).origin;
 	return genericOAuth({
 		config: [
 			{
-				providerId: "oauth-mock",
+				providerId: "mockatoo",
 				...MOCK_CLIENT,
 				authorizationUrl: `${origin}/oauth/authorize`,
 				tokenUrl: `${origin}/oauth/token`,
@@ -30,8 +30,8 @@ export function createMockOauthPlugin(
 		],
 	});
 }
-export const mockOauthPlugin: MockOauthPlugin = createMockOauthPlugin();
-export default mockOauthPlugin;
+export const mockatooPlugin: MockatooPlugin = createMockatooPlugin();
+export default mockatooPlugin;
 export { type MockAppleOptions, mockApple } from "./apple";
 export { type MockDiscordOptions, mockDiscord } from "./discord";
 export { type MockFacebookOptions, mockFacebook } from "./facebook";

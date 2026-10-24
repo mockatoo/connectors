@@ -1,5 +1,5 @@
 {
-	"name": "@oauth-mock/example-better-auth",
+	"name": "@mockatoo/example-better-auth",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
@@ -10,7 +10,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@oauth-mock/connect-better-auth": "workspace:*",
+		"@mockatoo/connect-better-auth": "workspace:*",
 		"better-auth": "1.7.6",
 		"next": "^16",
 		"react": "^19.3.0",

@@ -26,7 +26,7 @@ importers:
 
   examples/better-auth-next:
     dependencies:
-      '@oauth-mock/connect-better-auth':
+      '@mockatoo/connect-better-auth':
         specifier: workspace:*
         version: link:../../packages/connectors/better-auth
       better-auth:
@@ -57,10 +57,10 @@ importers:
       '@auth/unstorage-adapter':
         specifier: 2.11.3
         version: 2.11.3(unstorage@1.17.5)
-      '@oauth-mock/connect-authjs':
+      '@mockatoo/connect-authjs':
         specifier: workspace:*
         version: link:../../packages/connectors/authjs
-      '@oauth-mock/connect-better-auth':
+      '@mockatoo/connect-better-auth':
         specifier: workspace:*
         version: link:../../packages/connectors/better-auth
       better-auth:

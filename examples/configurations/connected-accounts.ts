@@ -12,7 +12,7 @@ import {
 	mockLinkedIn,
 	mockMicrosoft,
 	mockTwitter,
-} from "@oauth-mock/connect-better-auth";
+} from "@mockatoo/connect-better-auth";
 
 type NamedProvider =
 	| "google"
