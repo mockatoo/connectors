@@ -1,6 +1,6 @@
 ---
 name: mockatoo
-description: Use when adding, configuring, or testing OAuth sign-in in a development or test consumer app; replacing an external provider with a deterministic hosted provider for local work or E2E tests; wiring Better Auth or Auth.js OAuth; or when the user explicitly asks for Mockatoo. Follow the relevant Better Auth or Auth.js branch, then verify the complete browser flow.
+description: Use for hosted OAuth provider mocking in local development, CI, browser/E2E tests, and coding-agent validation; replacing live Better Auth or Auth.js social providers outside production; and testing sign-in, consent denial, and provider edge cases without real accounts. Use this skill when the user explicitly asks for Mockatoo or @mockatoo.
 ---
 
 # Mockatoo
