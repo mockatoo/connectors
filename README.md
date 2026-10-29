@@ -1,6 +1,6 @@
 # Mockatoo connectors
 
-Open source connectors and documentation for [Mockatoo](https://mockatoo.com). The connectors and documentation are MIT licensed. The hosted oauth server is accessed in [https://app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com)[.](https://mockatoo.com)
+Open source connectors and documentation for [Mockatoo](https://mockatoo.globalunderdog.com). The connectors and documentation are MIT licensed. The hosted OAuth server is accessed at [https://app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com).
 
 ## Install
 
@@ -22,4 +22,4 @@ For agent-assisted setup, discover the public skill with:
 npx skills add mockatoo/connectors --skill mockatoo
 ```
 
-See the [documentation](https://www.mockatoo.com/docs), [Mockatoo skill](skills/mockatoo/SKILL.md), and [examples](https://github.com/mockatoo/examples) for setup instructions.
+See the [documentation](https://mockatoo.globalunderdog.com/docs), [Mockatoo skill](skills/mockatoo/SKILL.md), and [examples](https://github.com/mockatoo/examples) for setup instructions.
