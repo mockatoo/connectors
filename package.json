@@ -1,5 +1,5 @@
 {
-	"name": "mockatoo-connectors",
+	"name": "@mockatoo/connectors",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
@@ -8,18 +8,32 @@
 	},
 	"packageManager": "pnpm@10.15.0",
 	"scripts": {
-		"lint": "biome check packages examples",
-		"typecheck": "pnpm --filter @mockatoo/connect-better-auth build && pnpm --filter @mockatoo/connect-authjs build && pnpm -r typecheck",
-		"build": "pnpm -r build",
+		"lint": "biome check packages package.json",
+		"typecheck": "pnpm --filter @mockatoo/connect-better-auth --filter @mockatoo/connect-authjs typecheck",
+		"build": "pnpm --filter @mockatoo/connect-better-auth --filter @mockatoo/connect-authjs build",
 		"test": "vitest run",
-		"docs:check": "node scripts/docs-check.mjs",
-		"release": "changeset publish"
+		"docs:check": "node scripts/docs-check.mjs"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.14",
 		"@types/node": "^22.20.2",
 		"typescript": "^5.9.2",
-		"vitest": "^3.2.4",
-		"@changesets/cli": "^2.29.7"
+		"vitest": "^3.2.4"
+	},
+	"exports": {
+		"./better-auth": "./packages/connectors/better-auth/src/index.ts",
+		"./authjs": "./packages/connectors/authjs/src/index.ts"
+	},
+	"peerDependencies": {
+		"better-auth": "1.7.6",
+		"next-auth": "5.0.0-beta.32"
+	},
+	"peerDependenciesMeta": {
+		"better-auth": {
+			"optional": true
+		},
+		"next-auth": {
+			"optional": true
+		}
 	}
 }
