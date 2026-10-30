@@ -1,6 +1,7 @@
 {
 	"name": "@mockatoo/connect-authjs",
-	"version": "0.1.1",
+	"version": "0.1.2",
+	"description": "Mockatoo OAuth connector for Auth.js.",
 	"private": false,
 	"license": "MIT",
 	"repository": {
