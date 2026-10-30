@@ -1,0 +1,83 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '@mockatoo/connect-*@*'
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Select package
+        id: package
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          case "$RELEASE_TAG" in
+            @mockatoo/connect-better-auth@*)
+              echo "name=@mockatoo/connect-better-auth" >> "$GITHUB_OUTPUT"
+              echo "directory=packages/connectors/better-auth" >> "$GITHUB_OUTPUT"
+              ;;
+            @mockatoo/connect-authjs@*)
+              echo "name=@mockatoo/connect-authjs" >> "$GITHUB_OUTPUT"
+              echo "directory=packages/connectors/authjs" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "Unsupported release tag: $RELEASE_TAG" >&2
+              exit 1
+              ;;
+          esac
+          echo "version=${RELEASE_TAG##*@}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify package version
+        env:
+          PACKAGE_DIRECTORY: ${{ steps.package.outputs.directory }}
+          RELEASE_VERSION: ${{ steps.package.outputs.version }}
+        run: |
+          PACKAGE_VERSION="$(node -e "console.log(require('./${PACKAGE_DIRECTORY}/package.json').version)")"
+          test "$PACKAGE_VERSION" = "$RELEASE_VERSION" || {
+            echo "Tag version $RELEASE_VERSION does not match package version $PACKAGE_VERSION" >&2
+            exit 1
+          }
+
+      - name: Check and build package
+        run: |
+          pnpm --filter "${{ steps.package.outputs.name }}" typecheck
+          pnpm --filter "${{ steps.package.outputs.name }}" build
+
+      - name: Publish package
+        env:
+          PACKAGE_DIRECTORY: ${{ steps.package.outputs.directory }}
+          RELEASE_VERSION: ${{ steps.package.outputs.version }}
+        run: |
+          cd "$PACKAGE_DIRECTORY"
+          if [[ "$RELEASE_VERSION" == *-* ]]; then
+            npm publish --access public --tag next
+          else
+            npm publish --access public
+          fi

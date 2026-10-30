@@ -2,6 +2,14 @@
 	"name": "@mockatoo/connect-better-auth",
 	"version": "0.1.0",
 	"private": false,
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mockatoo/connectors.git",
+		"directory": "packages/connectors/better-auth"
+	},
+	"homepage": "https://mockatoo.globalunderdog.com/docs",
+	"bugs": "https://github.com/mockatoo/connectors/issues",
 	"type": "module",
 	"exports": {
 		".": {
