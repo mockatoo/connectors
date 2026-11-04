@@ -5,6 +5,7 @@ A hosted OAuth provider for development and automated testing. The connectors ar
 ## Guides
 
 - [Account flow](account-flow.md)
+- [Email tags](email-tags.md)
 
 ## Providers
 
@@ -17,4 +18,5 @@ A hosted OAuth provider for development and automated testing. The connectors ar
 - [X](providers/x.md)
 - [Facebook](providers/facebook.md)
 
-Each provider page includes its test addresses and known differences.
+Each provider page includes its test addresses and known differences. See
+[Email tags](email-tags.md) for how tagged addresses work.
