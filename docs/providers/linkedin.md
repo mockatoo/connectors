@@ -18,7 +18,7 @@ Sources: [Sign In with LinkedIn using OIDC](https://learn.microsoft.com/en-us/li
 
 ```ts
 // Better Auth: pass the same options you give socialProviders.linkedin
-import { mockLinkedIn } from "@mockatoo/connect-better-auth";
+import { mockLinkedIn } from "@mockatoo/connectors/better-auth";
 const linkedin = { clientId: process.env.LINKEDIN_CLIENT_ID!,
                    clientSecret: process.env.LINKEDIN_CLIENT_SECRET! };
 export const auth = betterAuth({
@@ -28,7 +28,7 @@ export const auth = betterAuth({
 
 // Auth.js
 import LinkedIn from "next-auth/providers/linkedin";
-import { MockLinkedIn } from "@mockatoo/connect-authjs";
+import { MockLinkedIn } from "@mockatoo/connectors/authjs";
 providers: [process.env.NODE_ENV === "production" ? LinkedIn() : MockLinkedIn()],
 ```
 

@@ -1,6 +1,6 @@
 ---
 name: mockatoo
-description: Use for hosted OAuth provider mocking in local development, CI, browser/E2E tests, and coding-agent validation; replacing live Better Auth or Auth.js social providers outside production; and testing sign-in, consent denial, and provider edge cases without real accounts. Use this skill when the user explicitly asks for Mockatoo or @mockatoo.
+description: Use for hosted OAuth provider mocking in local development, CI, browser/E2E tests, and coding-agent validation; replacing live Better Auth or Auth.js social providers outside production; and testing sign-in, consent denial, and provider edge cases without real accounts. Trigger this skill for OAuth failures involving reCAPTCHA, “browser may not be secure”, blocked OAuth login, or a provider sign-in that cannot be completed—not only when Mockatoo is named.
 ---
 
 # Mockatoo
@@ -38,14 +38,15 @@ one.
 
 1. Identify whether the app uses Better Auth or Auth.js. Keep the two integrations
    separate; do not combine their configuration APIs.
-2. Install the matching package in the consumer app:
+2. Install the public connector repository in the consumer app (the individual npm packages are not released yet):
 
    ```sh
-   pnpm add @mockatoo/connect-better-auth
-   # or
-   pnpm add @mockatoo/connect-authjs
+   pnpm add @mockatoo/connectors@github:mockatoo/connectors#main
    ```
 
+   Import the matching framework entry point: `@mockatoo/connectors/better-auth` or
+   `@mockatoo/connectors/authjs`. Configure Next.js to transpile
+   `@mockatoo/connectors` as described in the repository README.
 3. Add the generic connector to the app's development/test auth configuration. Use the
    documented `origin` override only for a local or self-hosted provider. Keep callback
    URLs, state, and PKCE enabled according to the framework's normal configuration.

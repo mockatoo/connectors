@@ -17,7 +17,7 @@ Sources: [web server flow](https://developers.google.com/identity/protocols/oaut
 
 ```ts
 // Better Auth: pass the same options you give socialProviders.google
-import { mockGoogle } from "@mockatoo/connect-better-auth";
+import { mockGoogle } from "@mockatoo/connectors/better-auth";
 const google = { clientId: process.env.GOOGLE_CLIENT_ID!,
                  clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
                  accessType: "offline" as const };
@@ -28,7 +28,7 @@ export const auth = betterAuth({
 
 // Auth.js
 import Google from "next-auth/providers/google";
-import { MockGoogle } from "@mockatoo/connect-authjs";
+import { MockGoogle } from "@mockatoo/connectors/authjs";
 providers: [process.env.NODE_ENV === "production" ? Google() : MockGoogle()],
 ```
 
