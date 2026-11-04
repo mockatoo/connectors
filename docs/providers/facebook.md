@@ -43,4 +43,6 @@ providers: [process.env.NODE_ENV === "production" ? Facebook() : MockFacebook()]
 - Photos use mock URLs, while real Facebook photo URLs expire. Use `you+nophoto@example.com` to test a user whose picture is a silhouette (`is_silhouette: true`).
 - Facebook's callback includes the `#_=_` fragment. The mock preserves it.
 
-## Known differences
+<SpecialTags provider="facebook" />
+
+<KnownDifferences provider="facebook" />

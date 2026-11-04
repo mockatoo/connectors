@@ -43,4 +43,6 @@ providers: [process.env.NODE_ENV === "production" ? Google() : MockGoogle()],
 - Email verification, missing names and Workspace membership can be exercised
   with the special addresses below.
 
-## Known differences
+<SpecialTags provider="google" />
+
+<KnownDifferences provider="google" />

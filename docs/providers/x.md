@@ -43,4 +43,6 @@ providers: [process.env.NODE_ENV === "production" ? Twitter() : MockTwitter()],
 - Every profile uses the default avatar and synthetic metrics. Rate limits and
   billing are not simulated.
 
-## Known differences
+<SpecialTags provider="x" />
+
+<KnownDifferences provider="x" />

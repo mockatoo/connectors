@@ -42,4 +42,6 @@ providers: [process.env.NODE_ENV === "production" ? GitHub() : MockGitHub()],
 - Custom API requests need a `User-Agent`. Token errors can have HTTP 200;
   check the response body, and request JSON if your client expects it.
 
-## Known differences
+<SpecialTags provider="github" />
+
+<KnownDifferences provider="github" />

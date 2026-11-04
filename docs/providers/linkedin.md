@@ -42,4 +42,6 @@ providers: [process.env.NODE_ENV === "production" ? LinkedIn() : MockLinkedIn()]
   boolean in userinfo; account linking must handle those representations.
 - The mock always shows consent. Photos use mock URLs, while real LinkedIn photo URLs expire. Use `you+nophoto@example.com` to test a member whose ID token and userinfo omit `picture`.
 
-## Known differences
+<SpecialTags provider="linkedin" />
+
+<KnownDifferences provider="linkedin" />

@@ -44,4 +44,6 @@ providers: [process.env.NODE_ENV === "production" ? Apple() : MockApple()],
   form callbacks. The mock accepts HTTP and localhost callbacks; real Apple
   requires an eligible HTTPS callback.
 
-## Known differences
+<SpecialTags provider="apple" />
+
+<KnownDifferences provider="apple" />

@@ -45,4 +45,6 @@ providers: [process.env.NODE_ENV === "production" ? Discord(discord) : MockDisco
   accumulate earlier permissions. Users have default avatars and modern
   usernames; custom avatars and legacy discriminators are not exercised.
 
-## Known differences
+<SpecialTags provider="discord" />
+
+<KnownDifferences provider="discord" />

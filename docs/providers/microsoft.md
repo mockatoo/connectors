@@ -57,4 +57,6 @@ providers: [process.env.NODE_ENV === "production" ? MicrosoftEntraID() : MockMic
   Node process must trust the local mock certificate. With `form_post`, account
   for state cookies omitted on cross-site POSTs by `SameSite=Lax`.
 
-## Known differences
+<SpecialTags provider="microsoft" />
+
+<KnownDifferences provider="microsoft" />
