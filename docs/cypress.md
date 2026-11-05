@@ -43,8 +43,7 @@ it("signs in with Google", () => {
 			{ args: { email, password } },
 			({ email, password }) => {
 				cy.get("#email").type(email);
-				cy.get("#password").type(password, { log: false });
-				cy.contains("button", "Log in with password").click();
+				cy.get("#password").type(`${password}{enter}`, { log: false });
 				cy.contains("button", "Authorize").click();
 			},
 		);
