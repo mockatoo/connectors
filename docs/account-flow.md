@@ -15,12 +15,4 @@ The login form has stable **Email**, **Password**, and **Log in with password**
 labels. OAuth consent has **Authorize** and **Deny** buttons. Denial returns
 `access_denied` and the original `state` to your callback.
 
-A Playwright test can complete the provider flow after your app starts OAuth:
-
-```ts
-await page.getByLabel("Email", { exact: true }).fill(process.env.MOCK_EMAIL!);
-await page.getByLabel("Password", { exact: true }).fill(process.env.MOCK_PASSWORD!);
-await page.getByRole("button", { name: "Log in with password", exact: true }).click();
-await page.getByRole("button", { name: "Authorize", exact: true }).click();
-await page.waitForURL("**/your-app-callback**");
-```
+See the [Playwright guide](playwright.md) for a complete provider flow after your app starts OAuth.

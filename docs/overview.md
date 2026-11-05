@@ -6,6 +6,9 @@ A hosted OAuth provider for development and automated testing. The connectors ar
 
 - [Account flow](account-flow.md)
 - [Email tags](email-tags.md)
+- [Playwright](playwright.md)
+- [Cypress](cypress.md)
+- [Run in CI](ci.md)
 
 ## Providers
 
