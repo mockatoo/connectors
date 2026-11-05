@@ -5,6 +5,7 @@ import {
 import { type AppleOptions, apple } from "better-auth/social-providers";
 import {
 	authorizationURL,
+	MOCK_ORIGIN,
 	type MockOptions,
 	mockBase,
 	mockJwks,
@@ -21,7 +22,7 @@ export type MockAppleOptions = MockOptions<AppleOptions>;
  */
 export function mockApple(options: MockAppleOptions = {}) {
 	const { origin: configured, ...rest } = options;
-	const origin = new URL(configured ?? "https://mockatoo.com").origin;
+	const origin = new URL(configured ?? MOCK_ORIGIN).origin;
 	const base = mockBase(origin, "apple");
 	const tokenEndpoint = `${base}/auth/token`;
 	const config = withMockClient(rest);

@@ -12,7 +12,7 @@ export type MockOptions<T extends { clientId?: unknown }> = Omit<
 	origin?: string;
 };
 
-export const MOCK_ORIGIN = "https://mockatoo.com";
+export const MOCK_ORIGIN = "https://app.mockatoo.globalunderdog.com";
 export const MOCK_CLIENT = {
 	clientId: "mockatoo",
 	clientSecret: "mockatoo-secret",
