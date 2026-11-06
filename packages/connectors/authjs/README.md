@@ -13,6 +13,10 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/mockatoo/connectors/actions/workflows/ci.yml"><img src="https://github.com/mockatoo/connectors/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+</p>
+
+<p align="center">
   <a href="https://mockatoo.globalunderdog.com">Website</a> ·
   <a href="https://mockatoo.globalunderdog.com/docs">Documentation</a> ·
   <a href="https://github.com/mockatoo/connectors">Connectors</a> ·
