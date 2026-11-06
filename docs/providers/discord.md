@@ -11,7 +11,7 @@ token, and OIDC userinfo is not served. Bot installation, webhooks, app installs
 implicit and client credentials flows, and general Discord APIs are not modeled.
 Accepting their scopes does not perform those actions.
 
-Source: [Discord OAuth2 flows and scopes](https://discord.com/developers/docs/topics/oauth2).
+For reference, see [Discord OAuth2 flows and scopes](https://discord.com/developers/docs/topics/oauth2).
 
 ## Using the connector
 
