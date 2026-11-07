@@ -1,5 +1,7 @@
 import type { OAuthConfig } from "next-auth/providers";
 import { MOCK_CLIENT, mockOrigin } from "./shared";
+
+export { MOCK_ORIGIN } from "./shared";
 export type MockProfile = {
 	sub: string;
 	name: string;
