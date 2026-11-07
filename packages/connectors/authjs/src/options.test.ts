@@ -11,6 +11,7 @@ import {
 	MockMicrosoftEntraID,
 	MockTwitter,
 } from "./index";
+import { MOCK_ORIGIN } from "./shared";
 
 afterEach(() => vi.unstubAllEnvs());
 
@@ -19,20 +20,16 @@ const options = (provider: { options?: unknown }) =>
 	provider.options as Options;
 
 it("points every provider at the hosted mock by default", () => {
-	expect(options(MockGoogle()).issuer).toBe(
-		"https://app.mockatoo.globalunderdog.com/google",
-	);
-	expect(options(MockApple()).issuer).toBe(
-		"https://app.mockatoo.globalunderdog.com/apple",
-	);
+	expect(options(MockGoogle()).issuer).toBe(`${MOCK_ORIGIN}/google`);
+	expect(options(MockApple()).issuer).toBe(`${MOCK_ORIGIN}/apple`);
 	expect(options(MockGitHub()).enterprise?.baseUrl).toBe(
-		"https://app.mockatoo.globalunderdog.com/github",
+		`${MOCK_ORIGIN}/github`,
 	);
 	expect(options(MockMicrosoftEntraID()).issuer).toBe(
-		"https://app.mockatoo.globalunderdog.com/login.microsoftonline.com/common/v2.0",
+		`${MOCK_ORIGIN}/login.microsoftonline.com/common/v2.0`,
 	);
 	expect(MockatooProvider().authorization).toMatchObject({
-		url: "https://app.mockatoo.globalunderdog.com/oauth/authorize",
+		url: `${MOCK_ORIGIN}/oauth/authorize`,
 	});
 });
 
@@ -56,10 +53,10 @@ it("points Auth.js's Discord provider's three URLs at the mock, keeping its scop
 			.options?.issuer,
 	).toBe("http://mock.test/discord");
 	expect(MockDiscord().options?.token).toBe(
-		"https://app.mockatoo.globalunderdog.com/discord/api/oauth2/token",
+		`${MOCK_ORIGIN}/discord/api/oauth2/token`,
 	);
 	expect(MockDiscord({ authorization: "x" }).options?.authorization).toEqual({
-		url: "https://app.mockatoo.globalunderdog.com/discord/api/oauth2/authorize",
+		url: `${MOCK_ORIGIN}/discord/api/oauth2/authorize`,
 	});
 });
 
@@ -71,9 +68,7 @@ it("points Auth.js's LinkedIn provider at the mock's LinkedIn issuer", () => {
 		clientSecret: "mockatoo-secret",
 	});
 	expect(provider.type).toBe("oidc");
-	expect(MockLinkedIn().options?.issuer).toBe(
-		"https://app.mockatoo.globalunderdog.com/linkedin/oauth",
-	);
+	expect(MockLinkedIn().options?.issuer).toBe(`${MOCK_ORIGIN}/linkedin/oauth`);
 });
 
 it("points Auth.js's Twitter provider at the mock's X endpoints, keeping its query strings", () => {
@@ -99,17 +94,17 @@ it("points Auth.js's Twitter provider at the mock's X endpoints, keeping its que
 			"https://api.x.com/2/users/me?user.fields=profile_image_url,confirmed_email",
 	}).options;
 	expect(custom?.authorization).toEqual({
-		url: "https://app.mockatoo.globalunderdog.com/x/i/oauth2/authorize",
+		url: `${MOCK_ORIGIN}/x/i/oauth2/authorize`,
 		params: { scope: "users.read tweet.read users.email" },
 	});
 	expect(custom?.userinfo).toEqual({
-		url: "https://app.mockatoo.globalunderdog.com/x/2/users/me?user.fields=profile_image_url,confirmed_email",
+		url: `${MOCK_ORIGIN}/x/2/users/me?user.fields=profile_image_url,confirmed_email`,
 	});
 	expect(
 		MockTwitter({ authorization: { params: { scope: "users.read" } } }).options
 			?.authorization,
 	).toEqual({
-		url: "https://app.mockatoo.globalunderdog.com/x/i/oauth2/authorize",
+		url: `${MOCK_ORIGIN}/x/i/oauth2/authorize`,
 		params: { scope: "users.read" },
 	});
 });
@@ -134,7 +129,7 @@ it("moves Auth.js's Facebook URLs to the mock, keeping their paths and versions"
 		authorization: { params: { scope: "email,user_birthday" } },
 	});
 	expect(MockFacebook().token).toBe(
-		"https://app.mockatoo.globalunderdog.com/facebook/graph/oauth/access_token",
+		`${MOCK_ORIGIN}/facebook/graph/oauth/access_token`,
 	);
 });
 
@@ -208,7 +203,7 @@ it("takes Microsoft's tenant from the Auth.js issuer environment variable", () =
 		"https://login.microsoftonline.com/organizations/v2.0",
 	);
 	expect(options(MockMicrosoftEntraID()).issuer).toBe(
-		"https://app.mockatoo.globalunderdog.com/login.microsoftonline.com/organizations/v2.0",
+		`${MOCK_ORIGIN}/login.microsoftonline.com/organizations/v2.0`,
 	);
 });
 

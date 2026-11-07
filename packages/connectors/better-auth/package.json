@@ -1,6 +1,6 @@
 {
 	"name": "@mockatoo/connect-better-auth",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "Mockatoo OAuth connector for Better Auth.",
 	"private": false,
 	"license": "MIT",
