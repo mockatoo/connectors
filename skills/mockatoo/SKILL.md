@@ -16,19 +16,71 @@ Mockatoo is a test dependency. Configure it only in local, preview, CI, or other
 explicitly non-production environments. Do not point production traffic at Mockatoo,
 put production users or credentials into it, or commit its credentials. Add an
 explicit environment guard in the consumer app so a production build cannot select the
-Mockatoo origin or connector by accident. The hosted service uses the shared client
-shown below; use a local or self-hosted origin only when that is the intentional test
-setup.
+Mockatoo origin or connector by accident. Connectors supply the hosted service's
+shared OAuth client; use a local or self-hosted origin only when that is the
+intentional test setup.
+
+## Set up with the CLI
+
+Run this from the consumer app's directory, where its `package.json` lives:
+
+```sh
+npx -y mockatoo@latest init
+```
+
+`init` detects Better Auth or Auth.js, installs the matching connector with the
+app's package manager, then starts the credential handoff. It does not edit the
+app's auth configuration. If both frameworks or neither are detected, pass
+`--framework better-auth` or `--framework authjs` for the integration you intend
+to configure.
+
+The default credential file is `.env.local`. If the app loads a different file,
+pass `--env-file <path>` to both `init` and the later `login` command. Paths are
+relative to the current directory; the parent directory must already exist.
+Ensure the app server and test runner load any settings they need from the chosen
+file; writing it does not change their env-loading setup.
+
+### Get test credentials
+
+Under a coding agent, run the CLI without an interactive terminal. It prints a
+sign-in link (by default <https://app.mockatoo.globalunderdog.com/cli>) and exits.
+This successful exit does **not** mean credentials were written.
+
+Give the user that link and ask them to sign in, then paste the `mka_…` login
+code shown on the page into the chat. The user completes any email verification
+in their own browser. Continue configuring the app while waiting; credentialed
+browser tests must wait for the code.
+
+When the user supplies the code, run:
+
+```sh
+npx -y mockatoo@latest login <code>
+```
+
+Use the same `--env-file` option if one was chosen. If the user pastes a full
+login command, use its `mka_…` code with this command. Let the CLI write
+`MOCK_EMAIL` and `MOCK_PASSWORD`; it preserves unrelated env entries and adds
+the env file to `.gitignore` when needed in a Git repository. Do not manually
+decode or echo the code or password: the login code contains the test credentials.
+
+In an interactive terminal, the CLI opens the sign-in page and prompts for the
+code instead. If only credentials are needed and the connector is already
+installed, `npx -y mockatoo@latest login` starts the same handoff without installing
+anything. For CI or an existing test setup, reuse configured `MOCK_EMAIL` and
+`MOCK_PASSWORD` from the secret store rather than starting an interactive login.
+
+Set `MOCKATOO_URL` for the CLI only when intentionally using a local or
+self-hosted Mockatoo; configure the connector's `origin` separately to match.
 
 ## Package map
 
-| Consumer | Package | Generic connector |
+| Consumer | Import from | Generic connector |
 | --- | --- | --- |
 | Better Auth | `@mockatoo/connect-better-auth` | `createMockatooPlugin()` / `mockatooPlugin` |
 | Auth.js | `@mockatoo/connect-authjs` | `MockatooProvider()` |
 
-Install the package matching the consumer framework. Both generic connectors use the
-single Mockatoo provider and fixed client credentials, and derive or accept the
+The CLI installs the package matching the consumer framework. Both generic connectors
+use the single Mockatoo provider and fixed client credentials, and derive or accept the
 consumer callback URL. Provider-specific helpers are also exported when a test needs a
 Google, Microsoft, GitHub, Apple, Discord, LinkedIn, X/Twitter, or Facebook-shaped
 provider; see the corresponding provider page in the canonical docs before choosing
@@ -37,31 +89,26 @@ one.
 ## Configure the consumer
 
 1. Identify whether the app uses Better Auth or Auth.js. Keep the two integrations
-   separate; do not combine their configuration APIs.
-2. Install the public connector repository in the consumer app (the individual npm packages are not released yet):
-
-   ```sh
-   pnpm add @mockatoo/connectors@github:mockatoo/connectors#main
-   ```
-
-   Import the matching framework entry point: `@mockatoo/connectors/better-auth` or
-   `@mockatoo/connectors/authjs`. Configure Next.js to transpile
-   `@mockatoo/connectors` as described in the repository README.
-3. Add the generic connector to the app's development/test auth configuration. Use the
+   separate; do not combine their configuration APIs. Import from the package
+   installed by `init`, as shown above.
+2. Add the connector to the app's development/test auth configuration. Use the
    documented `origin` override only for a local or self-hosted provider. Keep callback
    URLs, state, and PKCE enabled according to the framework's normal configuration.
-4. Start the OAuth flow from the consumer app's sign-in control. Do not begin by
+3. Start the OAuth flow from the consumer app's sign-in control. Do not begin by
    navigating directly to an authorization endpoint: the consumer must create the
    state, PKCE verifier, and callback URL first.
-5. Exchange the returned code through the consumer's normal callback and confirm that
+4. Exchange the returned code through the consumer's normal callback and confirm that
    the app creates its expected session/user.
 
 ### Better Auth branch
 
 Use `createMockatooPlugin()` when options are needed, or `mockatooPlugin` for the
 shared defaults. Register the returned Better Auth plugin in the Better Auth config,
-then start OAuth through the app's Better Auth sign-in action. The connector uses the
-`mockatoo` provider ID, scopes `openid profile email`, and PKCE.
+then start OAuth with `authClient.signIn.oauth2({ providerId: "mockatoo" })` and
+`genericOAuthClient()` from `better-auth/client/plugins` in the client config.
+The generic connector uses the `mockatoo` provider ID, scopes `openid profile email`,
+and PKCE. When replacing an existing social provider, use its provider-specific
+helper so the app's sign-in action and callback stay the same.
 
 ### Auth.js branch
 
@@ -70,13 +117,13 @@ URL from the app configuration and start OAuth through the app's Auth.js sign-in
 action. The connector uses the `mockatoo` provider ID, scopes `openid profile email`,
 and checks `pkce` and `state`.
 
-## Credentials and browser flow
+## Browser flow
 
-Create or use a dedicated test account in Mockatoo. Treat the email and generated
-password as secrets: pass them through test environment variables or the test secret
-store, never source-control them, print them, or send them to a production system.
-Use the account-flow documentation for account creation, magic-link behavior, session
-lifetime, and password regeneration.
+Load `MOCK_EMAIL` and `MOCK_PASSWORD` from the env file written by the CLI into the
+test process, or use CI secrets. Keep them out of source control and production
+systems. The CLI handoff supplies test credentials; the app's OAuth flow still
+needs to be exercised separately. Use the account-flow documentation for session
+lifetime and password regeneration.
 
 After the consumer app starts OAuth, complete the hosted account flow with the stable
 labels documented at
@@ -98,6 +145,8 @@ that the consumer callback receives `error=access_denied` and the original `stat
 The integration is complete only when all of these are true:
 
 - the connector is installed and selected only in a non-production environment;
+- the CLI has written the test credentials to the chosen ignored env file, or the
+  test process already receives them from its secret store;
 - the consumer starts OAuth and returns to its configured callback without manually
   visiting the provider endpoint;
 - the dedicated test account completes the exact `Email`, `Password`, and `Log in
