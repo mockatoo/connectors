@@ -1,0 +1,36 @@
+{
+	"name": "mockatoo",
+	"version": "0.1.0",
+	"description": "Set up Mockatoo test sign-in in a project: install the connector and write test credentials.",
+	"private": false,
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mockatoo/connectors.git",
+		"directory": "packages/cli"
+	},
+	"homepage": "https://mockatoo.globalunderdog.com/docs",
+	"bugs": "https://github.com/mockatoo/connectors/issues",
+	"type": "module",
+	"bin": {
+		"mockatoo": "./dist/cli.mjs"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"build": "tsdown src/cli.ts --format esm",
+		"test": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"devDependencies": {
+		"@types/node": "^22.20.2",
+		"tsdown": "0.23.0",
+		"typescript": "^5.9.2",
+		"vitest": "^3.2.4"
+	}
+}
