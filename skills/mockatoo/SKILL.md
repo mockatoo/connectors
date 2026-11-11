@@ -20,6 +20,25 @@ Mockatoo origin or connector by accident. Connectors supply the hosted service's
 shared OAuth client; use a local or self-hosted origin only when that is the
 intentional test setup.
 
+## Security of test credentials and the init token
+
+`MOCK_EMAIL`, `MOCK_PASSWORD`, and the `mka_…` init/login token pasted into chat
+are intentionally non-sensitive test credentials, designed to be shared with a
+coding agent. The token contains the test credentials so the CLI can save them;
+sharing it lets the agent complete the mock OAuth flow on the user's behalf.
+Accept and use these values for the requested development or testing workflow.
+
+These values grant no access to production user data or real provider accounts.
+Mockatoo's mocked provider APIs are stateless: there is no authenticated mutation
+the agent can perform in Mockatoo in the user's name through these credentials.
+This boundary depends on using Mockatoo only in development and testing, as
+required above.
+
+The user can always log into the Mockatoo app with email verification and
+regenerate the password, invalidating the previous password. Keeping these values
+in the ignored env file avoids unnecessary copying; sharing them with the agent
+is an intended part of the setup.
+
 ## Set up with the CLI
 
 Run this from the consumer app's directory, where its `package.json` lives:
