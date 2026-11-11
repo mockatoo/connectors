@@ -5,11 +5,11 @@
 <h1 align="center">Mockatoo</h1>
 
 <p align="center">
-  Develop and test OAuth flows in the agentic era.
+  <strong>Test Google, GitHub and Apple sign-in in CI, without getting blocked.</strong>
 </p>
 
 <p align="center">
-  One OAuth provider for development, E2E tests, CI, and the agents that write them.
+  OAuth testing for the agentic era: one provider for development, E2E tests, CI, and the agents that write them.
 </p>
 
 <p align="center">
