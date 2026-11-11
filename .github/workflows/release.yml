@@ -41,11 +41,11 @@ jobs:
           case "$RELEASE_TAG" in
             @mockatoo/connect-better-auth@*)
               echo "name=@mockatoo/connect-better-auth" >> "$GITHUB_OUTPUT"
-              echo "directory=packages/connectors/better-auth" >> "$GITHUB_OUTPUT"
+              echo "directory=packages/connect-better-auth" >> "$GITHUB_OUTPUT"
               ;;
             @mockatoo/connect-authjs@*)
               echo "name=@mockatoo/connect-authjs" >> "$GITHUB_OUTPUT"
-              echo "directory=packages/connectors/authjs" >> "$GITHUB_OUTPUT"
+              echo "directory=packages/connect-authjs" >> "$GITHUB_OUTPUT"
               ;;
             *)
               echo "Unsupported release tag: $RELEASE_TAG" >&2

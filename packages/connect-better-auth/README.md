@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="../../../mockatoo-logo.png" alt="Mockatoo" width="128" height="128">
+  <img src="../../mockatoo-logo.png" alt="Mockatoo" width="128" height="128">
 </p>
 
 <h1 align="center">Mockatoo</h1>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="../../../readme-headline-dark.svg">
-    <img src="../../../readme-headline-light.svg" alt="Test Google, Microsoft, GitHub, Apple, Discord, LinkedIn, X and Facebook sign-in in CI, without getting blocked. OAuth testing for the agentic era: one provider for development, E2E tests, CI, and the agents that write them." width="880">
+    <source media="(prefers-color-scheme: dark)" srcset="../../readme-headline-dark.svg">
+    <img src="../../readme-headline-light.svg" alt="Test Google, Microsoft, GitHub, Apple, Discord, LinkedIn, X and Facebook sign-in in CI, without getting blocked. OAuth testing for the agentic era: one provider for development, E2E tests, CI, and the agents that write them." width="880">
   </picture>
 </p>
 

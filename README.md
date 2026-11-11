@@ -28,16 +28,19 @@ Open source connectors and documentation for [Mockatoo](https://mockatoo.globalu
 
 ## Install
 
-The individual npm packages are not released yet. Install the public connector
-repository from GitHub with pnpm:
+Run the CLI in your app's directory. It detects Better Auth or Auth.js, installs
+the matching connector, and saves test credentials to `.env.local`:
 
 ```sh
-pnpm add @mockatoo/connectors@github:mockatoo/connectors#main
+npx -y mockatoo@latest init
 ```
 
-Import Better Auth helpers from `@mockatoo/connectors/better-auth`, or Auth.js
-helpers from `@mockatoo/connectors/authjs`. These entry points export TypeScript
-source; Next.js apps should add `@mockatoo/connectors` to `transpilePackages`.
+To install a connector yourself, add the package for your framework:
+
+```sh
+npm install @mockatoo/connect-better-auth   # Better Auth
+npm install @mockatoo/connect-authjs        # Auth.js
+```
 
 For agent-assisted setup, discover the public skill with:
 

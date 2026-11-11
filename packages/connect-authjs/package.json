@@ -7,7 +7,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/mockatoo/connectors.git",
-		"directory": "packages/connectors/authjs"
+		"directory": "packages/connect-authjs"
 	},
 	"homepage": "https://mockatoo.globalunderdog.com/docs",
 	"bugs": "https://github.com/mockatoo/connectors/issues",

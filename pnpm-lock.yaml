@@ -7,13 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      better-auth:
-        specifier: 1.7.7
-        version: 1.7.7(next@16.4.3(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vitest@3.2.7(@types/node@22.20.5))
-      next-auth:
-        specifier: 5.0.0-beta.32
-        version: 5.0.0-beta.32(next@16.4.3(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.6.4
@@ -43,7 +36,7 @@ importers:
         specifier: ^3.2.4
         version: 3.2.7(@types/node@22.20.5)
 
-  packages/connectors/authjs:
+  packages/connect-authjs:
     devDependencies:
       '@auth/core':
         specifier: 0.41.3
@@ -55,7 +48,7 @@ importers:
         specifier: 0.23.0
         version: 0.23.0(typescript@5.9.3)
 
-  packages/connectors/better-auth:
+  packages/connect-better-auth:
     devDependencies:
       better-auth:
         specifier: 1.7.7

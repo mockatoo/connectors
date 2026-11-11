@@ -17,7 +17,7 @@ For reference, see [Discord OAuth2 flows and scopes](https://discord.com/develop
 
 ```ts
 // Better Auth: pass the same options you give socialProviders.discord
-import { mockDiscord } from "@mockatoo/connectors/better-auth";
+import { mockDiscord } from "@mockatoo/connect-better-auth";
 const discord = { clientId: process.env.DISCORD_CLIENT_ID!,
                   clientSecret: process.env.DISCORD_CLIENT_SECRET! };
 export const auth = betterAuth({
@@ -27,7 +27,7 @@ export const auth = betterAuth({
 
 // Auth.js: declare Discord's issuer, or Auth.js refuses the iss Discord sends
 import Discord from "next-auth/providers/discord";
-import { MockDiscord } from "@mockatoo/connectors/authjs";
+import { MockDiscord } from "@mockatoo/connect-authjs";
 const discord = { issuer: "https://discord.com" };
 providers: [process.env.NODE_ENV === "production" ? Discord(discord) : MockDiscord(discord)],
 ```
