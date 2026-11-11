@@ -32,7 +32,7 @@ Run the CLI in your app's directory. It detects Better Auth or Auth.js, installs
 the matching connector, and saves test credentials to `.env.local`:
 
 ```sh
-npx -y mockatoo@latest init
+npx -y @mockatoo/mockatoo@latest init
 ```
 
 To install a connector yourself, add the package for your framework:

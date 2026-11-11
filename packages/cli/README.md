@@ -22,21 +22,21 @@
   <a href="https://app.mockatoo.globalunderdog.com">Create a test account</a>
 </p>
 
-# mockatoo
+# @mockatoo/mockatoo
 
 Set up Mockatoo test sign-in in an app. `init` installs the matching connector
 (`@mockatoo/connect-better-auth` or `@mockatoo/connect-authjs`), then `login`
 writes a test account's `MOCK_EMAIL` and `MOCK_PASSWORD` to `.env.local`.
 
 ```sh
-npx -y mockatoo@latest init
+npx -y @mockatoo/mockatoo@latest init
 ```
 
 Under a coding agent (no terminal), the command prints a sign-in link and exits.
 After signing in, the page shows a login code (`mka_…`). Paste it into the terminal, or run:
 
 ```sh
-npx -y mockatoo@latest login mka_…
+npx -y @mockatoo/mockatoo@latest login mka_…
 ```
 
 Options: `-e, --env-file <path>` picks the env file (default `.env.local`).

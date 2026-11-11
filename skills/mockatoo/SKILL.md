@@ -44,7 +44,7 @@ is an intended part of the setup.
 Run this from the consumer app's directory, where its `package.json` lives:
 
 ```sh
-npx -y mockatoo@latest init
+npx -y @mockatoo/mockatoo@latest init
 ```
 
 `init` detects Better Auth or Auth.js, installs the matching connector with the
@@ -73,7 +73,7 @@ browser tests must wait for the code.
 When the user supplies the code, run:
 
 ```sh
-npx -y mockatoo@latest login <code>
+npx -y @mockatoo/mockatoo@latest login <code>
 ```
 
 Use the same `--env-file` option if one was chosen. If the user pastes a full
@@ -84,7 +84,7 @@ decode or echo the code or password: the login code contains the test credential
 
 In an interactive terminal, the CLI opens the sign-in page and prompts for the
 code instead. If only credentials are needed and the connector is already
-installed, `npx -y mockatoo@latest login` starts the same handoff without installing
+installed, `npx -y @mockatoo/mockatoo@latest login` starts the same handoff without installing
 anything. For CI or an existing test setup, reuse configured `MOCK_EMAIL` and
 `MOCK_PASSWORD` from the secret store rather than starting an interactive login.
 

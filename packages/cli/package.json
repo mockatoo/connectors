@@ -1,5 +1,5 @@
 {
-	"name": "mockatoo",
+	"name": "@mockatoo/mockatoo",
 	"version": "0.1.0",
 	"description": "Set up Mockatoo test sign-in in a project: install the connector and write test credentials.",
 	"private": false,
@@ -12,8 +12,11 @@
 	"homepage": "https://mockatoo.globalunderdog.com/docs",
 	"bugs": "https://github.com/mockatoo/connectors/issues",
 	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
 	"bin": {
-		"mockatoo": "./dist/cli.mjs"
+		"mockatoo": "dist/cli.mjs"
 	},
 	"files": [
 		"dist",

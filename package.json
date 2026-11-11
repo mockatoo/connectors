@@ -9,8 +9,8 @@
 	"packageManager": "pnpm@10.15.0",
 	"scripts": {
 		"lint": "biome check packages package.json",
-		"typecheck": "pnpm --filter @mockatoo/connect-better-auth --filter @mockatoo/connect-authjs typecheck",
-		"build": "pnpm --filter @mockatoo/connect-better-auth --filter @mockatoo/connect-authjs build",
+		"typecheck": "pnpm --filter @mockatoo/connect-better-auth --filter @mockatoo/connect-authjs --filter @mockatoo/mockatoo typecheck",
+		"build": "pnpm --filter @mockatoo/connect-better-auth --filter @mockatoo/connect-authjs --filter @mockatoo/mockatoo build",
 		"test": "vitest run",
 		"docs:check": "node scripts/docs-check.mjs"
 	},

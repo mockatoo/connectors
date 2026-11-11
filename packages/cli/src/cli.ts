@@ -48,7 +48,7 @@ async function login(code: string | undefined, envFile: string): Promise<void> {
 			// command the page shows, and the agent runs it.
 			console.log(`Sign in here: ${LOGIN_URL}`);
 			console.log(
-				"Then paste the code shown on that page into the chat, and run: npx -y mockatoo@latest login <code>",
+				"Then paste the code shown on that page into the chat, and run: npx -y @mockatoo/mockatoo@latest login <code>",
 			);
 			return;
 		}

@@ -47,6 +47,10 @@ jobs:
               echo "name=@mockatoo/connect-authjs" >> "$GITHUB_OUTPUT"
               echo "directory=packages/connect-authjs" >> "$GITHUB_OUTPUT"
               ;;
+            @mockatoo/mockatoo@*)
+              echo "name=@mockatoo/mockatoo" >> "$GITHUB_OUTPUT"
+              echo "directory=packages/cli" >> "$GITHUB_OUTPUT"
+              ;;
             *)
               echo "Unsupported release tag: $RELEASE_TAG" >&2
               exit 1

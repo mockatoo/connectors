@@ -11,7 +11,9 @@ describe("decodeLoginCode", () => {
 		const credentials = { email: "a@example.com", password: "pw-123" };
 		expect(decodeLoginCode(code(credentials))).toEqual(credentials);
 		expect(
-			decodeLoginCode(`npx -y mockatoo@latest login ${code(credentials)}`),
+			decodeLoginCode(
+				`npx -y @mockatoo/mockatoo@latest login ${code(credentials)}`,
+			),
 		).toEqual(credentials);
 	});
 
