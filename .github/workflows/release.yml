@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '@mockatoo/connect-*@*'
+      - '@mockatoo/mockatoo@*'
 
 permissions:
   contents: read
