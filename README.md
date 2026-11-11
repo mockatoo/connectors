@@ -5,11 +5,10 @@
 <h1 align="center">Mockatoo</h1>
 
 <p align="center">
-  <strong>Test Google, GitHub and Apple sign-in in CI, without getting blocked.</strong>
-</p>
-
-<p align="center">
-  OAuth testing for the agentic era: one provider for development, E2E tests, CI, and the agents that write them.
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="readme-headline-dark.svg">
+    <img src="readme-headline-light.svg" alt="Test Google, Microsoft, GitHub, Apple, Discord, LinkedIn, X and Facebook sign-in in CI, without getting blocked. OAuth testing for the agentic era: one provider for development, E2E tests, CI, and the agents that write them." width="880">
+  </picture>
 </p>
 
 <p align="center">
