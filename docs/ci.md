@@ -1,3 +1,7 @@
+---
+description: "Run OAuth sign-in tests in GitHub Actions with Mockatoo: store the test credentials as secrets, add the workflow, and give parallel workers separate users."
+---
+
 # Run in CI
 
 Backing Test: [`public/examples/.github/workflows/ci.yml`](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml)

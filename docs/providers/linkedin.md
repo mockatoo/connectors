@@ -1,3 +1,7 @@
+---
+description: "Test Sign In with LinkedIn in CI: Mockatoo mocks LinkedIn's OpenID Connect flow, ID tokens, discovery and /v2/userinfo."
+---
+
 # LinkedIn
 
 ## Implemented flow

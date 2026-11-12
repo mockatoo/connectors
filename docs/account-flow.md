@@ -1,3 +1,7 @@
+---
+description: "How Mockatoo test accounts work: magic-link sign-up, password login, sessions, password regeneration, the consent screen, and stable form labels."
+---
+
 # Account flow
 
 Visit `/signup` to receive a magic link via Resend. After verification, `/`

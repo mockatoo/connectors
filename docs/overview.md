@@ -1,3 +1,7 @@
+---
+description: "Mockatoo is a hosted OAuth provider for testing Google, GitHub, Apple and other social sign-in in CI, E2E tests and coding agents, with no bot checks."
+---
+
 # Mockatoo
 
 A hosted OAuth provider for local development, CI, end-to-end browser tests, and coding agents. It mocks the sign-in flows of the major social providers with one shared client, so there is no app registration, reCAPTCHA, or bot detection, and headless browsers are accepted. The connectors for Better Auth and Auth.js are open source; the service is hosted.

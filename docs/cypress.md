@@ -1,3 +1,7 @@
+---
+description: "Sign in with Google and other OAuth providers from a Cypress test, using cy.origin and Mockatoo's stable login selectors."
+---
+
 # Cypress
 
 Backing Test: [`cypress/cypress/e2e/sign-in.cy.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress/e2e/sign-in.cy.ts)

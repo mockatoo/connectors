@@ -1,3 +1,7 @@
+---
+description: "Test Facebook Login in CI: Mockatoo mocks the web authorization code flow, the /me profile, debug_token and permission revocation."
+---
+
 # Facebook
 
 ## Implemented flow

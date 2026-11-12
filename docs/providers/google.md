@@ -1,3 +1,7 @@
+---
+description: "Test Google sign-in in CI without bot checks: Mockatoo mocks Google's OAuth 2.0 and OpenID Connect flow, ID tokens, PKCE and refresh tokens."
+---
+
 # Google
 
 ## Implemented flow

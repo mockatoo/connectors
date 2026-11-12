@@ -1,3 +1,7 @@
+---
+description: "Sign in with Google and other OAuth providers from a Playwright test, with Mockatoo's stable selectors and a separate test user per test."
+---
+
 # Playwright
 
 Backing Test: [`better-auth-next/tests/sign-in.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/sign-in.spec.ts)
