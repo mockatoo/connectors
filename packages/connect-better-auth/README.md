@@ -7,7 +7,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../../readme-headline-dark.svg">
-    <img src="../../readme-headline-light.svg" alt="Test Google, Microsoft, GitHub, Apple, Discord, LinkedIn, X and Facebook sign-in in CI, without getting blocked. One OAuth provider for agentic development, E2E tests, and CI. No app registration, no bot checks, no fragile workarounds." width="880">
+    <img src="../../readme-headline-light.svg" alt="Test Google, Microsoft, GitHub, Apple, Discord, LinkedIn, X and Facebook sign-in in CI, without getting blocked. One free OAuth provider for agentic development, E2E tests, and CI. No app registration, no bot checks, no fragile workarounds." width="880">
   </picture>
 </p>
 
@@ -19,7 +19,7 @@
   <a href="https://mockatoo.globalunderdog.com">Website</a> ·
   <a href="https://mockatoo.globalunderdog.com/docs">Documentation</a> ·
   <a href="https://github.com/mockatoo/connectors">Connectors</a> ·
-  <a href="https://app.mockatoo.globalunderdog.com">Create a test account</a>
+  <a href="https://app.mockatoo.globalunderdog.com">Create a free test account</a>
 </p>
 
 # @mockatoo/connect-better-auth
