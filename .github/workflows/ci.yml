@@ -23,3 +23,58 @@ jobs:
       - run: pnpm build
       - run: pnpm test
       - run: pnpm docs:check
+  # The Auth.js connector supports next-auth ^5.0.0-beta.23 (its peer range).
+  # Check the lowest supported beta and the newest one on npm.
+  authjs-next-auth:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        next-auth: [5.0.0-beta.23, beta]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Install next-auth ${{ matrix.next-auth }} and its @auth/core
+        env:
+          NEXT_AUTH: ${{ matrix.next-auth }}
+        run: |
+          version="$(npm view "next-auth@$NEXT_AUTH" version)"
+          core="$(npm view "next-auth@$version" 'dependencies.@auth/core')"
+          echo "next-auth $version, @auth/core $core"
+          pnpm --filter @mockatoo/connect-authjs add -D "next-auth@$version" "@auth/core@$core"
+      - run: pnpm --filter @mockatoo/connect-authjs typecheck
+      - run: pnpm vitest run packages/connect-authjs
+  # The Better Auth connector supports better-auth ^1.7.7 (its peer range).
+  # Check the lowest supported version and the newest one on npm.
+  better-auth:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        better-auth: [1.7.7, latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Install better-auth ${{ matrix.better-auth }}
+        env:
+          BETTER_AUTH: ${{ matrix.better-auth }}
+        run: |
+          version="$(npm view "better-auth@$BETTER_AUTH" version)"
+          echo "better-auth $version"
+          pnpm --filter @mockatoo/connect-better-auth add -D "better-auth@$version"
+      - run: pnpm --filter @mockatoo/connect-better-auth typecheck
+      - run: pnpm --filter @mockatoo/connect-better-auth build
