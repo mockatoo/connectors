@@ -31,7 +31,9 @@ describe("setEnvValues", () => {
 				MOCKATOO_TEST_EMAIL: "new@example.com",
 				MOCKATOO_TEST_PASSWORD: "pw",
 			}),
-		).toBe("# app\nAPI_URL=x\nMOCKATOO_TEST_EMAIL=new@example.com\nMOCKATOO_TEST_PASSWORD=pw\n");
+		).toBe(
+			"# app\nAPI_URL=x\nMOCKATOO_TEST_EMAIL=new@example.com\nMOCKATOO_TEST_PASSWORD=pw\n",
+		);
 	});
 
 	it("creates the file contents and quotes values that need it", () => {
