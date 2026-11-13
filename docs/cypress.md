@@ -70,3 +70,7 @@ available tags.
 See the [full Cypress example](https://github.com/mockatoo/examples/blob/main/cypress/cypress/e2e/sign-in.cy.ts)
 for the test and the [Cypress example README](https://github.com/mockatoo/examples/tree/main/cypress)
 for setup and configuration.
+
+## Serve the app over HTTPS in production mode
+
+When your app runs a production build, Better Auth marks its OAuth state cookie `Secure`. Cypress's cookie jar drops `Secure` cookies from plain-HTTP origins, so a callback to `http://localhost` loses the state cookie and sign-in fails with `state_mismatch`. Serve the app over HTTPS — the example proxies `https://localhost:3443` to the app's HTTP port with [`local-ssl-proxy`](https://www.npmjs.com/package/local-ssl-proxy) — and both Chromium and Cypress's cookie jar carry the state cookie through the redirect. See [Why Cypress needs HTTPS](https://github.com/mockatoo/examples/blob/main/cypress/README.md#why-cypress-needs-https) in the example README.

@@ -22,7 +22,7 @@ env:
 ## Workflow
 
 Build the examples, install the browser dependencies, and run the Playwright
-tests:
+and Cypress tests. The Cypress binary is installed before the Cypress test, which serves the app through a local HTTPS proxy so that Secure cookies survive the OAuth redirect:
 
 ```yaml
 - run: pnpm build
@@ -41,9 +41,12 @@ tests:
   env:
     MOCK_EMAIL: ${{ secrets.MOCK_EMAIL }}
     MOCK_PASSWORD: ${{ secrets.MOCK_PASSWORD }}
+- run: pnpm --dir cypress exec cypress install
+- run: pnpm --dir cypress test
+  env:
+    CYPRESS_MOCK_EMAIL: ${{ secrets.MOCK_EMAIL }}
+    CYPRESS_MOCK_PASSWORD: ${{ secrets.MOCK_PASSWORD }}
 ```
-
-The credentialed Cypress run is temporarily disabled pending a fix for the Cypress iframe SameSite issue — see https://github.com/tianhuil/mockatoo/issues/231.
 
 These steps are copied from the [backing workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml).
 
