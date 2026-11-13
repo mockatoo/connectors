@@ -21,6 +21,15 @@ Sources: [authorization code flow](https://learn.microsoft.com/en-us/entra/ident
 [OIDC](https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc),
 [scopes and permissions](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc).
 
+## OpenID Connect (OIDC)
+
+This provider supports OpenID Connect (OIDC), which adds signed ID tokens to OAuth
+2.0 so your app can verify the signed-in user's identity. Mockatoo publishes OIDC
+discovery and signing keys for this provider. See the
+[Hono + oauth4webapi example](https://github.com/mockatoo/examples/blob/main/oauth4webapi-hono/src/app.tsx)
+for a minimal authorization code flow with discovery and ID-token validation,
+including this provider's differences, without an auth abstraction.
+
 ## Using the connector
 
 ```ts

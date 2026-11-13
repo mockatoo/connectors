@@ -18,6 +18,15 @@ Sources: [Sign In with LinkedIn using OIDC](https://learn.microsoft.com/en-us/li
 [authorization code flow](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow),
 [partner refresh tokens](https://learn.microsoft.com/en-us/linkedin/shared/authentication/programmatic-refresh-tokens).
 
+## OpenID Connect (OIDC)
+
+This provider supports OpenID Connect (OIDC), which adds signed ID tokens to OAuth
+2.0 so your app can verify the signed-in user's identity. Mockatoo publishes OIDC
+discovery and signing keys for this provider. See the
+[Hono + oauth4webapi example](https://github.com/mockatoo/examples/blob/main/oauth4webapi-hono/src/app.tsx)
+for a minimal authorization code flow with discovery and ID-token validation,
+including this provider's differences, without an auth abstraction.
+
 ## Using the connector
 
 ```ts

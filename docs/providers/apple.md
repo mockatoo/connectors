@@ -18,6 +18,15 @@ secret; successful mock sign-in cannot validate your Apple key or Services ID.
 Sources: [Sign in with Apple REST API](https://developer.apple.com/documentation/signinwithapplerestapi),
 [authorization response](https://developer.apple.com/documentation/signinwithapplerestapi/request-an-authorization-to-the-sign-in-with-apple-server).
 
+## OpenID Connect (OIDC)
+
+This provider supports OpenID Connect (OIDC), which adds signed ID tokens to OAuth
+2.0 so your app can verify the signed-in user's identity. Mockatoo publishes OIDC
+discovery and signing keys for this provider. See the
+[Hono + oauth4webapi example](https://github.com/mockatoo/examples/blob/main/oauth4webapi-hono/src/app.tsx)
+for a minimal authorization code flow with discovery and ID-token validation,
+including this provider's differences, without an auth abstraction.
+
 ## Using the connector
 
 ```ts
