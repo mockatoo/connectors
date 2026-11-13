@@ -25,18 +25,18 @@ describe("decodeLoginCode", () => {
 
 describe("setEnvValues", () => {
 	it("replaces existing keys in place and keeps other lines", () => {
-		const source = "# app\nAPI_URL=x\nMOCK_EMAIL=old@example.com\n";
+		const source = "# app\nAPI_URL=x\nMOCKATOO_TEST_EMAIL=old@example.com\n";
 		expect(
 			setEnvValues(source, {
-				MOCK_EMAIL: "new@example.com",
-				MOCK_PASSWORD: "pw",
+				MOCKATOO_TEST_EMAIL: "new@example.com",
+				MOCKATOO_TEST_PASSWORD: "pw",
 			}),
-		).toBe("# app\nAPI_URL=x\nMOCK_EMAIL=new@example.com\nMOCK_PASSWORD=pw\n");
+		).toBe("# app\nAPI_URL=x\nMOCKATOO_TEST_EMAIL=new@example.com\nMOCKATOO_TEST_PASSWORD=pw\n");
 	});
 
 	it("creates the file contents and quotes values that need it", () => {
-		expect(setEnvValues("", { MOCK_PASSWORD: "a b#c" })).toBe(
-			'MOCK_PASSWORD="a b#c"\n',
+		expect(setEnvValues("", { MOCKATOO_TEST_PASSWORD: "a b#c" })).toBe(
+			'MOCKATOO_TEST_PASSWORD="a b#c"\n',
 		);
 	});
 });

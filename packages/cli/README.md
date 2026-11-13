@@ -26,7 +26,7 @@
 
 Set up Mockatoo test sign-in in an app. `init` installs the matching connector
 (`@mockatoo/connect-better-auth` or `@mockatoo/connect-authjs`), then `login`
-writes a test account's `MOCK_EMAIL` and `MOCK_PASSWORD` to `.env.local`.
+writes a test account's `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` to `.env.local`.
 
 ```sh
 npx -y @mockatoo/mockatoo@latest init

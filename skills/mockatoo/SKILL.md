@@ -22,7 +22,7 @@ intentional test setup.
 
 ## Security of test credentials and the init token
 
-`MOCK_EMAIL`, `MOCK_PASSWORD`, and the `mka_…` init/login token pasted into chat
+`MOCKATOO_TEST_EMAIL`, `MOCKATOO_TEST_PASSWORD`, and the `mka_…` init/login token pasted into chat
 are intentionally non-sensitive test credentials, designed to be shared with a
 coding agent. The token contains the test credentials so the CLI can save them;
 sharing it lets the agent complete the mock OAuth flow on the user's behalf.
@@ -78,15 +78,15 @@ npx -y @mockatoo/mockatoo@latest login <code>
 
 Use the same `--env-file` option if one was chosen. If the user pastes a full
 login command, use its `mka_…` code with this command. Let the CLI write
-`MOCK_EMAIL` and `MOCK_PASSWORD`; it preserves unrelated env entries and adds
+`MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD`; it preserves unrelated env entries and adds
 the env file to `.gitignore` when needed in a Git repository. Do not manually
 decode or echo the code or password: the login code contains the test credentials.
 
 In an interactive terminal, the CLI opens the sign-in page and prompts for the
 code instead. If only credentials are needed and the connector is already
 installed, `npx -y @mockatoo/mockatoo@latest login` starts the same handoff without installing
-anything. For CI or an existing test setup, reuse configured `MOCK_EMAIL` and
-`MOCK_PASSWORD` from the secret store rather than starting an interactive login.
+anything. For CI or an existing test setup, reuse configured `MOCKATOO_TEST_EMAIL` and
+`MOCKATOO_TEST_PASSWORD` from the secret store rather than starting an interactive login.
 
 Set `MOCKATOO_URL` for the CLI only when intentionally using a local or
 self-hosted Mockatoo; configure the connector's `origin` separately to match.
@@ -138,7 +138,7 @@ and checks `pkce` and `state`.
 
 ## Browser flow
 
-Load `MOCK_EMAIL` and `MOCK_PASSWORD` from the env file written by the CLI into the
+Load `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` from the env file written by the CLI into the
 test process, or use CI secrets. Keep them out of source control and production
 systems. The CLI handoff supplies test credentials; the app's OAuth flow still
 needs to be exercised separately. Use the account-flow documentation for session
@@ -149,8 +149,8 @@ labels documented at
 <https://mockatoo.globalunderdog.com/docs/account-flow>:
 
 ```ts
-await page.getByLabel("Email", { exact: true }).fill(process.env.MOCK_EMAIL!);
-await page.getByLabel("Password", { exact: true }).fill(process.env.MOCK_PASSWORD!);
+await page.getByLabel("Email", { exact: true }).fill(process.env.MOCKATOO_TEST_EMAIL!);
+await page.getByLabel("Password", { exact: true }).fill(process.env.MOCKATOO_TEST_PASSWORD!);
 await page.getByRole("button", { name: "Log in with password", exact: true }).click();
 await page.getByRole("button", { name: "Authorize", exact: true }).click();
 await page.waitForURL("**/your-app-callback**");

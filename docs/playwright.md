@@ -12,8 +12,8 @@ Start your app and create a Mockatoo test account. Put the test credentials in
 `.env.local`:
 
 ```sh
-MOCK_EMAIL=<your Mockatoo test email>
-MOCK_PASSWORD=<your Mockatoo test password>
+MOCKATOO_TEST_EMAIL=<your Mockatoo test email>
+MOCKATOO_TEST_PASSWORD=<your Mockatoo test password>
 ```
 
 Install Playwright's Chromium browser with `pnpm exec playwright install

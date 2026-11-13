@@ -34,7 +34,7 @@ const USAGE = `Usage:
   mockatoo init [--framework better-auth|authjs] [-e <env-file>]
       Install the Mockatoo connector for this app, then log in.
   mockatoo login [code] [-e <env-file>]
-      Write the test account's MOCK_EMAIL and MOCK_PASSWORD to the env file.
+      Write the test account's MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD to the env file.
 
   -e, --env-file  env file to write (default ${DEFAULT_ENV_FILE})`;
 
@@ -80,13 +80,13 @@ function writeCredentials(envFile: string, credentials: Credentials): void {
 	writeFileSync(
 		path,
 		setEnvValues(source, {
-			MOCK_EMAIL: credentials.email,
-			MOCK_PASSWORD: credentials.password,
+			MOCKATOO_TEST_EMAIL: credentials.email,
+			MOCKATOO_TEST_PASSWORD: credentials.password,
 		}),
 	);
 	ignoreInGit(path);
 	console.log(
-		`Wrote MOCK_EMAIL (${credentials.email}) and MOCK_PASSWORD to ${relative(process.cwd(), path)}.`,
+		`Wrote MOCKATOO_TEST_EMAIL (${credentials.email}) and MOCKATOO_TEST_PASSWORD to ${relative(process.cwd(), path)}.`,
 	);
 }
 
