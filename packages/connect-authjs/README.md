@@ -24,8 +24,30 @@
 
 # @mockatoo/connect-authjs
 
-See the [Auth.js guide](../../docs/authjs.md). This helper uses the single
-Mockatoo provider with fixed client credentials and automatic callback URLs.
-Override `origin` for local or self-hosted development.
+Use `MockatooProvider()` for a generic OAuth provider, or a provider helper such as `MockGoogle()` to preserve an existing Google sign-in integration:
 
-The package also exports `MOCKATOO_URL` for links and configuration. It uses the hosted service by default and reads `process.env.MOCKATOO_URL` for Mockatoo development; users do not need to know or configure the URL.
+```ts
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import { MockGoogle } from "@mockatoo/connect-authjs";
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers: [
+    process.env.NODE_ENV === "production" ? Google() : MockGoogle(),
+  ],
+});
+```
+
+Keep your normal Auth.js application settings, including its secret and callback URL configuration. The mock supplies its shared client credentials automatically. See the [runnable Next.js example](https://github.com/mockatoo/examples/tree/main/authjs-next).
+
+## Mockatoo URL
+
+The connector uses the hosted service automatically; users do not need to know or configure its URL. For links or test helpers that need the address, import the resolved value:
+
+```ts
+import { MOCKATOO_URL } from "@mockatoo/connect-authjs";
+
+const loginOrigin = new URL(MOCKATOO_URL).origin;
+```
+
+`MOCKATOO_URL` reads `process.env.MOCKATOO_URL` when the module is loaded and falls back to `https://app.mockatoo.globalunderdog.com` when it is unset or empty. The environment override is for Mockatoo's own development; set it before importing the connector. An explicit connector `origin` option takes precedence for that connector call and does not change the exported constant.

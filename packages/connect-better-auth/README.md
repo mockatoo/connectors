@@ -100,7 +100,19 @@ await authClient.signIn.oauth2({ providerId: "mockatoo" });
 
 ## Options
 
-`origin`: override only for a local or self-hosted mock. The default is `https://app.mockatoo.globalunderdog.com`.
+`origin`: an explicit override for Mockatoo development. When omitted, the connector uses `MOCKATOO_URL` as described below.
+
+## Mockatoo URL
+
+The connector uses the hosted service automatically; users do not need to know or configure its URL. For links or test helpers that need the address, import the resolved value:
+
+```ts
+import { MOCKATOO_URL } from "@mockatoo/connect-better-auth";
+
+const loginOrigin = new URL(MOCKATOO_URL).origin;
+```
+
+`MOCKATOO_URL` reads `process.env.MOCKATOO_URL` when the module is loaded and falls back to `https://app.mockatoo.globalunderdog.com` when it is unset or empty. The environment override is for Mockatoo's own development; set it before importing the connector. An explicit connector `origin` option takes precedence for that connector call and does not change the exported constant.
 
 ## Tested
 
@@ -109,5 +121,3 @@ The CI-tested example app is [better-auth-next](https://github.com/mockatoo/exam
 ## License
 
 MIT.
-
-The package also exports `MOCKATOO_URL` for links and configuration. It uses the hosted service by default and reads `process.env.MOCKATOO_URL` for Mockatoo development; users do not need to know or configure the URL.

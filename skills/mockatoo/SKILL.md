@@ -88,8 +88,12 @@ installed, `npx -y @mockatoo/mockatoo@latest login` starts the same handoff with
 anything. For CI or an existing test setup, reuse configured `MOCKATOO_TEST_EMAIL` and
 `MOCKATOO_TEST_PASSWORD` from the secret store rather than starting an interactive login.
 
-Set `MOCKATOO_URL` for the CLI only when intentionally using a local or
-self-hosted Mockatoo; configure the connector's `origin` separately to match.
+Users do not need to know or configure the hosted URL. Both connector packages
+export `MOCKATOO_URL` for links and test helpers. It reads `process.env.MOCKATOO_URL`
+at module load and falls back to the hosted service when unset or empty. For
+Mockatoo development, set the environment override before starting both the CLI
+and the app; both use it automatically. An explicit connector `origin` option
+takes precedence for that call without changing the exported value.
 
 ## Package map
 
@@ -111,7 +115,8 @@ one.
    separate; do not combine their configuration APIs. Import from the package
    installed by `init`, as shown above.
 2. Add the connector to the app's development/test auth configuration. Use the
-   documented `origin` override only for a local or self-hosted provider. Keep callback
+   documented `origin` override only for Mockatoo development; otherwise let the
+   connector supply its URL. Keep callback
    URLs, state, and PKCE enabled according to the framework's normal configuration.
 3. Start the OAuth flow from the consumer app's sign-in control. Do not begin by
    navigating directly to an authorization endpoint: the consumer must create the

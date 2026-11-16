@@ -8,6 +8,10 @@ A hosted OAuth provider for local development, CI, end-to-end browser tests, and
 
 Use Mockatoo only outside production. Select its connector behind a non-production check, and keep your test account's email and password in environment variables or CI secrets, never in source control.
 
+Users do not need to know or configure the hosted URL. Both `@mockatoo/connect-better-auth` and `@mockatoo/connect-authjs` export `MOCKATOO_URL` for links and test helpers; import it from the connector your app uses instead of hardcoding the address or reading the environment yourself.
+
+The exported value is `process.env.MOCKATOO_URL` or, when unset or empty, `https://app.mockatoo.globalunderdog.com`. It is resolved when the module loads. The environment override is for Mockatoo's own development. An explicit connector `origin` option overrides the URL for that call without changing the exported value. A manual OIDC integration without a connector must supply its own provider URL.
+
 ## Guides
 
 - [Account flow](account-flow.md): Sign-up, login, sessions, password regeneration, consent, and the stable form labels
