@@ -7,7 +7,7 @@ description: "Test Google, GitHub, Apple and other OAuth sign-in with Cypress: c
 Sign in through OAuth from a Cypress test, locally and in CI, with any of the
 eight providers Mockatoo mocks.
 
-**Example on GitHub:** [`mockatoo/examples/cypress`](https://github.com/mockatoo/examples/tree/main/cypress). 
+**Example on GitHub:** [`mockatoo/examples/cypress`](https://github.com/mockatoo/examples/tree/main/cypress).
 
 ## Why real providers break Cypress tests
 
@@ -40,8 +40,8 @@ your auth code doesn't change.
   `npx -y @mockatoo/mockatoo@latest init`, or see the
   [Better Auth example](https://github.com/mockatoo/examples/tree/main/better-auth-next/).
 - **A Mockatoo test account.** Sign up at
-  [app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com), 
-	then copy the email and password from the dashboard.
+  [app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com),
+  then copy the email and password from the dashboard.
 - **The credentials in the environment**:
 
 ```sh
@@ -232,7 +232,7 @@ The email address is the only test state. `you+cypress-1@example.com` is a
 separate, stable user with the same password, so there's nothing to seed or clean up.
 
 ```ts
-it("gives each tagged address its own user", () => {
+it("signs in as a tagged address", () => {
 	cy.mockatooSignIn("Google", { tag: "cypress-1" }).then((address) => {
 		cy.sessionUser().its("email").should("equal", address);
 	});
