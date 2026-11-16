@@ -27,3 +27,5 @@
 See the [Auth.js guide](../../docs/authjs.md). This helper uses the single
 Mockatoo provider with fixed client credentials and automatic callback URLs.
 Override `origin` for local or self-hosted development.
+
+The package also exports `MOCKATOO_URL` for links and configuration. It uses the hosted service by default and reads `process.env.MOCKATOO_URL` for Mockatoo development; users do not need to know or configure the URL.

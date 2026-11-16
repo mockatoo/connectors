@@ -13,6 +13,9 @@ export type MockOptions<T extends { clientId?: unknown }> = Omit<
 };
 
 export const MOCK_ORIGIN = "https://app.mockatoo.globalunderdog.com";
+/** Hosted by default; the environment override is for Mockatoo development. */
+export const MOCKATOO_URL =
+	(typeof process !== "undefined" && process.env.MOCKATOO_URL) || MOCK_ORIGIN;
 export const MOCK_CLIENT = {
 	clientId: "mockatoo",
 	clientSecret: "mockatoo-secret",
@@ -23,7 +26,7 @@ export function withMockClient<T extends object>(options: T) {
 }
 
 export const mockBase = (origin: string | undefined, provider: string) =>
-	`${new URL(origin ?? MOCK_ORIGIN).origin}/${provider}`;
+	`${new URL(origin ?? MOCKATOO_URL).origin}/${provider}`;
 
 export function refreshMockAccessToken(
 	refreshToken: string,

@@ -1,7 +1,7 @@
 import type { OAuthConfig } from "next-auth/providers";
-import { MOCK_CLIENT, mockOrigin } from "./shared";
+import { MOCK_CLIENT, MOCKATOO_URL, mockOrigin } from "./shared";
 
-export { MOCK_ORIGIN } from "./shared";
+export { MOCK_ORIGIN, MOCKATOO_URL } from "./shared";
 export type MockProfile = {
 	sub: string;
 	name: string;
@@ -13,7 +13,7 @@ export type MockProfile = {
 export default function MockatooProvider(
 	options: { origin?: string } = {},
 ): OAuthConfig<MockProfile> {
-	const origin = mockOrigin(options.origin);
+	const origin = mockOrigin(options.origin ?? MOCKATOO_URL);
 	return {
 		id: "mockatoo",
 		name: "Mockatoo",
