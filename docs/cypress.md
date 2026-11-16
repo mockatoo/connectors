@@ -315,20 +315,53 @@ Details: [Why Cypress needs HTTPS](https://github.com/mockatoo/examples/blob/mai
 
 Store the dashboard credentials as `MOCKATOO_TEST_EMAIL` and
 `MOCKATOO_TEST_PASSWORD` secrets, then map them to the `CYPRESS_` names.
-From the examples'
-[workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml):
+The examples run Cypress in its own
+[workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/cypress.yml):
 
 ```yaml
-- run: pnpm --dir cypress exec cypress install
-- run: pnpm --dir cypress test
-  env:
-    CYPRESS_MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
-    CYPRESS_MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
+name: Cypress
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: pnpm install --frozen-lockfile
+      - name: Generate Better Auth runtime secret
+        run: echo "BETTER_AUTH_SECRET=$(openssl rand -base64 32)" >> "$GITHUB_ENV"
+      - run: pnpm --dir cypress exec cypress install
+      - run: pnpm --dir cypress test
+        env:
+          CYPRESS_MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
+          CYPRESS_MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
+      - name: Upload Cypress artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/cypress/screenshots
+            cypress/cypress/videos
+          retention-days: 7
 ```
 
+- The test script builds and starts the app itself, so the workflow only installs
+  dependencies and the Cypress binary.
+- Failed runs upload screenshots and videos as artifacts.
 - Regenerating the password on the dashboard ends other password sessions.
   Update the secrets right after.
-- See [Run in CI](ci.md) for the full workflow and parallel workers.
+- See [Run in CI](ci.md) for the Playwright workflow and parallel workers.
 
 ## Troubleshooting
 
