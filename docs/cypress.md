@@ -35,7 +35,7 @@ your auth code doesn't change.
 ## Prerequisites
 
 - **Cypress 16 or later.** `cy.origin` exists since Cypress 12, but `cy.env`
-  and `Cypress.expose` need 16.
+  needs 16.
 - **An app wired to Mockatoo** behind a non-production check. Run
   `npx -y @mockatoo/mockatoo@latest init`, or see the
   [Better Auth example](https://github.com/mockatoo/examples/tree/main/better-auth-next/).
@@ -96,7 +96,8 @@ it("signs in with Google", () => {
 			{ args: { email, password } },
 			({ email, password }) => {
 				cy.get("#email").type(email);
-				cy.get("#password").type(`${password}{enter}`, { log: false });
+				cy.get("#password").type(password, { log: false });
+				cy.contains("button", "Log in with password").click();
 				cy.contains("button", "Authorize").click();
 			},
 		);
@@ -111,12 +112,9 @@ The login and consent pages are the same for every provider:
 | --- | --- |
 | Email field | `#email` (label **Email**) |
 | Password field | `#password` (label **Password**) |
-| Submit login | **Log in with password**, or press Enter in the password field |
+| Submit login | **Log in with password** |
 | Consent | **Authorize** or **Deny** |
 
-- Press `{enter}` in the password field instead of clicking **Log in with
-  password**. The consent page loads as soon as the form submits, and a click
-  inside `cy.origin` can race that navigation.
 - `{ log: false }` keeps the password out of the command log, screenshots and videos.
 
 ## Reuse it: `cy.mockatooSignIn()`
@@ -144,7 +142,8 @@ Cypress.Commands.add(
 						{ args: { address, password, consent } },
 						({ address, password, consent }) => {
 							cy.get("#email").type(address);
-							cy.get("#password").type(`${password}{enter}`, { log: false });
+							cy.get("#password").type(password, { log: false });
+							cy.contains("button", "Log in with password").click();
 							cy.contains("button", consent).click();
 						},
 					);
@@ -338,7 +337,6 @@ From the examples'
 | `state_mismatch`, `auth state cookie not found` | Serve the app over HTTPS ([above](#serve-the-app-over-https)) |
 | `Set CYPRESS_MOCKATOO_TEST_EMAIL and …` | Export both variables, or map the CI secrets to the `CYPRESS_` names |
 | `cy.origin` times out on the login page | Make sure the url matches the origin your app redirects to |
-| The click on **Log in with password** fails | Press `{enter}` in the password field instead |
 | A test times out with `+slow` | Raise `defaultCommandTimeout` for that test |
 | Login fails after a password change | Copy the new password from the dashboard into your env and secrets |
 
