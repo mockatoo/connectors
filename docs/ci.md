@@ -22,7 +22,7 @@ env:
 ## Workflow
 
 Build the examples, install the browser dependencies, and run the Playwright
-tests:
+and Cypress tests. The Cypress binary is installed before the Cypress test, which serves the app through a local HTTPS proxy so that Secure cookies survive the OAuth redirect:
 
 ```yaml
 - run: pnpm build
@@ -31,15 +31,16 @@ tests:
   env:
     MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
     MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
-```
-
-These steps are copied from the [backing workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml).
-
-The Cypress example installs the Cypress binary,
-then runs the test, which serves the app through a local HTTPS proxy so that
-Secure cookies survive the OAuth redirect:
-
-```yaml
+- run: pnpm --dir better-auth-next exec playwright install --with-deps chromium
+- run: pnpm --dir better-auth-next test
+  env:
+    MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
+    MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
+- run: pnpm --dir better-auth-sveltekit exec playwright install --with-deps chromium
+- run: pnpm --dir better-auth-sveltekit test
+  env:
+    MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
+    MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 - run: pnpm --dir cypress exec cypress install
 - run: pnpm --dir cypress test
   env:
@@ -47,7 +48,7 @@ Secure cookies survive the OAuth redirect:
     CYPRESS_MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
 
-These steps are copied from the [Cypress workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/cypress.yml).
+These steps are copied from the [backing workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml).
 
 ## Parallel workers
 

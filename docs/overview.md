@@ -13,7 +13,7 @@ Use Mockatoo only outside production. Select its connector behind a non-producti
 - [Account flow](account-flow.md): Sign-up, login, sessions, password regeneration, consent, and the stable form labels
 - [Email tags](email-tags.md): Sign in as other users with `you+<tag>@example.com`, and the tags that trigger edge cases
 - [Playwright](playwright.md): Sign in from a Playwright test, with a distinct user per test
-- [Cypress](cypress.md): Sign in from Cypress with `cy.origin`, cached sessions, every provider, and edge-case tags
+- [Cypress](cypress.md): Sign in from a Cypress test with `cy.origin`
 - [Run in CI](ci.md): GitHub Actions secrets, workflow, and parallel workers
 
 ## Providers

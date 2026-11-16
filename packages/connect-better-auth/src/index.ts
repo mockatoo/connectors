@@ -1,34 +1,44 @@
 import { genericOAuth } from "better-auth/plugins";
+import type { GenericOAuthConfig } from "better-auth/plugins/generic-oauth";
 import { MOCK_CLIENT, MOCK_ORIGIN } from "./shared";
 
 export type MockatooPlugin = ReturnType<typeof genericOAuth<"mockatoo">>;
 
 export { MOCK_ORIGIN };
+
+/**
+ * Configure Mockatoo as a generic OAuth provider.
+ *
+ * @example
+ * genericOAuth({ config: [mockatoo()] });
+ */
+export function mockatoo(
+	options: { origin?: string; redirectURI?: string } = {},
+): GenericOAuthConfig<"mockatoo"> {
+	const origin = new URL(options.origin ?? MOCK_ORIGIN).origin;
+	return {
+		providerId: "mockatoo",
+		...MOCK_CLIENT,
+		authorizationUrl: `${origin}/oauth/authorize`,
+		tokenUrl: `${origin}/oauth/token`,
+		userInfoUrl: `${origin}/oauth/userinfo`,
+		scopes: ["openid", "profile", "email"],
+		pkce: true,
+		...(options.redirectURI ? { redirectURI: options.redirectURI } : {}),
+		accountSubject: ({ profile }) => String(profile.sub),
+		mapProfileToUser: async (profile) => ({
+			name: typeof profile.name === "string" ? profile.name : "",
+			email: String(profile.email),
+			emailVerified: profile.email_verified === true,
+		}),
+	};
+}
+
 /** Override the origin only when running a local or self-hosted provider. */
 export function createMockatooPlugin(
 	options: { origin?: string; redirectURI?: string } = {},
 ): MockatooPlugin {
-	const origin = new URL(options.origin ?? MOCK_ORIGIN).origin;
-	return genericOAuth({
-		config: [
-			{
-				providerId: "mockatoo",
-				...MOCK_CLIENT,
-				authorizationUrl: `${origin}/oauth/authorize`,
-				tokenUrl: `${origin}/oauth/token`,
-				userInfoUrl: `${origin}/oauth/userinfo`,
-				scopes: ["openid", "profile", "email"],
-				pkce: true,
-				...(options.redirectURI ? { redirectURI: options.redirectURI } : {}),
-				accountSubject: ({ profile }) => String(profile.sub),
-				mapProfileToUser: async (profile) => ({
-					name: typeof profile.name === "string" ? profile.name : "",
-					email: String(profile.email),
-					emailVerified: profile.email_verified === true,
-				}),
-			},
-		],
-	});
+	return genericOAuth({ config: [mockatoo(options)] });
 }
 export const mockatooPlugin: MockatooPlugin = createMockatooPlugin();
 export default mockatooPlugin;
