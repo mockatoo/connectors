@@ -22,9 +22,10 @@ export type MockLinkedInOptions = MockOptions<LinkedInOptions>;
  * builds the authorization URL and its scopes.
  */
 export function mockLinkedIn(options: MockLinkedInOptions = {}) {
-	const base = mockBase("linkedin");
+	const { origin: configured, ...rest } = options;
+	const base = mockBase(configured, "linkedin");
 	const tokenEndpoint = `${base}/oauth/v2/accessToken`;
-	const config = withMockClient(options);
+	const config = withMockClient(rest);
 	const upstream = linkedin(config);
 	const provider: typeof upstream = {
 		...upstream,

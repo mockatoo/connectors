@@ -85,21 +85,7 @@ The mock ignores `clientId` and `clientSecret` and uses its shared client, so th
 
 ## Generic provider
 
-`mockatooPlugin` / `createMockatooPlugin()` adds one `genericOAuth` provider with id `mockatoo`, for apps that don't use a built-in provider. If your app already uses `genericOAuth` with other providers, add Mockatoo with the `mockatoo()` helper instead:
-
-```ts
-import { betterAuth } from "better-auth";
-import { genericOAuth } from "better-auth/plugins";
-import { mockatoo } from "@mockatoo/connect-better-auth";
-
-const auth = betterAuth({
-  plugins: [genericOAuth({ config: [mockatoo(), /* …existing providers */] })],
-});
-```
-
-The helper uses the callback URL `/api/auth/oauth2/callback/mockatoo`, with scopes `openid profile email`. Token endpoint authentication uses the shared public client `mockatoo` / `mockatoo-secret`; you do not need an app registration or a secret of your own.
-
-The client then calls `authClient.signIn.oauth2({ providerId: "mockatoo" })` with `genericOAuthClient()`.
+`mockatooPlugin` / `createMockatooPlugin()` adds one `genericOAuth` provider with id `mockatoo`, for apps that don't use a built-in provider. The client then calls `authClient.signIn.oauth2({ providerId: "mockatoo" })` with `genericOAuthClient()`.
 
 ```ts
 import { createAuthClient } from "better-auth/client";
@@ -112,17 +98,9 @@ const authClient = createAuthClient({
 await authClient.signIn.oauth2({ providerId: "mockatoo" });
 ```
 
-## Mockatoo URL
+## Options
 
-The connector uses the hosted service automatically; users do not need to know or configure its URL. For links or test helpers that need the address, import the resolved value:
-
-```ts
-import { MOCKATOO_URL } from "@mockatoo/connect-better-auth";
-
-const loginOrigin = new URL(MOCKATOO_URL).origin;
-```
-
-`MOCKATOO_URL` reads `process.env.MOCKATOO_URL` when the module is loaded and falls back to `https://app.mockatoo.globalunderdog.com` when it is unset or empty. The environment override is for Mockatoo's own development; set it before importing the connector. `process.env.MOCKATOO_URL` is the only supported origin override; connectors have no `origin` option.
+`origin`: override only for a local or self-hosted mock. The default is `https://app.mockatoo.globalunderdog.com`.
 
 ## Tested
 

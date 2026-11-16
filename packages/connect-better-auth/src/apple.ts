@@ -5,7 +5,7 @@ import {
 import { type AppleOptions, apple } from "better-auth/social-providers";
 import {
 	authorizationURL,
-	MOCKATOO_URL,
+	MOCK_ORIGIN,
 	type MockOptions,
 	mockBase,
 	mockJwks,
@@ -21,10 +21,11 @@ export type MockAppleOptions = MockOptions<AppleOptions>;
  * the ID token and first-sign-in `user` field.
  */
 export function mockApple(options: MockAppleOptions = {}) {
-	const origin = new URL(MOCKATOO_URL).origin;
-	const base = mockBase("apple");
+	const { origin: configured, ...rest } = options;
+	const origin = new URL(configured ?? MOCK_ORIGIN).origin;
+	const base = mockBase(origin, "apple");
 	const tokenEndpoint = `${base}/auth/token`;
-	const config = withMockClient(options);
+	const config = withMockClient(rest);
 	const upstream = apple(config);
 	const provider: typeof upstream = {
 		...upstream,

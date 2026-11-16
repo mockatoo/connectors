@@ -8,12 +8,11 @@ export type MockOptions<T extends { clientId?: unknown }> = Omit<
 	/** Accepted so production options can be passed unchanged; the mock's shared client is always used. */
 	clientId?: T["clientId"];
 	clientSecret?: string;
+	/** Override only for a local or self-hosted provider. */
+	origin?: string;
 };
 
 export const MOCK_ORIGIN = "https://app.mockatoo.globalunderdog.com";
-/** Hosted by default; the environment override is for Mockatoo development. */
-export const MOCKATOO_URL =
-	(typeof process !== "undefined" && process.env.MOCKATOO_URL) || MOCK_ORIGIN;
 export const MOCK_CLIENT = {
 	clientId: "mockatoo",
 	clientSecret: "mockatoo-secret",
@@ -23,8 +22,8 @@ export function withMockClient<T extends object>(options: T) {
 	return { ...options, ...MOCK_CLIENT };
 }
 
-export const mockBase = (provider: string) =>
-	`${new URL(MOCKATOO_URL).origin}/${provider}`;
+export const mockBase = (origin: string | undefined, provider: string) =>
+	`${new URL(origin ?? MOCK_ORIGIN).origin}/${provider}`;
 
 export function refreshMockAccessToken(
 	refreshToken: string,

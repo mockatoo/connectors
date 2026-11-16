@@ -1,7 +1,7 @@
 import type { OAuthConfig } from "next-auth/providers";
-import { MOCK_CLIENT, MOCKATOO_URL, mockOrigin } from "./shared";
+import { MOCK_CLIENT, mockOrigin } from "./shared";
 
-export { MOCK_ORIGIN, MOCKATOO_URL } from "./shared";
+export { MOCK_ORIGIN } from "./shared";
 export type MockProfile = {
 	sub: string;
 	name: string;
@@ -10,8 +10,10 @@ export type MockProfile = {
 	email_verified: boolean;
 };
 /** Auth.js derives its callback URL from the application configuration. */
-export default function MockatooProvider(): OAuthConfig<MockProfile> {
-	const origin = mockOrigin(MOCKATOO_URL);
+export default function MockatooProvider(
+	options: { origin?: string } = {},
+): OAuthConfig<MockProfile> {
+	const origin = mockOrigin(options.origin);
 	return {
 		id: "mockatoo",
 		name: "Mockatoo",

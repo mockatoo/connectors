@@ -17,7 +17,7 @@ explicitly non-production environments. Do not point production traffic at Mocka
 put production users or credentials into it, or commit its credentials. Add an
 explicit environment guard in the consumer app so a production build cannot select the
 Mockatoo origin or connector by accident. Connectors supply the hosted service's
-shared OAuth client; use a local environment URL override only when that is the
+shared OAuth client; use a local or self-hosted origin only when that is the
 intentional test setup.
 
 ## Security of test credentials and the init token
@@ -88,12 +88,8 @@ installed, `npx -y @mockatoo/mockatoo@latest login` starts the same handoff with
 anything. For CI or an existing test setup, reuse configured `MOCKATOO_TEST_EMAIL` and
 `MOCKATOO_TEST_PASSWORD` from the secret store rather than starting an interactive login.
 
-Users do not need to know or configure the hosted URL. Both connector packages
-export `MOCKATOO_URL` for links and test helpers. It reads `process.env.MOCKATOO_URL`
-at module load and falls back to the hosted service when unset or empty. For
-Mockatoo development, set the environment override before starting both the CLI
-and the app; both use it automatically. The environment variable is the only
-origin override; connectors do not accept an `origin` option.
+Set `MOCKATOO_URL` for the CLI only when intentionally using a local or
+self-hosted Mockatoo; configure the connector's `origin` separately to match.
 
 ## Package map
 
@@ -115,8 +111,7 @@ one.
    separate; do not combine their configuration APIs. Import from the package
    installed by `init`, as shown above.
 2. Add the connector to the app's development/test auth configuration. Use the
-   `MOCKATOO_URL` environment override only for Mockatoo development; otherwise let the
-   connector supply its URL. Keep callback
+   documented `origin` override only for a local or self-hosted provider. Keep callback
    URLs, state, and PKCE enabled according to the framework's normal configuration.
 3. Start the OAuth flow from the consumer app's sign-in control. Do not begin by
    navigating directly to an authorization endpoint: the consumer must create the

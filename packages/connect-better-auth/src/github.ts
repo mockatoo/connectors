@@ -21,10 +21,11 @@ export type MockGitHubOptions = MockOptions<GithubOptions>;
  * token request and profile lookup below are upstream's with only the URLs changed.
  */
 export function mockGitHub(options: MockGitHubOptions = {}) {
-	const base = mockBase("github");
+	const { origin: configured, ...rest } = options;
+	const base = mockBase(configured, "github");
 	const tokenEndpoint = `${base}/login/oauth/access_token`;
 	const api = `${base}/api/v3`;
-	const config = withMockClient(options);
+	const config = withMockClient(rest);
 	const upstream = github(config);
 	const provider: typeof upstream = {
 		...upstream,

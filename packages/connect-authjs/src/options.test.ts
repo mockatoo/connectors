@@ -11,11 +11,7 @@ import {
 	MockMicrosoftEntraID,
 	MockTwitter,
 } from "./index";
-import { MOCKATOO_URL } from "./shared";
-
-vi.hoisted(() => {
-	process.env.MOCKATOO_URL = "http://mock.test";
-});
+import { MOCK_ORIGIN } from "./shared";
 
 afterEach(() => vi.unstubAllEnvs());
 
@@ -23,22 +19,23 @@ type Options = { issuer?: string; enterprise?: { baseUrl?: string } };
 const options = (provider: { options?: unknown }) =>
 	provider.options as Options;
 
-it("points every provider at the configured environment URL", () => {
-	expect(options(MockGoogle()).issuer).toBe(`${MOCKATOO_URL}/google`);
-	expect(options(MockApple()).issuer).toBe(`${MOCKATOO_URL}/apple`);
+it("points every provider at the hosted mock by default", () => {
+	expect(options(MockGoogle()).issuer).toBe(`${MOCK_ORIGIN}/google`);
+	expect(options(MockApple()).issuer).toBe(`${MOCK_ORIGIN}/apple`);
 	expect(options(MockGitHub()).enterprise?.baseUrl).toBe(
-		`${MOCKATOO_URL}/github`,
+		`${MOCK_ORIGIN}/github`,
 	);
 	expect(options(MockMicrosoftEntraID()).issuer).toBe(
-		`${MOCKATOO_URL}/login.microsoftonline.com/common/v2.0`,
+		`${MOCK_ORIGIN}/login.microsoftonline.com/common/v2.0`,
 	);
 	expect(MockatooProvider().authorization).toMatchObject({
-		url: `${MOCKATOO_URL}/oauth/authorize`,
+		url: `${MOCK_ORIGIN}/oauth/authorize`,
 	});
 });
 
 it("points Auth.js's Discord provider's three URLs at the mock, keeping its scope", () => {
 	const provider = MockDiscord({
+		origin: "http://mock.test",
 		authorization: { params: { prompt: "consent" } },
 	});
 	expect(provider.options).toMatchObject({
@@ -51,30 +48,33 @@ it("points Auth.js's Discord provider's three URLs at the mock, keeping its scop
 	});
 	expect(provider.options).not.toHaveProperty("issuer");
 	// The app's workaround for Discord's iss names the real issuer; the mock's replaces it.
-	expect(MockDiscord({ issuer: "https://discord.com" }).options?.issuer).toBe(
-		"http://mock.test/discord",
-	);
+	expect(
+		MockDiscord({ origin: "http://mock.test", issuer: "https://discord.com" })
+			.options?.issuer,
+	).toBe("http://mock.test/discord");
 	expect(MockDiscord().options?.token).toBe(
-		`${MOCKATOO_URL}/discord/api/oauth2/token`,
+		`${MOCK_ORIGIN}/discord/api/oauth2/token`,
 	);
 	expect(MockDiscord({ authorization: "x" }).options?.authorization).toEqual({
-		url: `${MOCKATOO_URL}/discord/api/oauth2/authorize`,
+		url: `${MOCK_ORIGIN}/discord/api/oauth2/authorize`,
 	});
 });
 
 it("points Auth.js's LinkedIn provider at the mock's LinkedIn issuer", () => {
-	const provider = MockLinkedIn({});
+	const provider = MockLinkedIn({ origin: "http://mock.test/ignored" });
 	expect(provider.options).toMatchObject({
 		issuer: "http://mock.test/linkedin/oauth",
 		clientId: "mockatoo",
 		clientSecret: "mockatoo-secret",
 	});
 	expect(provider.type).toBe("oidc");
-	expect(MockLinkedIn().options?.issuer).toBe(`${MOCKATOO_URL}/linkedin/oauth`);
+	expect(MockLinkedIn().options?.issuer).toBe(`${MOCK_ORIGIN}/linkedin/oauth`);
 });
 
 it("points Auth.js's Twitter provider at the mock's X endpoints, keeping its query strings", () => {
-	expect(MockTwitter({}).options).toMatchObject({
+	expect(
+		MockTwitter({ origin: "http://mock.test/ignored" }).options,
+	).toMatchObject({
 		clientId: "mockatoo",
 		clientSecret: "mockatoo-secret",
 		authorization: {
@@ -94,23 +94,24 @@ it("points Auth.js's Twitter provider at the mock's X endpoints, keeping its que
 			"https://api.x.com/2/users/me?user.fields=profile_image_url,confirmed_email",
 	}).options;
 	expect(custom?.authorization).toEqual({
-		url: `${MOCKATOO_URL}/x/i/oauth2/authorize`,
+		url: `${MOCK_ORIGIN}/x/i/oauth2/authorize`,
 		params: { scope: "users.read tweet.read users.email" },
 	});
 	expect(custom?.userinfo).toEqual({
-		url: `${MOCKATOO_URL}/x/2/users/me?user.fields=profile_image_url,confirmed_email`,
+		url: `${MOCK_ORIGIN}/x/2/users/me?user.fields=profile_image_url,confirmed_email`,
 	});
 	expect(
 		MockTwitter({ authorization: { params: { scope: "users.read" } } }).options
 			?.authorization,
 	).toEqual({
-		url: `${MOCKATOO_URL}/x/i/oauth2/authorize`,
+		url: `${MOCK_ORIGIN}/x/i/oauth2/authorize`,
 		params: { scope: "users.read" },
 	});
 });
 
 it("moves Auth.js's Facebook URLs to the mock, keeping their paths and versions", () => {
 	const provider = MockFacebook({
+		origin: "http://mock.test/ignored",
 		authorization: { params: { scope: "email,user_birthday" } },
 	});
 	expect(provider).toMatchObject({
@@ -128,7 +129,7 @@ it("moves Auth.js's Facebook URLs to the mock, keeping their paths and versions"
 		authorization: { params: { scope: "email,user_birthday" } },
 	});
 	expect(MockFacebook().token).toBe(
-		`${MOCKATOO_URL}/facebook/graph/oauth/access_token`,
+		`${MOCK_ORIGIN}/facebook/graph/oauth/access_token`,
 	);
 });
 
@@ -142,6 +143,7 @@ it.each([false, true])(
 			"https://graph.facebook.com/v24.0/me?fields=id,name,email,picture.type(large)";
 		const profile = vi.fn();
 		const provider = MockFacebook({
+			origin: "http://mock.test",
 			clientId: "real-app",
 			clientSecret: "real-secret",
 			profile,
@@ -201,7 +203,7 @@ it("takes Microsoft's tenant from the Auth.js issuer environment variable", () =
 		"https://login.microsoftonline.com/organizations/v2.0",
 	);
 	expect(options(MockMicrosoftEntraID()).issuer).toBe(
-		`${MOCKATOO_URL}/login.microsoftonline.com/organizations/v2.0`,
+		`${MOCK_ORIGIN}/login.microsoftonline.com/organizations/v2.0`,
 	);
 });
 

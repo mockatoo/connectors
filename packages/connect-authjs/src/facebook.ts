@@ -2,7 +2,10 @@ import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
 import Facebook, { type FacebookProfile } from "next-auth/providers/facebook";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
-export type MockFacebookOptions = Partial<OAuthUserConfig<FacebookProfile>>;
+export type MockFacebookOptions = Partial<OAuthUserConfig<FacebookProfile>> & {
+	/** Override only for a local or self-hosted provider. */
+	origin?: string;
+};
 
 /**
  * Auth.js's own Facebook provider with its three URLs moved to the mock,
@@ -13,8 +16,8 @@ export type MockFacebookOptions = Partial<OAuthUserConfig<FacebookProfile>>;
 export function MockFacebook(
 	options: MockFacebookOptions = {},
 ): OAuthConfig<FacebookProfile> {
-	const { authorization, token, userinfo, ...rest } = options;
-	const root = mockBase("facebook");
+	const { origin, authorization, token, userinfo, ...rest } = options;
+	const root = mockBase(origin, "facebook");
 	const provider = Facebook({
 		...rest,
 		...MOCK_CLIENT,

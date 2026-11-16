@@ -71,13 +71,10 @@ export default defineConfig({
 
 The login page is on a different origin from your app, so its commands run
 inside `cy.origin`. Values reach that callback only through `args`.
-Import `MOCKATOO_URL` from your app's connector (`@mockatoo/connect-authjs` for Auth.js); the snippets below use Better Auth.
 
 [`sign-in.cy.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress/e2e/sign-in.cy.ts):
 
 ```ts
-import { MOCKATOO_URL } from "@mockatoo/connect-better-auth";
-
 type Credentials = { MOCKATOO_TEST_EMAIL?: string; MOCKATOO_TEST_PASSWORD?: string };
 const credentialKeys = ["MOCKATOO_TEST_EMAIL", "MOCKATOO_TEST_PASSWORD"];
 
@@ -95,7 +92,7 @@ it("signs in with Google", () => {
 		const email = MOCKATOO_TEST_EMAIL as string;
 		const password = MOCKATOO_TEST_PASSWORD as string;
 		cy.origin(
-			MOCKATOO_URL,
+			"https://app.mockatoo.globalunderdog.com",
 			{ args: { email, password } },
 			({ email, password }) => {
 				cy.get("#email").type(email);
@@ -126,8 +123,6 @@ Move the flow into a custom command, so each spec needs one line.
 [`support/commands.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress/support/commands.ts):
 
 ```ts
-import { MOCKATOO_URL } from "@mockatoo/connect-better-auth";
-
 Cypress.Commands.add(
 	"mockatooSignIn",
 	(provider: Provider, { tag, consent = "Authorize" }: SignInOptions = {}) =>
@@ -143,7 +138,7 @@ Cypress.Commands.add(
 					cy.visit("/");
 					cy.contains("button", `Sign in with ${provider}`).click();
 					cy.origin(
-						MOCKATOO_URL,
+						"https://app.mockatoo.globalunderdog.com",
 						{ args: { address, password, consent } },
 						({ address, password, consent }) => {
 							cy.get("#email").type(address);
