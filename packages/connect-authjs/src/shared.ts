@@ -11,6 +11,6 @@ export function mockOrigin(origin: string): string {
 	return new URL(origin).origin;
 }
 
-export function mockBase(origin: string | undefined, provider: string): string {
-	return `${mockOrigin(origin ?? MOCKATOO_URL)}/${provider}`;
+export function mockBase(provider: string): string {
+	return `${mockOrigin(MOCKATOO_URL)}/${provider}`;
 }

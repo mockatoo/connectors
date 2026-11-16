@@ -4,11 +4,10 @@ import { MOCK_CLIENT, MOCK_ORIGIN, MOCKATOO_URL } from "./shared";
 export type MockatooPlugin = ReturnType<typeof genericOAuth<"mockatoo">>;
 
 export { MOCK_ORIGIN, MOCKATOO_URL };
-/** Override the origin only when running a local or self-hosted provider. */
 export function createMockatooPlugin(
-	options: { origin?: string; redirectURI?: string } = {},
+	options: { redirectURI?: string } = {},
 ): MockatooPlugin {
-	const origin = new URL(options.origin ?? MOCKATOO_URL).origin;
+	const origin = new URL(MOCKATOO_URL).origin;
 	return genericOAuth({
 		config: [
 			{

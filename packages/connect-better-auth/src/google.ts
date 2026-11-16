@@ -18,10 +18,9 @@ export type MockGoogleOptions = MockOptions<GoogleOptions>;
  * the ID token, so app code keeps using `signIn.social({ provider: "google" })`.
  */
 export function mockGoogle(options: MockGoogleOptions = {}) {
-	const { origin: configured, ...rest } = options;
-	const base = mockBase(configured, "google");
+	const base = mockBase("google");
 	const tokenEndpoint = `${base}/token`;
-	const config = withMockClient(rest);
+	const config = withMockClient(options);
 	const upstream = google(config);
 	const provider: typeof upstream = {
 		...upstream,

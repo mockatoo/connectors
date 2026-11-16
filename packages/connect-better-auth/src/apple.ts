@@ -21,11 +21,10 @@ export type MockAppleOptions = MockOptions<AppleOptions>;
  * the ID token and first-sign-in `user` field.
  */
 export function mockApple(options: MockAppleOptions = {}) {
-	const { origin: configured, ...rest } = options;
-	const origin = new URL(configured ?? MOCKATOO_URL).origin;
-	const base = mockBase(origin, "apple");
+	const origin = new URL(MOCKATOO_URL).origin;
+	const base = mockBase("apple");
 	const tokenEndpoint = `${base}/auth/token`;
-	const config = withMockClient(rest);
+	const config = withMockClient(options);
 	const upstream = apple(config);
 	const provider: typeof upstream = {
 		...upstream,

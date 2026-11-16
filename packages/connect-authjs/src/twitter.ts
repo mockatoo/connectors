@@ -2,10 +2,7 @@ import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
 import Twitter, { type TwitterProfile } from "next-auth/providers/twitter";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
-export type MockTwitterOptions = Partial<OAuthUserConfig<TwitterProfile>> & {
-	/** Override only for a local or self-hosted provider. */
-	origin?: string;
-};
+export type MockTwitterOptions = Partial<OAuthUserConfig<TwitterProfile>>;
 
 /** An endpoint's URL at the mock, keeping its query (the scope or `user.fields`). */
 function moved(
@@ -29,8 +26,8 @@ function moved(
 export function MockTwitter(
 	options: MockTwitterOptions = {},
 ): OAuthConfig<TwitterProfile> {
-	const { origin, authorization, userinfo, ...rest } = options;
-	const root = mockBase(origin, "x");
+	const { authorization, userinfo, ...rest } = options;
+	const root = mockBase("x");
 	// Auth.js puts the default scope in the authorization URL's query.
 	const defaults = Twitter({});
 	const authorize = moved(

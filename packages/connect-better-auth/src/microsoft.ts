@@ -15,11 +15,11 @@ export type MockMicrosoftOptions = MockOptions<MicrosoftOptions>;
  */
 export function mockMicrosoft(options: MockMicrosoftOptions = {}) {
 	// A production client assertion would sign for Microsoft; the mock uses its shared secret.
-	const { origin, clientAssertion: _, ...rest } = options;
+	const { clientAssertion: _, ...rest } = options;
 	const provider = microsoft(
 		withMockClient({
 			...rest,
-			authority: mockBase(origin, "login.microsoftonline.com"),
+			authority: mockBase("login.microsoftonline.com"),
 			// The photo is fetched from graph.microsoft.com, which cannot be redirected.
 			disableProfilePhoto: true,
 		}),

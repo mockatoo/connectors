@@ -50,4 +50,4 @@ import { MOCKATOO_URL } from "@mockatoo/connect-authjs";
 const loginOrigin = new URL(MOCKATOO_URL).origin;
 ```
 
-`MOCKATOO_URL` reads `process.env.MOCKATOO_URL` when the module is loaded and falls back to `https://app.mockatoo.globalunderdog.com` when it is unset or empty. The environment override is for Mockatoo's own development; set it before importing the connector. An explicit connector `origin` option takes precedence for that connector call and does not change the exported constant.
+`MOCKATOO_URL` reads `process.env.MOCKATOO_URL` when the module is loaded and falls back to `https://app.mockatoo.globalunderdog.com` when it is unset or empty. The environment override is for Mockatoo's own development; set it before importing the connector. `process.env.MOCKATOO_URL` is the only supported origin override; connectors have no `origin` option.

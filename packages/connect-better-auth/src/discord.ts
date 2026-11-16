@@ -22,10 +22,9 @@ export type MockDiscordOptions = MockOptions<DiscordOptions>;
  * URL, including its default prompt=none.
  */
 export function mockDiscord(options: MockDiscordOptions = {}) {
-	const { origin: configured, ...rest } = options;
-	const base = `${mockBase(configured, "discord")}/api`;
+	const base = `${mockBase("discord")}/api`;
 	const tokenEndpoint = `${base}/oauth2/token`;
-	const config = withMockClient(rest);
+	const config = withMockClient(options);
 	const upstream = discord(config);
 	const provider: typeof upstream = {
 		...upstream,
