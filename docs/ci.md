@@ -31,16 +31,6 @@ tests:
   env:
     MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
     MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
-- run: pnpm --dir better-auth-next exec playwright install --with-deps chromium
-- run: pnpm --dir better-auth-next test
-  env:
-    MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
-    MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
-- run: pnpm --dir better-auth-sveltekit exec playwright install --with-deps chromium
-- run: pnpm --dir better-auth-sveltekit test
-  env:
-    MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
-    MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
 
 These steps are copied from the [backing workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml).
