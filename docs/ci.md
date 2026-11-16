@@ -10,7 +10,8 @@ Backing Test: [`public/examples/.github/workflows/ci.yml`](https://github.com/mo
 
 Create `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` as repository or environment secrets in
 GitHub. Use the email and password from your Mockatoo dashboard. The examples'
-workflow passes those secrets to the Playwright tests:
+workflow passes those secrets to the Playwright tests and maps them to the
+Cypress variable names:
 
 ```yaml
 env:
@@ -43,8 +44,20 @@ tests:
 ```
 
 These steps are copied from the [backing workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml).
-The Cypress example runs in its own workflow, which maps the same secrets to
-the `CYPRESS_` names. See [Cypress: Run in CI](cypress.md#run-in-ci).
+
+The Cypress example installs the Cypress binary,
+then runs the test, which serves the app through a local HTTPS proxy so that
+Secure cookies survive the OAuth redirect:
+
+```yaml
+- run: pnpm --dir cypress exec cypress install
+- run: pnpm --dir cypress test
+  env:
+    CYPRESS_MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
+    CYPRESS_MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
+```
+
+These steps are copied from the [Cypress workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/cypress.yml).
 
 ## Parallel workers
 
