@@ -42,6 +42,6 @@ npx -y @mockatoo/mockatoo@latest login mka_…
 Options: `-e, --env-file <path>` picks the env file (default `.env.local`).
 `--framework better-auth|authjs` is needed when the app uses both or neither.
 
-Set `MOCKATOO_URL` to use a local Mockatoo.
+The CLI uses the hosted service automatically. For Mockatoo's own development, set `MOCKATOO_URL` before running the CLI and starting your app; both connector packages read the same environment override.
 
 Production code must not use Mockatoo. Keep the connector behind a non-production check.

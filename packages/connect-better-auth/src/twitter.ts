@@ -28,10 +28,9 @@ const placeholderEmail = (id: string) => `${id}@twitter.placeholder.invalid`;
  * with X's Basic client authentication.
  */
 export function mockTwitter(options: MockTwitterOptions = {}) {
-	const { origin: configured, ...rest } = options;
-	const base = mockBase(configured, "x");
+	const base = mockBase("x");
 	const tokenEndpoint = `${base}/2/oauth2/token`;
-	const config = withMockClient(rest);
+	const config = withMockClient(options);
 	const upstream = twitter(config);
 	const provider: typeof upstream = {
 		...upstream,

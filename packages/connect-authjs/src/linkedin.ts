@@ -2,10 +2,7 @@ import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
 import LinkedIn, { type LinkedInProfile } from "next-auth/providers/linkedin";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
-export type MockLinkedInOptions = Partial<OAuthUserConfig<LinkedInProfile>> & {
-	/** Override only for a local or self-hosted provider. */
-	origin?: string;
-};
+export type MockLinkedInOptions = Partial<OAuthUserConfig<LinkedInProfile>>;
 
 /**
  * Auth.js's own LinkedIn provider, pointed at the mock's LinkedIn issuer.
@@ -14,10 +11,9 @@ export type MockLinkedInOptions = Partial<OAuthUserConfig<LinkedInProfile>> & {
 export function MockLinkedIn(
 	options: MockLinkedInOptions = {},
 ): OAuthConfig<LinkedInProfile> {
-	const { origin, ...rest } = options;
 	return LinkedIn({
-		...rest,
+		...options,
 		...MOCK_CLIENT,
-		issuer: `${mockBase(origin, "linkedin")}/oauth`,
+		issuer: `${mockBase("linkedin")}/oauth`,
 	});
 }

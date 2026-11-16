@@ -2,10 +2,7 @@ import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
 import Discord, { type DiscordProfile } from "next-auth/providers/discord";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
-export type MockDiscordOptions = Partial<OAuthUserConfig<DiscordProfile>> & {
-	/** Override only for a local or self-hosted provider. */
-	origin?: string;
-};
+export type MockDiscordOptions = Partial<OAuthUserConfig<DiscordProfile>>;
 
 /**
  * Auth.js's own Discord provider with its three URLs pointed at the mock.
@@ -20,8 +17,8 @@ export type MockDiscordOptions = Partial<OAuthUserConfig<DiscordProfile>> & {
 export function MockDiscord(
 	options: MockDiscordOptions = {},
 ): OAuthConfig<DiscordProfile> {
-	const { origin, authorization, issuer, ...rest } = options;
-	const root = mockBase(origin, "discord");
+	const { authorization, issuer, ...rest } = options;
+	const root = mockBase("discord");
 	return Discord({
 		...rest,
 		...(issuer ? { issuer: root } : {}),

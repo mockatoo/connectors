@@ -22,11 +22,10 @@ export type MockFacebookOptions = MockOptions<FacebookOptions>;
  * including its Graph API version.
  */
 export function mockFacebook(options: MockFacebookOptions = {}) {
-	const { origin: configured, ...rest } = options;
-	const base = mockBase(configured, "facebook");
+	const base = mockBase("facebook");
 	const graph = `${base}/graph`;
 	const tokenEndpoint = `${graph}/v24.0/oauth/access_token`;
-	const config = withMockClient(rest);
+	const config = withMockClient(options);
 	const upstream = facebook(config);
 	const provider: typeof upstream = {
 		...upstream,
