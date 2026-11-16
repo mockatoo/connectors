@@ -4,14 +4,12 @@ description: "Run OAuth sign-in tests in GitHub Actions with Mockatoo: store the
 
 # Run in CI
 
-Backing Test: [`public/examples/.github/workflows/ci.yml`](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml)
-
 ## Add Test Credentials as GitHub secrets
 
 Create `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` as repository or environment secrets in
-GitHub. Use the email and password from your Mockatoo dashboard. The examples'
-workflow passes those secrets to the Playwright tests and maps them to the
-Cypress variable names:
+GitHub. Use the email and password from your Mockatoo dashboard. The Playwright
+workflow passes those secrets to the tests as they are, and the Cypress workflow
+maps them to the `CYPRESS_` names ([below](#workflow)):
 
 ```yaml
 env:
@@ -21,21 +19,17 @@ env:
 
 ## Workflow
 
-Build the examples, install the browser dependencies, and run the Playwright
-tests:
+The [Playwright workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/better-auth-next.yml) just installs the browser dependencies and runs the Playwright tests:
 
 ```yaml
-- run: pnpm build
-- run: pnpm --dir authjs-next exec playwright install --with-deps chromium
-- run: pnpm --dir authjs-next test
+- run: pnpm --dir better-auth-next exec playwright install --with-deps chromium
+- run: pnpm --dir better-auth-next test
   env:
     MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
     MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
 
-These steps are copied from the [backing workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/ci.yml).
-
-The Cypress example installs the Cypress binary,
+The [Cypress workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/cypress.yml) installs the Cypress binary,
 then runs the test, which serves the app through a local HTTPS proxy so that
 Secure cookies survive the OAuth redirect:
 
@@ -46,8 +40,6 @@ Secure cookies survive the OAuth redirect:
     CYPRESS_MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
     CYPRESS_MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
-
-These steps are copied from the [Cypress workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/cypress.yml).
 
 ## Parallel workers
 
