@@ -85,7 +85,21 @@ The mock ignores `clientId` and `clientSecret` and uses its shared client, so th
 
 ## Generic provider
 
-`mockatooPlugin` / `createMockatooPlugin()` adds one `genericOAuth` provider with id `mockatoo`, for apps that don't use a built-in provider. The client then calls `authClient.signIn.oauth2({ providerId: "mockatoo" })` with `genericOAuthClient()`.
+`mockatooPlugin` / `createMockatooPlugin()` adds one `genericOAuth` provider with id `mockatoo`, for apps that don't use a built-in provider. If your app already uses `genericOAuth` with other providers, add Mockatoo with the `mockatoo()` helper instead:
+
+```ts
+import { betterAuth } from "better-auth";
+import { genericOAuth } from "better-auth/plugins";
+import { mockatoo } from "@mockatoo/connect-better-auth";
+
+const auth = betterAuth({
+  plugins: [genericOAuth({ config: [mockatoo(), /* …existing providers */] })],
+});
+```
+
+The helper uses the callback URL `/api/auth/oauth2/callback/mockatoo`, with scopes `openid profile email`. Token endpoint authentication uses the shared public client `mockatoo` / `mockatoo-secret`; you do not need an app registration or a secret of your own.
+
+The client then calls `authClient.signIn.oauth2({ providerId: "mockatoo" })` with `genericOAuthClient()`.
 
 ```ts
 import { createAuthClient } from "better-auth/client";
