@@ -36,7 +36,7 @@ Better Auth's built-in providers hardcode their endpoints, so you can't point `s
 npm install -D @mockatoo/connect-better-auth
 ```
 
-Requires `better-auth` `^1.7.7`.
+Requires `better-auth` `^1.4.15`.
 
 ## Usage
 

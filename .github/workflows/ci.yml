@@ -78,3 +78,4 @@ jobs:
           pnpm --filter @mockatoo/connect-better-auth add -D "better-auth@$version"
       - run: pnpm --filter @mockatoo/connect-better-auth typecheck
       - run: pnpm --filter @mockatoo/connect-better-auth build
+      - run: pnpm vitest run --project connectors
