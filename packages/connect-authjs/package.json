@@ -1,6 +1,6 @@
 {
 	"name": "@mockatoo/connect-authjs",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Mockatoo OAuth connector for Auth.js.",
 	"private": false,
 	"license": "MIT",
@@ -12,6 +12,9 @@
 	"homepage": "https://mockatoo.globalunderdog.com/docs",
 	"bugs": "https://github.com/mockatoo/connectors/issues",
 	"type": "module",
+	"main": "./dist/index.mjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.mts",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.mts",

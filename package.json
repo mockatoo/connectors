@@ -12,7 +12,8 @@
 		"typecheck": "pnpm --filter @mockatoo/connect-better-auth --filter @mockatoo/connect-authjs --filter @mockatoo/mockatoo typecheck",
 		"build": "pnpm --filter @mockatoo/connect-better-auth --filter @mockatoo/connect-authjs --filter @mockatoo/mockatoo build",
 		"test": "vitest run",
-		"docs:check": "node scripts/docs-check.mjs"
+		"docs:check": "node scripts/docs-check.mjs",
+		"packed:check": "node scripts/packed-consumer-check.mjs"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.6.4",
