@@ -10,12 +10,29 @@ The mock implements the **OAuth 2.0 authorization code flow for user sign-in**:
 authorization, code exchange, `/users/@me` profile lookup, token refresh and
 revocation. PKCE is supported with S256.
 
-Discord's OIDC flow is not implemented: `openid` is accepted but produces no ID
-token, and OIDC userinfo is not served. Bot installation, webhooks, app installs,
-implicit and client credentials flows, and general Discord APIs are not modeled.
-Accepting their scopes does not perform those actions.
+Bot installation, webhooks, app installs, implicit and client credentials flows,
+and general Discord APIs are not modeled. Accepting their scopes does not perform
+those actions.
 
 For reference, see [Discord OAuth2 flows and scopes](https://discord.com/developers/docs/topics/oauth2).
+
+## OpenID Connect (OIDC)
+
+This provider supports OpenID Connect (OIDC), which adds signed ID tokens to OAuth
+2.0 so your app can verify the signed-in user's identity. Mockatoo publishes OIDC
+discovery and signing keys for this provider. See the
+[Hono + oauth4webapi example](https://github.com/mockatoo/examples/blob/main/oauth4webapi-hono/src/app.tsx)
+for a minimal authorization code flow with discovery and ID-token validation,
+including this provider's differences, without an auth abstraction.
+
+Request `openid identify email` for OIDC sign-in. Code exchange returns a signed
+RS256 ID token with an array audience, a one-hour lifetime, `auth_time`, `at_hash`
+and the requested `nonce`; refresh responses contain no ID token. The ID token
+contains no email or name: userinfo supplies email and verification with `email`,
+and username, nickname, picture and locale with `identify`.
+
+Discovery is served at `/discord/.well-known/openid-configuration`, with keys at
+`/discord/api/oauth2/keys` and OIDC userinfo at `/discord/api/oauth2/userinfo`.
 
 ## Using the connector
 
