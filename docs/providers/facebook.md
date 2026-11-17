@@ -1,5 +1,6 @@
 ---
 description: "Test Facebook Login in CI: Mockatoo mocks the web authorization code flow, the /me profile, debug_token and permission revocation."
+title: "Mock Facebook sign-in for tests and CI · Mockatoo"
 ---
 
 # Facebook

@@ -1,5 +1,6 @@
 ---
 description: "Test GitHub sign-in in CI without bot checks: Mockatoo mocks the OAuth App flow with PKCE, the /user profile and /user/emails."
+title: "Mock GitHub OAuth sign-in for tests · Mockatoo"
 ---
 
 # GitHub

@@ -1,5 +1,6 @@
 ---
 description: "Test Discord sign-in in CI: Mockatoo mocks Discord's OAuth 2.0 authorization code flow with PKCE, the /users/@me profile, refresh and revocation."
+title: "Mock Discord OAuth for tests and CI · Mockatoo"
 ---
 
 # Discord

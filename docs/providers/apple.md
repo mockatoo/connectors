@@ -1,5 +1,6 @@
 ---
 description: "Test Sign in with Apple without a real Apple key: Mockatoo mocks the web authorization code flow, ID tokens, refresh and revocation."
+title: "Mock Apple sign-in for tests and CI · Mockatoo"
 ---
 
 # Apple

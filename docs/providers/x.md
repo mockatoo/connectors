@@ -1,5 +1,6 @@
 ---
 description: "Test X (Twitter) sign-in in CI: Mockatoo mocks X's OAuth 2.0 authorization code flow with PKCE, /2/users/me, refresh and revocation."
+title: "Mock X OAuth sign-in for tests and CI · Mockatoo"
 ---
 
 # X
