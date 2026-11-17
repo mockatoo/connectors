@@ -11,7 +11,7 @@ import { MOCK_CLIENT, mockBase } from "./shared";
  */
 export function mockatoo(
 	options: { redirectURI?: string } = {},
-): GenericOAuthConfig<"mockatoo"> {
+): GenericOAuthConfig {
 	return {
 		providerId: "mockatoo",
 		discoveryUrl: `${mockBase("google")}/.well-known/openid-configuration`,

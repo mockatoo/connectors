@@ -8,7 +8,7 @@ description: "Test Google sign-in in CI without bot checks: Mockatoo mocks Googl
 
 The mock implements the **OAuth 2.0 authorization code flow with OpenID Connect**:
 authorization and consent, code exchange, signed ID tokens, discovery, JWKS and
-userinfo. It supports PKCE, offline access, token refresh and revocation.
+userinfo. It supports PKCE, offline access and token refresh.
 
 Google APIs such as Calendar and Drive are not served. Accepting their scopes
 lets you test sign-in configuration; it does not make those APIs available or
@@ -50,10 +50,6 @@ providers: [process.env.NODE_ENV === "production" ? Google() : MockGoogle()],
   refresh token unless you request `prompt=consent`.
 - Published Google scopes are accepted, including API scopes. With
   `include_granted_scopes=true`, granted scopes accumulate for the user.
-- `POST /google/revoke` accepts an access or refresh token as `token`, in the
-  form body or query string, without client credentials. It invalidates the
-  user's tokens and unused codes for that app and clears remembered scope
-  grants. Discovery advertises this URL as `revocation_endpoint`.
 - `prompt=none` returns `interaction_required` because there is no remembered
   login session. Bad clients and invalid scopes stop at an error page; denial
   returns `access_denied` to your callback.
