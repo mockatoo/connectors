@@ -12,7 +12,7 @@ type Provider = {
 	id: string;
 	getUserInfo(token: never): Promise<{ user: { id?: string } }>;
 };
-type Plugin = { init(context: unknown): unknown };
+type Plugin = ReturnType<typeof mockGitHub>;
 
 type ProfileIds = {
 	data?: { id?: string };
@@ -23,7 +23,9 @@ type ProfileIds = {
 const token = (idToken: string) =>
 	({ accessToken: "access-token", idToken }) as never;
 const providerOf = (plugin: Plugin) => {
-	const result = plugin.init({ socialProviders: [] }) as {
+	const result = plugin.init!({
+		socialProviders: [],
+	} as unknown as Parameters<NonNullable<Plugin["init"]>>[0]) as {
 		context: { socialProviders: Provider[] };
 	};
 	return result.context.socialProviders[0];
