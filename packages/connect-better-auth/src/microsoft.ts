@@ -36,21 +36,42 @@ export function mockMicrosoft(options: MockMicrosoftOptions = {}) {
 			if (config.getUserInfo) return config.getUserInfo(token);
 			if (!token.idToken) return null;
 			const user = decodeJwtClaims(token.idToken) as {
-				sub?: string; name?: string; email?: string; picture?: string;
-				email_verified?: boolean; verified_primary_email?: string[];
+				sub?: string;
+				name?: string;
+				email?: string;
+				picture?: string;
+				email_verified?: boolean;
+				verified_primary_email?: string[];
 				verified_secondary_email?: string[];
 			};
 			const userMap = await config.mapProfileToUser?.(
 				user as Parameters<NonNullable<typeof config.mapProfileToUser>>[0],
 			);
-			const emailVerified = user.email_verified !== undefined
-				? user.email_verified
-				: Boolean(user.email && (user.verified_primary_email?.includes(user.email) || user.verified_secondary_email?.includes(user.email)));
+			const emailVerified =
+				user.email_verified !== undefined
+					? user.email_verified
+					: Boolean(
+							user.email &&
+								(user.verified_primary_email?.includes(user.email) ||
+									user.verified_secondary_email?.includes(user.email)),
+						);
 			return {
-				user: { id: user.sub, name: user.name, email: user.email, image: user.picture, emailVerified, ...userMap },
+				user: {
+					id: user.sub,
+					name: user.name,
+					email: user.email,
+					image: user.picture,
+					emailVerified,
+					...userMap,
+				},
 				data: user,
 			};
 		},
 	};
-	return mockSocialPlugin(provider, "microsoft", "mockatoo-microsoft", rest.disableImplicitSignUp);
+	return mockSocialPlugin(
+		provider,
+		"microsoft",
+		"mockatoo-microsoft",
+		rest.disableImplicitSignUp,
+	);
 }

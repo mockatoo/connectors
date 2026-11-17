@@ -1,9 +1,5 @@
 import { validateAuthorizationCode } from "better-auth/oauth2";
-import {
-	type FacebookGraphProfile,
-	type FacebookOptions,
-	facebook,
-} from "better-auth/social-providers";
+import { type FacebookOptions, facebook } from "better-auth/social-providers";
 import {
 	type CodeRequest,
 	type MockOptions,
@@ -55,7 +51,7 @@ export function mockFacebook(options: MockFacebookOptions = {}) {
 		// Facebook issues no refresh tokens, but the call stays at the mock.
 		refreshAccessToken:
 			config.refreshAccessToken ??
-			((refreshToken) =>
+			((refreshToken: string) =>
 				refreshMockAccessToken(refreshToken, config, tokenEndpoint, true)),
 		// Copied from upstream's getUserInfo and verifyFacebookAccessToken,
 		// with the mock's Graph URLs. The mock never issues ID tokens, so
@@ -92,7 +88,7 @@ export function mockFacebook(options: MockFacebookOptions = {}) {
 			const userMap = await config.mapProfileToUser?.(profile as never);
 			return {
 				user: {
-					...(("accountSubject" in upstream) ? {} : { id: profile.id }),
+					...("accountSubject" in upstream ? {} : { id: profile.id }),
 					name: profile.name,
 					email: profile.email,
 					image: profile.picture?.data.url,

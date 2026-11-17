@@ -44,10 +44,10 @@ export function mockApple(options: MockAppleOptions = {}) {
 			}),
 		refreshAccessToken:
 			config.refreshAccessToken ??
-			((refreshToken) =>
+			((refreshToken: string) =>
 				refreshAccessToken({ refreshToken, options: config, tokenEndpoint })),
 		idToken: {
-			...upstream.idToken,
+			...(upstream as unknown as { idToken?: Record<string, unknown> }).idToken,
 			issuer: base,
 			// The mock signs for its shared client, not a production bundle identifier.
 			audience: config.clientId,

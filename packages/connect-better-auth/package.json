@@ -1,6 +1,6 @@
 {
 	"name": "@mockatoo/connect-better-auth",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "Mockatoo OAuth connector for Better Auth.",
 	"private": false,
 	"license": "MIT",
@@ -30,7 +30,6 @@
 	"peerDependencies": {
 		"better-auth": "^1.4.15"
 	},
-	"dependencies": {},
 	"devDependencies": {
 		"better-auth": "1.7.25",
 		"tsdown": "0.23.0"
