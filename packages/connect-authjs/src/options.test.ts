@@ -2,7 +2,6 @@ import { Auth, skipCSRFCheck } from "@auth/core";
 import { afterEach, expect, it, vi } from "vitest";
 import {
 	MockApple,
-	MockatooProvider,
 	MockDiscord,
 	MockFacebook,
 	MockGitHub,
@@ -32,9 +31,6 @@ it("points every provider at the configured environment URL", () => {
 	expect(options(MockMicrosoftEntraID()).issuer).toBe(
 		`${MOCKATOO_URL}/login.microsoftonline.com/common/v2.0`,
 	);
-	expect(MockatooProvider().authorization).toMatchObject({
-		url: `${MOCKATOO_URL}/oauth/authorize`,
-	});
 });
 
 it("points Auth.js's Discord provider's three URLs at the mock, keeping its scope", () => {
@@ -209,16 +205,4 @@ it("keeps a custom Microsoft profile mapping", () => {
 	const profile = vi.fn();
 	const provider = MockMicrosoftEntraID({ profile });
 	expect((provider.options as { profile?: unknown }).profile).toBe(profile);
-});
-
-it("maps the generic profile with and without a picture", () => {
-	const provider = MockatooProvider();
-	const base = { sub: "1", name: "A", email: "a@x.test", email_verified: true };
-	expect(provider.profile?.({ ...base, picture: "p" }, {} as never)).toEqual({
-		id: "1",
-		name: "A",
-		email: "a@x.test",
-		image: "p",
-	});
-	expect(provider.profile?.(base, {} as never)).toMatchObject({ image: null });
 });

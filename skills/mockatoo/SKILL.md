@@ -97,17 +97,15 @@ origin override; connectors do not accept an `origin` option.
 
 ## Package map
 
-| Consumer | Import from | Generic connector |
+| Consumer | Import from | Provider connectors |
 | --- | --- | --- |
-| Better Auth | `@mockatoo/connect-better-auth` | `createMockatooPlugin()` / `mockatooPlugin` |
-| Auth.js | `@mockatoo/connect-authjs` | `MockatooProvider()` |
+| Better Auth | `@mockatoo/connect-better-auth` | `mockGoogle()`, `mockApple()`, … |
+| Auth.js | `@mockatoo/connect-authjs` | `MockGoogle()`, `MockApple()`, … |
 
-The CLI installs the package matching the consumer framework. Both generic connectors
-use the single Mockatoo provider and fixed client credentials, and derive or accept the
-consumer callback URL. Provider-specific helpers are also exported when a test needs a
-Google, Microsoft, GitHub, Apple, Discord, LinkedIn, X/Twitter, or Facebook-shaped
-provider; see the corresponding provider page in the canonical docs before choosing
-one.
+The CLI installs the package matching the consumer framework. Choose the helper for
+the app’s identity provider: Google, Microsoft, GitHub, Apple, Discord, LinkedIn,
+X/Twitter, or Facebook. For a new app, use Google unless another provider is needed.
+Read the corresponding provider page in the canonical docs before configuring it.
 
 ## Configure the consumer
 
@@ -126,20 +124,15 @@ one.
 
 ### Better Auth branch
 
-Use `createMockatooPlugin()` when options are needed, or `mockatooPlugin` for the
-shared defaults. Register the returned Better Auth plugin in the Better Auth config,
-then start OAuth with `authClient.signIn.oauth2({ providerId: "mockatoo" })` and
-`genericOAuthClient()` from `better-auth/client/plugins` in the client config.
-The generic connector uses the `mockatoo` provider ID, scopes `openid profile email`,
-and PKCE. When replacing an existing social provider, use its provider-specific
-helper so the app's sign-in action and callback stay the same.
+Register the matching plugin, such as `mockGoogle(googleOptions)`, in the Better Auth
+config outside production. Start sign-in with the existing social provider action,
+for example `authClient.signIn.social({ provider: "google" })`.
 
 ### Auth.js branch
 
-Use `MockatooProvider()` in the Auth.js provider list. Let Auth.js derive the callback
-URL from the app configuration and start OAuth through the app's Auth.js sign-in
-action. The connector uses the `mockatoo` provider ID, scopes `openid profile email`,
-and checks `pkce` and `state`.
+Register the matching helper, such as `MockGoogle(googleOptions)`, in the Auth.js
+provider list outside production. Keep the provider ID, callback, and sign-in action
+used by the real integration.
 
 ## Browser flow
 

@@ -14,6 +14,5 @@ for (const override of [undefined, "", "http://localhost:3210"]) {
 		const expected = override || "https://app.mockatoo.globalunderdog.com";
 		expect(authjs.MOCKATOO_URL).toBe(expected);
 		expect(betterAuth.MOCKATOO_URL).toBe(expected);
-		expect(authjs.MockatooProvider().token).toBe(`${expected}/oauth/token`);
 	});
 }

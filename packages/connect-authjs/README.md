@@ -24,7 +24,7 @@
 
 # @mockatoo/connect-authjs
 
-Use `MockatooProvider()` for a generic OAuth provider, or a provider helper such as `MockGoogle()` to preserve an existing Google sign-in integration:
+Use a provider helper such as `MockGoogle()` to preserve your Google sign-in integration:
 
 ```ts
 import NextAuth from "next-auth";

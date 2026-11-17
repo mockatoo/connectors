@@ -83,34 +83,18 @@ The mock ignores `clientId` and `clientSecret` and uses its shared client, so th
 | twitter (X) | `mockTwitter` | |
 | facebook | `mockFacebook` | |
 
-## Generic provider
+## Generic OAuth helper
 
-`mockatooPlugin` / `createMockatooPlugin()` adds one `genericOAuth` provider with id `mockatoo`, for apps that don't use a built-in provider. If your app already uses `genericOAuth` with other providers, add Mockatoo with the `mockatoo()` helper instead:
+If your app lists providers through Better Auth's `genericOAuth` plugin, add Mockatoo with `mockatoo()`. It signs in through the Google mock and needs no app registration or secret of your own:
 
 ```ts
-import { betterAuth } from "better-auth";
 import { genericOAuth } from "better-auth/plugins";
 import { mockatoo } from "@mockatoo/connect-better-auth";
 
-const auth = betterAuth({
-  plugins: [genericOAuth({ config: [mockatoo(), /* …existing providers */] })],
-});
+genericOAuth({ config: [mockatoo(), /* …existing providers */] });
 ```
 
-The helper uses the callback URL `/api/auth/oauth2/callback/mockatoo`, with scopes `openid profile email`. Token endpoint authentication uses the shared public client `mockatoo` / `mockatoo-secret`; you do not need an app registration or a secret of your own.
-
-The client then calls `authClient.signIn.oauth2({ providerId: "mockatoo" })` with `genericOAuthClient()`.
-
-```ts
-import { createAuthClient } from "better-auth/client";
-import { genericOAuthClient } from "better-auth/client/plugins";
-
-const authClient = createAuthClient({
-  plugins: [genericOAuthClient()],
-});
-
-await authClient.signIn.oauth2({ providerId: "mockatoo" });
-```
+The callback URL is `/api/auth/oauth2/callback/mockatoo`. On the client, call `authClient.signIn.oauth2({ providerId: "mockatoo" })` with `genericOAuthClient()`.
 
 ## Mockatoo URL
 
