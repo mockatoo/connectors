@@ -73,7 +73,7 @@ jobs:
         env:
           BETTER_AUTH: ${{ matrix.better-auth }}
         run: |
-          version="$(npm view "better-auth@$BETTER_AUTH" version | tail -n 1)"
+          version="$(npm view "better-auth@$BETTER_AUTH" version --json | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{const v=JSON.parse(s);console.log(Array.isArray(v)?v.at(-1):v)})')"
           echo "better-auth $version"
           pnpm --filter @mockatoo/connect-better-auth add -D "better-auth@$version"
       - run: pnpm --filter @mockatoo/connect-better-auth typecheck
