@@ -6,9 +6,11 @@ import {
 } from "better-auth/social-providers";
 import {
 	authorizationURL,
+	type CodeRequest,
 	type MockOptions,
 	mockBase,
 	mockSocialPlugin,
+	type OAuth2Tokens,
 	refreshMockAccessToken,
 	withMockClient,
 } from "./shared";
@@ -26,7 +28,7 @@ export function mockLinkedIn(options: MockLinkedInOptions = {}) {
 	const tokenEndpoint = `${base}/oauth/v2/accessToken`;
 	const config = withMockClient(options);
 	const upstream = linkedin(config);
-	const provider: typeof upstream = {
+	const provider: Record<string, unknown> = {
 		...upstream,
 		createAuthorizationURL: authorizationURL(
 			upstream,
@@ -34,7 +36,7 @@ export function mockLinkedIn(options: MockLinkedInOptions = {}) {
 			"/oauth/v2/authorization",
 		),
 		// Like upstream, without PKCE: Better Auth's LinkedIn provider doesn't send a challenge.
-		validateAuthorizationCode: ({ code, redirectURI }) =>
+		validateAuthorizationCode: ({ code, redirectURI }: CodeRequest) =>
 			validateAuthorizationCode({
 				code,
 				redirectURI,
@@ -43,10 +45,10 @@ export function mockLinkedIn(options: MockLinkedInOptions = {}) {
 			}),
 		refreshAccessToken:
 			config.refreshAccessToken ??
-			((refreshToken) =>
+			((refreshToken: string) =>
 				refreshMockAccessToken(refreshToken, config, tokenEndpoint, true)),
 		// Copied from upstream's getUserInfo, with the mock's userinfo URL.
-		async getUserInfo(token) {
+		async getUserInfo(token: OAuth2Tokens) {
 			if (config.getUserInfo) return config.getUserInfo(token);
 			const response = await fetch(`${base}/v2/userinfo`, {
 				headers: { authorization: `Bearer ${token.accessToken}` },
@@ -56,6 +58,9 @@ export function mockLinkedIn(options: MockLinkedInOptions = {}) {
 			const userMap = await config.mapProfileToUser?.(profile);
 			return {
 				user: {
+					// 1.4.x takes the account id from user.id; 1.7.x derives it from
+					// accountSubject and overwrites this.
+					...("accountSubject" in upstream ? {} : { id: profile.sub }),
 					name: profile.name,
 					email: profile.email,
 					emailVerified: profile.email_verified ?? false,

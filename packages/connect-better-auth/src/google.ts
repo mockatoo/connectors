@@ -2,6 +2,7 @@ import { validateAuthorizationCode } from "better-auth/oauth2";
 import { type GoogleOptions, google } from "better-auth/social-providers";
 import {
 	authorizationURL,
+	type CodeRequest,
 	type MockOptions,
 	mockBase,
 	mockJwks,
@@ -22,14 +23,18 @@ export function mockGoogle(options: MockGoogleOptions = {}) {
 	const tokenEndpoint = `${base}/token`;
 	const config = withMockClient(options);
 	const upstream = google(config);
-	const provider: typeof upstream = {
+	const provider: Record<string, unknown> = {
 		...upstream,
 		createAuthorizationURL: authorizationURL(
 			upstream,
 			base,
 			"/o/oauth2/v2/auth",
 		),
-		validateAuthorizationCode: ({ code, codeVerifier, redirectURI }) =>
+		validateAuthorizationCode: ({
+			code,
+			codeVerifier,
+			redirectURI,
+		}: CodeRequest) =>
 			validateAuthorizationCode({
 				code,
 				codeVerifier,
@@ -39,10 +44,10 @@ export function mockGoogle(options: MockGoogleOptions = {}) {
 			}),
 		refreshAccessToken:
 			config.refreshAccessToken ??
-			((refreshToken) =>
+			((refreshToken: string) =>
 				refreshMockAccessToken(refreshToken, config, tokenEndpoint)),
 		idToken: {
-			...upstream.idToken,
+			...(upstream as unknown as { idToken: Record<string, unknown> }).idToken,
 			issuer: [base],
 			jwks: mockJwks(`${base}/oauth2/v3/certs`),
 		},

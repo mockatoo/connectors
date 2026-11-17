@@ -1,5 +1,13 @@
 import type { BetterAuthPlugin } from "better-auth";
+import type { OAuth2Tokens } from "better-auth/oauth2";
 import { refreshAccessToken } from "better-auth/oauth2";
+
+export type CodeRequest = {
+	code: string;
+	codeVerifier?: string;
+	redirectURI: string;
+};
+export type { OAuth2Tokens };
 
 export type MockOptions<T extends { clientId?: unknown }> = Omit<
 	T,
@@ -62,7 +70,7 @@ export const mockJwks =
 	};
 
 export function authorizationURL<T>(
-	upstream: { createAuthorizationURL(data: T): Promise<URL> },
+	upstream: { createAuthorizationURL(data: T): URL | Promise<URL> },
 	base: string,
 	path: string,
 ) {
@@ -70,6 +78,19 @@ export function authorizationURL<T>(
 		const url = await upstream.createAuthorizationURL(data);
 		return new URL(`${base}${path}${url.search}`);
 	};
+}
+
+/**
+ * Decodes a JWT's payload claims without verifying the signature, the way
+ * Better Auth's own providers read ID tokens.
+ */
+export function decodeJwtClaims(jwt: string): Record<string, unknown> {
+	const payload = jwt.split(".")[1] ?? "";
+	const bytes = Uint8Array.from(
+		atob(payload.replaceAll("-", "+").replaceAll("_", "/")),
+		(char) => char.charCodeAt(0),
+	);
+	return JSON.parse(new TextDecoder().decode(bytes)) as Record<string, unknown>;
 }
 
 export function mockSocialPlugin<P extends object>(

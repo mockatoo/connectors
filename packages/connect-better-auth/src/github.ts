@@ -1,4 +1,4 @@
-import { authorizationCodeRequest, getOAuth2Tokens } from "better-auth/oauth2";
+import { validateAuthorizationCode } from "better-auth/oauth2";
 import {
 	type GithubOptions,
 	type GithubProfile,
@@ -6,9 +6,11 @@ import {
 } from "better-auth/social-providers";
 import {
 	authorizationURL,
+	type CodeRequest,
 	type MockOptions,
 	mockBase,
 	mockSocialPlugin,
+	type OAuth2Tokens,
 	refreshMockAccessToken,
 	withMockClient,
 } from "./shared";
@@ -26,36 +28,38 @@ export function mockGitHub(options: MockGitHubOptions = {}) {
 	const api = `${base}/api/v3`;
 	const config = withMockClient(options);
 	const upstream = github(config);
-	const provider: typeof upstream = {
+	const provider: Record<string, unknown> = {
 		...upstream,
 		createAuthorizationURL: authorizationURL(
 			upstream,
 			base,
 			"/login/oauth/authorize",
 		),
-		async validateAuthorizationCode({ code, codeVerifier, redirectURI }) {
-			const { body, headers } = await authorizationCodeRequest({
-				code,
-				codeVerifier,
-				redirectURI,
-				options: config,
-			});
-			const response = await fetch(tokenEndpoint, {
-				method: "POST",
-				body,
-				headers,
-			});
-			if (!response.ok) return null;
-			const data = await response.json();
-			// GitHub reports most token errors with HTTP 200 and an error field.
-			if ("error" in data) return null;
-			return getOAuth2Tokens(data);
+		// GitHub reports most token errors with HTTP 200 and an error field.
+		validateAuthorizationCode: async ({
+			code,
+			codeVerifier,
+			redirectURI,
+		}: CodeRequest) => {
+			try {
+				const tokens = await validateAuthorizationCode({
+					code,
+					codeVerifier,
+					redirectURI,
+					options: config,
+					tokenEndpoint,
+				});
+				if (tokens.raw?.error) return null;
+				return tokens;
+			} catch {
+				return null;
+			}
 		},
 		refreshAccessToken:
 			config.refreshAccessToken ??
-			((refreshToken) =>
+			((refreshToken: string) =>
 				refreshMockAccessToken(refreshToken, config, tokenEndpoint, true)),
-		async getUserInfo(token) {
+		async getUserInfo(token: OAuth2Tokens) {
 			if (config.getUserInfo) return config.getUserInfo(token);
 			const headers = {
 				"User-Agent": "better-auth",
@@ -79,6 +83,9 @@ export function mockGitHub(options: MockGitHubOptions = {}) {
 			const userMap = await config.mapProfileToUser?.(profile);
 			return {
 				user: {
+					// 1.4.x takes the account id from user.id; 1.7.x derives it from
+					// accountSubject and overwrites this.
+					...("accountSubject" in upstream ? {} : { id: profile.id }),
 					name: profile.name || profile.login || "",
 					email: profile.email,
 					image: profile.avatar_url,

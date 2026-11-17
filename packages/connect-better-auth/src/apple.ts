@@ -5,6 +5,7 @@ import {
 import { type AppleOptions, apple } from "better-auth/social-providers";
 import {
 	authorizationURL,
+	type CodeRequest,
 	MOCKATOO_URL,
 	type MockOptions,
 	mockBase,
@@ -26,10 +27,14 @@ export function mockApple(options: MockAppleOptions = {}) {
 	const tokenEndpoint = `${base}/auth/token`;
 	const config = withMockClient(options);
 	const upstream = apple(config);
-	const provider: typeof upstream = {
+	const provider: Record<string, unknown> = {
 		...upstream,
 		createAuthorizationURL: authorizationURL(upstream, base, "/auth/authorize"),
-		validateAuthorizationCode: ({ code, codeVerifier, redirectURI }) =>
+		validateAuthorizationCode: ({
+			code,
+			codeVerifier,
+			redirectURI,
+		}: CodeRequest) =>
 			validateAuthorizationCode({
 				code,
 				codeVerifier,

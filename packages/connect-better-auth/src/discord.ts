@@ -6,9 +6,11 @@ import {
 } from "better-auth/social-providers";
 import {
 	authorizationURL,
+	type CodeRequest,
 	type MockOptions,
 	mockBase,
 	mockSocialPlugin,
+	type OAuth2Tokens,
 	refreshMockAccessToken,
 	withMockClient,
 } from "./shared";
@@ -26,7 +28,7 @@ export function mockDiscord(options: MockDiscordOptions = {}) {
 	const tokenEndpoint = `${base}/oauth2/token`;
 	const config = withMockClient(options);
 	const upstream = discord(config);
-	const provider: typeof upstream = {
+	const provider: Record<string, unknown> = {
 		...upstream,
 		createAuthorizationURL: authorizationURL(
 			upstream,
@@ -34,7 +36,7 @@ export function mockDiscord(options: MockDiscordOptions = {}) {
 			"/oauth2/authorize",
 		),
 		// Like upstream, without PKCE: Better Auth's Discord provider doesn't send a challenge.
-		validateAuthorizationCode: ({ code, redirectURI }) =>
+		validateAuthorizationCode: ({ code, redirectURI }: CodeRequest) =>
 			validateAuthorizationCode({
 				code,
 				redirectURI,
@@ -43,9 +45,9 @@ export function mockDiscord(options: MockDiscordOptions = {}) {
 			}),
 		refreshAccessToken:
 			config.refreshAccessToken ??
-			((refreshToken) =>
+			((refreshToken: string) =>
 				refreshMockAccessToken(refreshToken, config, tokenEndpoint, true)),
-		async getUserInfo(token) {
+		async getUserInfo(token: OAuth2Tokens) {
 			if (config.getUserInfo) return config.getUserInfo(token);
 			const response = await fetch(`${base}/users/@me`, {
 				headers: { authorization: `Bearer ${token.accessToken}` },
@@ -65,6 +67,9 @@ export function mockDiscord(options: MockDiscordOptions = {}) {
 			const userMap = await config.mapProfileToUser?.(profile);
 			return {
 				user: {
+					// 1.4.x takes the account id from user.id; 1.7.x derives it from
+					// accountSubject and overwrites this.
+					...("accountSubject" in upstream ? {} : { id: profile.id }),
 					name: profile.global_name || profile.username || "",
 					email: profile.email,
 					emailVerified: profile.verified,

@@ -51,14 +51,14 @@ jobs:
           pnpm --filter @mockatoo/connect-authjs add -D "next-auth@$version" "@auth/core@$core"
       - run: pnpm --filter @mockatoo/connect-authjs typecheck
       - run: pnpm vitest run packages/connect-authjs
-  # The Better Auth connector supports better-auth ^1.7.7 (its peer range).
+  # The Better Auth connector supports better-auth ^1.4.15 (its peer range).
   # Check the lowest supported version and the newest one on npm.
   better-auth:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        better-auth: [1.7.7, latest]
+        better-auth: [1.4.15, 1.7.7, latest]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

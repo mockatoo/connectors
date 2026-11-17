@@ -9,9 +9,11 @@ import {
 } from "better-auth/social-providers";
 import {
 	authorizationURL,
+	type CodeRequest,
 	type MockOptions,
 	mockBase,
 	mockSocialPlugin,
+	type OAuth2Tokens,
 	withMockClient,
 } from "./shared";
 
@@ -32,14 +34,18 @@ export function mockTwitter(options: MockTwitterOptions = {}) {
 	const tokenEndpoint = `${base}/2/oauth2/token`;
 	const config = withMockClient(options);
 	const upstream = twitter(config);
-	const provider: typeof upstream = {
+	const provider: Record<string, unknown> = {
 		...upstream,
 		createAuthorizationURL: authorizationURL(
 			upstream,
 			base,
 			"/i/oauth2/authorize",
 		),
-		validateAuthorizationCode: ({ code, codeVerifier, redirectURI }) =>
+		validateAuthorizationCode: ({
+			code,
+			codeVerifier,
+			redirectURI,
+		}: CodeRequest) =>
 			validateAuthorizationCode({
 				code,
 				codeVerifier,
@@ -50,7 +56,7 @@ export function mockTwitter(options: MockTwitterOptions = {}) {
 			}),
 		refreshAccessToken:
 			config.refreshAccessToken ??
-			((refreshToken) =>
+			((refreshToken: string) =>
 				refreshAccessToken({
 					refreshToken,
 					options: {
@@ -61,7 +67,7 @@ export function mockTwitter(options: MockTwitterOptions = {}) {
 					authentication: "basic",
 					tokenEndpoint,
 				})),
-		async getUserInfo(token) {
+		async getUserInfo(token: OAuth2Tokens) {
 			if (config.getUserInfo) return config.getUserInfo(token);
 			const headers = { authorization: `Bearer ${token.accessToken}` };
 			const profileResponse = await fetch(
@@ -87,6 +93,9 @@ export function mockTwitter(options: MockTwitterOptions = {}) {
 			const userMap = await config.mapProfileToUser?.(profile);
 			return {
 				user: {
+					// 1.4.x takes the account id from user.id; 1.7.x derives it from
+					// accountSubject and overwrites this.
+					...("accountSubject" in upstream ? {} : { id: profile.data.id }),
 					name: profile.data.name,
 					email: profile.data.email || placeholderEmail(profile.data.id),
 					image: profile.data.profile_image_url,
