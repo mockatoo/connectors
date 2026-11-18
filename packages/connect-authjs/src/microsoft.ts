@@ -1,7 +1,7 @@
-import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
 import MicrosoftEntraID, {
 	type MicrosoftEntraIDProfile,
-} from "next-auth/providers/microsoft-entra-id";
+} from "@auth/core/providers/microsoft-entra-id";
+import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers/oauth";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
 export type MockMicrosoftEntraIDOptions = Partial<

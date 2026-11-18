@@ -1,5 +1,5 @@
-import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
-import Discord, { type DiscordProfile } from "next-auth/providers/discord";
+import Discord, { type DiscordProfile } from "@auth/core/providers/discord";
+import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers/oauth";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
 export type MockDiscordOptions = Partial<OAuthUserConfig<DiscordProfile>>;

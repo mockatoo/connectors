@@ -1,5 +1,5 @@
-import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
-import Google, { type GoogleProfile } from "next-auth/providers/google";
+import Google, { type GoogleProfile } from "@auth/core/providers/google";
+import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers/oauth";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
 export type MockGoogleOptions = Partial<OAuthUserConfig<GoogleProfile>>;

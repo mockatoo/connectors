@@ -1,5 +1,5 @@
-import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
-import GitHub, { type GitHubProfile } from "next-auth/providers/github";
+import GitHub, { type GitHubProfile } from "@auth/core/providers/github";
+import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers/oauth";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
 export type MockGitHubOptions = Partial<OAuthUserConfig<GitHubProfile>>;

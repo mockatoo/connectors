@@ -1,5 +1,5 @@
-import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
-import Twitter, { type TwitterProfile } from "next-auth/providers/twitter";
+import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers/oauth";
+import Twitter, { type TwitterProfile } from "@auth/core/providers/twitter";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
 export type MockTwitterOptions = Partial<OAuthUserConfig<TwitterProfile>>;

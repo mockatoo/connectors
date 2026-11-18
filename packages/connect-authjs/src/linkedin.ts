@@ -1,5 +1,5 @@
-import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
-import LinkedIn, { type LinkedInProfile } from "next-auth/providers/linkedin";
+import LinkedIn, { type LinkedInProfile } from "@auth/core/providers/linkedin";
+import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers/oauth";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
 export type MockLinkedInOptions = Partial<OAuthUserConfig<LinkedInProfile>>;

@@ -1,5 +1,5 @@
-import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
-import Facebook, { type FacebookProfile } from "next-auth/providers/facebook";
+import Facebook, { type FacebookProfile } from "@auth/core/providers/facebook";
+import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers/oauth";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
 export type MockFacebookOptions = Partial<OAuthUserConfig<FacebookProfile>>;

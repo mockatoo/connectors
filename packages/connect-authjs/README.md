@@ -40,6 +40,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 Keep your normal Auth.js application settings, including its secret and callback URL configuration. The mock supplies its shared client credentials automatically. See the [runnable Next.js example](https://github.com/mockatoo/examples/tree/main/authjs-next).
 
+This connector supports next-auth v5, `@auth/sveltekit`, other `@auth/*`
+adapters, and bare `@auth/core` through the same import. The `@auth/core` peer
+is optional: next-auth v5 users already get `@auth/core` through next-auth,
+and `@auth/*` adapter users get it from their adapter. It is installed
+standalone only for bare `@auth/core` apps (or when npm or pnpm does not reuse
+the transitive copy). The floor is 0.37.1, the version bundled by
+next-auth 5.0.0-beta.23.
+
 ## Mockatoo URL
 
 The connector uses the hosted service automatically; users do not need to know or configure its URL. For links or test helpers that need the address, import the resolved value:

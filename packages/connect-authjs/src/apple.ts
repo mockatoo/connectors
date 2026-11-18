@@ -1,5 +1,5 @@
-import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
-import Apple, { type AppleProfile } from "next-auth/providers/apple";
+import Apple, { type AppleProfile } from "@auth/core/providers/apple";
+import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers/oauth";
 import { MOCK_CLIENT, mockBase } from "./shared";
 
 export type MockAppleOptions = Partial<OAuthUserConfig<AppleProfile>>;

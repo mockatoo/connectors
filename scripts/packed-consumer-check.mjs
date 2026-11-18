@@ -17,6 +17,7 @@ import { MockGitHub, MockGoogle } from "@mockatoo/connect-authjs";
 export const { handlers, auth } = NextAuth({ providers: [MockGoogle(), MockGitHub()] });
 `,
 		typed: ["MockGoogle", "MockGitHub"],
+		dependencies: ["next-auth@5.0.0-beta.23"],
 	},
 	"connect-better-auth": {
 		source: `import { betterAuth } from "better-auth";
@@ -50,7 +51,7 @@ const tsconfig = {
 const run = (command, args, cwd) =>
 	execFileSync(command, args, { cwd, stdio: ["ignore", "pipe", "inherit"], encoding: "utf8" });
 let failed = false;
-for (const [dir, { source, typed }] of Object.entries(consumers)) {
+for (const [dir, { source, typed, dependencies = [] }] of Object.entries(consumers)) {
 	const packageDir = resolve("packages", dir);
 	const pkg = JSON.parse(readFileSync(join(packageDir, "package.json"), "utf8"));
 	const tmp = mkdtempSync(join(tmpdir(), `${dir}-consumer-`));
@@ -63,7 +64,7 @@ for (const [dir, { source, typed }] of Object.entries(consumers)) {
 	writeFileSync(join(consumer, "auth.ts"), source);
 	writeFileSync(join(consumer, "types.ts"), notAny(pkg.name, typed));
 	const peers = Object.entries(pkg.peerDependencies ?? {}).map(([name, range]) => `${name}@${range}`);
-	run("npm", ["install", "--no-audit", "--no-fund", tarball, ...peers, "typescript@5"], consumer);
+	run("npm", ["install", "--no-audit", "--no-fund", tarball, ...peers, ...dependencies, "typescript@5"], consumer);
 	try {
 		run("npx", ["tsc", "--noEmit", "-p", "."], consumer);
 		console.log(`${pkg.name}: typechecks under moduleResolution "node"`);
