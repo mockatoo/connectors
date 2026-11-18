@@ -16,6 +16,7 @@ Use Mockatoo only outside production. Select its connector behind a non-producti
 - [Cypress](cypress.md): Sign in from Cypress with `cy.origin`, cached sessions, every provider, and edge-case tags
 - [Spring Boot](spring-boot.md): Point Spring Security's OAuth2 client at the mock with a Spring profile, no connector needed
 - [Flask](flask.md): Point Authlib's Flask clients at the mock with one switch, no connector needed
+- [Laravel](laravel.md): Point Laravel Socialite's drivers at the mock with one switch, no connector needed
 - [Run in CI](ci.md): GitHub Actions secrets, workflow, and parallel workers
 
 ## Providers
