@@ -44,6 +44,7 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+      # Full install: connect-authjs's url.test.ts also imports connect-better-auth.
       - run: pnpm install --frozen-lockfile
       - name: Install next-auth ${{ matrix.next-auth }} and its @auth/core
         env:
@@ -70,7 +71,7 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile --filter . --filter ./packages/connect-authjs
       - run: pnpm --filter @mockatoo/connect-authjs build
       - run: pnpm --dir packages/connect-authjs pack --pack-destination "$RUNNER_TEMP"
       - name: Consume the tarball with npm and next-auth only
@@ -128,6 +129,7 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+      # Full install: connect-authjs's url.test.ts also imports connect-better-auth.
       - run: pnpm install --frozen-lockfile
       - name: Install @auth/sveltekit ${{ matrix.sveltekit }} and its @auth/core
         env:
@@ -170,7 +172,7 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile --filter . --filter ./packages/connect-better-auth
       - name: Install better-auth ${{ matrix.better-auth }}
         env:
           BETTER_AUTH: ${{ matrix.better-auth }}
