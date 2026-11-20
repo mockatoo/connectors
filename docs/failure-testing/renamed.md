@@ -1,6 +1,5 @@
 ---
 description: "Test changed email with you+renamed@example.com in Playwright."
-title: "Test Changed provider email · Mockatoo"
 ---
 
 # Changed provider email
@@ -9,15 +8,21 @@ Check account linking after a user changes their provider email. The provider re
 
 Use your own Mockatoo address with renamed and your usual password. Combine tags with a dot, for example `you+renamed.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 The provider returns the same user ID with a different email.
 
 <TagProviders tag="renamed" />
 
+<TagSpokes tag="renamed" />
+
 ## Test it with Playwright
 
 This test signs in with Google as `you+renamed.unverified@example.com` and checks that your app completes sign in. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`renamed.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/renamed.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -61,5 +66,3 @@ test("+renamed: displays the user's changed email", async ({ page }) => {
 	).toBe(renamed.id);
 });
 ```
-
-It runs in CI as [tests/tags/renamed.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/renamed.spec.ts) in the Better Auth + Next.js example.

@@ -1,6 +1,5 @@
 ---
 description: "Test missing email with you+noemail@example.com in Playwright."
-title: "Test Provider account without email · Mockatoo"
 ---
 
 # Provider account without email
@@ -9,15 +8,21 @@ Check what your app does when a provider returns no email. Sign in as `you+noema
 
 Use your own Mockatoo address with noemail and your usual password. Combine tags with a dot, for example `you+noemail.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Discord returns no email even when the app requests the email scope.
 
 <TagProviders tag="noemail" />
 
+<TagSpokes tag="noemail" />
+
 ## Test it with Playwright
 
 This test signs in with Discord as `you+noemail@example.com` and checks that Better Auth returns the user to sign-in with its email_not_found error. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`noemail.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/noemail.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -51,5 +56,3 @@ test("+noemail: reports that sign-in needs an email", async ({ page }) => {
 	await expect(page.getByText("You are logged in")).toBeHidden();
 });
 ```
-
-It runs in CI as [tests/tags/noemail.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/noemail.spec.ts) in the Better Auth + Next.js example.

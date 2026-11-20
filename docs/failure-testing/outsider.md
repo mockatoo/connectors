@@ -1,6 +1,5 @@
 ---
 description: "Test a Microsoft user outside a tenant with you+outsider@example.com in Playwright."
-title: "Test Microsoft user outside the tenant · Mockatoo"
 ---
 
 # Microsoft user outside the tenant
@@ -9,15 +8,21 @@ Check how your tenant configuration treats Microsoft users outside an organizati
 
 Use your own Mockatoo address with outsider and your usual password. Combine tags with a dot, for example `you+outsider.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 A single-tenant app refuses the user with AADSTS50020 because they are not a member or guest.
 
 <TagProviders tag="outsider" />
 
+<TagSpokes tag="outsider" />
+
 ## Test it with Playwright
 
 This test signs in with Microsoft as `you+outsider@example.com` and checks that sign-in completes with this example’s common-tenant configuration. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`outsider.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/outsider.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -45,5 +50,3 @@ test("+outsider: accepts a Microsoft user outside an organization", async ({
 	).toBe(address);
 });
 ```
-
-It runs in CI as [tests/tags/outsider.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/outsider.spec.ts) in the Better Auth + Next.js example.

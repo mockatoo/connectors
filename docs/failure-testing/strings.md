@@ -1,6 +1,5 @@
 ---
 description: "Test string boolean claims with you+strings@example.com in Playwright."
-title: "Test Apple boolean claims as strings · Mockatoo"
 ---
 
 # Apple boolean claims as strings
@@ -9,15 +8,21 @@ Check how your app parses Apple boolean-like claims. Sign in as `you+strings@exa
 
 Use your own Mockatoo address with strings and your usual password. Combine tags with a dot, for example `you+strings.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Apple returns email_verified and is_private_email as the strings true and false.
 
 <TagProviders tag="strings" />
 
+<TagSpokes tag="strings" />
+
 ## Test it with Playwright
 
 This test signs in with Apple as `you+strings@example.com` and checks that sign-in completes. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`strings.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/strings.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -47,5 +52,3 @@ test("+strings: normalizes Apple's string verification flag", async ({
 	});
 });
 ```
-
-It runs in CI as [tests/tags/strings.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/strings.spec.ts) in the Better Auth + Next.js example.

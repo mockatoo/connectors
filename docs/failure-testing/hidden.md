@@ -1,6 +1,5 @@
 ---
 description: "Test Hide My Email with you+hidden@example.com in Playwright."
-title: "Test Apple private relay address · Mockatoo"
 ---
 
 # Apple private relay address
@@ -9,15 +8,21 @@ Check that your app accepts Apple relay addresses. Apple returns a stable privat
 
 Use your own Mockatoo address with hidden and your usual password. Combine tags with a dot, for example `you+hidden.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Apple returns a stable private relay address.
 
 <TagProviders tag="hidden" />
 
+<TagSpokes tag="hidden" />
+
 ## Test it with Playwright
 
 This test signs in with Apple as `you+hidden.unverified@example.com` and checks that your app completes sign in. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`hidden.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/hidden.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -62,5 +67,3 @@ test("+hidden: accepts Apple's stable private relay address", async ({
 	).toBe(user.email);
 });
 ```
-
-It runs in CI as [tests/tags/hidden.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/hidden.spec.ts) in the Better Auth + Next.js example.

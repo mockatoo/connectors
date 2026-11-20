@@ -1,6 +1,5 @@
 ---
 description: "Test 429 Too Many Requests with you+throttled@example.com in Playwright."
-title: "Test Microsoft token refresh throttled · Mockatoo"
 ---
 
 # Microsoft token refresh throttled
@@ -9,15 +8,21 @@ Check how your app handles Microsoft refresh throttling. Sign in as `you+throttl
 
 Use your own Mockatoo address with throttled and your usual password. Combine tags with a dot, for example `you+throttled.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Sign-in succeeds, but refresh returns 429 Too Many Requests with Retry-After.
 
 <TagProviders tag="throttled" />
 
+<TagSpokes tag="throttled" />
+
 ## Test it with Playwright
 
 This test signs in with Microsoft as `you+throttled@example.com` and checks that sign-in succeeds, token refresh fails, and the app session remains active. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`throttled.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/throttled.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -63,5 +68,3 @@ test("+throttled: reports a refresh failure after successful sign-in", async ({
 	).toBe(address);
 });
 ```
-
-It runs in CI as [tests/tags/throttled.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/throttled.spec.ts) in the Better Auth + Next.js example.

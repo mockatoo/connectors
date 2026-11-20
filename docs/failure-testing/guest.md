@@ -1,6 +1,5 @@
 ---
 description: "Test guest account with you+guest@example.com in Playwright."
-title: "Test Microsoft guest account · Mockatoo"
 ---
 
 # Microsoft guest account
@@ -9,15 +8,21 @@ Check how your app handles an invited Microsoft guest. Sign in as `you+guest@exa
 
 Use your own Mockatoo address with guest and your usual password. Combine tags with a dot, for example `you+guest.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 The account is a guest in the app tenant, with a separate home identity provider.
 
 <TagProviders tag="guest" />
 
+<TagSpokes tag="guest" />
+
 ## Test it with Playwright
 
 This test signs in with Microsoft as `you+guest@example.com` and checks that sign-in completes. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`guest.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/guest.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -43,5 +48,3 @@ test("+guest: accepts a Microsoft guest", async ({ page }) => {
 	).toBe(address);
 });
 ```
-
-It runs in CI as [tests/tags/guest.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/guest.spec.ts) in the Better Auth + Next.js example.

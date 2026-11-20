@@ -1,6 +1,5 @@
 ---
 description: "Test refresh token invalid_grant with you+revoked@example.com in Playwright."
-title: "Test Revoked provider access · Mockatoo"
 ---
 
 # Revoked provider access
@@ -9,15 +8,21 @@ Check how your app responds when a refresh token stops working. Sign in as `you+
 
 Use your own Mockatoo address with revoked and your usual password. Combine tags with a dot, for example `you+revoked.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Sign-in succeeds, but every refresh returns invalid_grant, as if access was revoked.
 
 <TagProviders tag="revoked" />
 
+<TagSpokes tag="revoked" />
+
 ## Test it with Playwright
 
 This test signs in with Microsoft as `you+revoked@example.com` and checks that sign-in succeeds, token refresh fails, and the app session remains active. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`revoked.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/revoked.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -63,5 +68,3 @@ test("+revoked: reports a refresh failure after successful sign-in", async ({
 	).toBe(address);
 });
 ```
-
-It runs in CI as [tests/tags/revoked.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/revoked.spec.ts) in the Better Auth + Next.js example.

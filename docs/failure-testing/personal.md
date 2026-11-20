@@ -1,6 +1,5 @@
 ---
 description: "Test personal account with you+personal@example.com in Playwright."
-title: "Test Personal Microsoft account · Mockatoo"
 ---
 
 # Personal Microsoft account
@@ -9,15 +8,21 @@ Check how your app handles personal Microsoft accounts. Sign in as `you+personal
 
 Use your own Mockatoo address with personal and your usual password. Combine tags with a dot, for example `you+personal.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 The account is personal. An organization-only tenant refuses it unless it is also tagged guest.
 
 <TagProviders tag="personal" />
 
+<TagSpokes tag="personal" />
+
 ## Test it with Playwright
 
 This test signs in with Microsoft as `you+personal@example.com` and checks that sign-in completes. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`personal.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/personal.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -42,5 +47,3 @@ test("+personal: accepts a personal Microsoft account", async ({ page }) => {
 	).toBe(address);
 });
 ```
-
-It runs in CI as [tests/tags/personal.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/personal.spec.ts) in the Better Auth + Next.js example.

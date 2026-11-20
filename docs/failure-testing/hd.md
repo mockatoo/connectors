@@ -1,6 +1,5 @@
 ---
 description: "Test Workspace domain claim with you+hd@example.com in Playwright."
-title: "Test Google Workspace account · Mockatoo"
 ---
 
 # Google Workspace account
@@ -9,15 +8,21 @@ Check your domain restrictions against a Google Workspace account. Workspace acc
 
 Use your own Mockatoo address with hd and your usual password. Combine tags with a dot, for example `you+hd.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Workspace account with the hd domain claim.
 
 <TagProviders tag="hd" />
 
+<TagSpokes tag="hd" />
+
 ## Test it with Playwright
 
 This test signs in with Google as `you+hd.unverified@example.com` and checks that sign-in completes. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`hd.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/hd.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -45,5 +50,3 @@ test("+hd: signs in a Google Workspace user", async ({ page }) => {
 	});
 });
 ```
-
-It runs in CI as [tests/tags/hd.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/hd.spec.ts) in the Better Auth + Next.js example.

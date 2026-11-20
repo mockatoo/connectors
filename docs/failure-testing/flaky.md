@@ -1,6 +1,5 @@
 ---
 description: "Test OAuth 503 retry with you+flaky@example.com in Playwright."
-title: "Test Intermittent token endpoint failure · Mockatoo"
 ---
 
 # Intermittent token endpoint failure
@@ -9,15 +8,21 @@ Check how your app handles a temporary token exchange failure. Sign in as `you+f
 
 Use your own Mockatoo address with flaky and your usual password. Combine tags with a dot, for example `you+flaky.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 The first code exchange returns 503; retrying with the same code succeeds.
 
 <TagProviders tag="flaky" />
 
+<TagSpokes tag="flaky" />
+
 ## Test it with Playwright
 
 This test signs in with Google as `you+flaky@example.com` and checks the app's retry response after code exchange fails. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`flaky.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/flaky.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -52,5 +57,3 @@ test("+flaky: tells the user to retry when sign-in cannot finish", async ({
 	await expect(page.getByText("You are logged in")).toBeHidden();
 });
 ```
-
-It runs in CI as [tests/tags/flaky.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/flaky.spec.ts) in the Better Auth + Next.js example.

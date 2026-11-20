@@ -1,6 +1,5 @@
 ---
 description: "Test AADSTS50076 with you+mfa@example.com in Playwright."
-title: "Test Microsoft refresh requires MFA · Mockatoo"
 ---
 
 # Microsoft refresh requires MFA
@@ -9,15 +8,21 @@ Check how your app responds when Microsoft refresh requires MFA. Sign in as `you
 
 Use your own Mockatoo address with mfa and your usual password. Combine tags with a dot, for example `you+mfa.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Sign-in succeeds, but refresh returns invalid_grant with AADSTS50076 and a claims challenge.
 
 <TagProviders tag="mfa" />
 
+<TagSpokes tag="mfa" />
+
 ## Test it with Playwright
 
 This test signs in with Microsoft as `you+mfa@example.com` and checks that sign-in succeeds, token refresh fails, and the app session remains active. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`mfa.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/mfa.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -63,5 +68,3 @@ test("+mfa: reports a refresh failure after successful sign-in", async ({
 	).toBe(address);
 });
 ```
-
-It runs in CI as [tests/tags/mfa.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/mfa.spec.ts) in the Better Auth + Next.js example.

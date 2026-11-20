@@ -47,7 +47,7 @@ When running tests in parallel, give each worker a distinct tagged address:
 worker uses the base account's password. This keeps users and their app state
 separate while preserving the same GitHub secrets setup.
 
-See [Email tags](email-tags.md) for more ways to create distinct users.
+See [Email tags](email-tags.md) for more ways to create distinct users. To test provider errors in CI, choose a case from [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing).
 
 ## Regenerated password
 

@@ -1,6 +1,5 @@
 ---
 description: "Test missing name with you+noname@example.com in Playwright."
-title: "Test Missing profile name · Mockatoo"
 ---
 
 # Missing profile name
@@ -9,15 +8,21 @@ Check that your app accepts profiles without a name. No name, given_name, or fam
 
 Use your own Mockatoo address with noname and your usual password. Combine tags with a dot, for example `you+noname.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 No name, given_name, or family_name claims are sent.
 
 <TagProviders tag="noname" />
 
+<TagSpokes tag="noname" />
+
 ## Test it with Playwright
 
 This test signs in with Google as `you+noname.unverified@example.com` and checks that your app completes sign in. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`noname.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/noname.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -45,5 +50,3 @@ test("+noname: signs in without a display name", async ({ page }) => {
 	});
 });
 ```
-
-It runs in CI as [tests/tags/noname.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/noname.spec.ts) in the Better Auth + Next.js example.

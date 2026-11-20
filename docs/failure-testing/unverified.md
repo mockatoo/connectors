@@ -1,6 +1,5 @@
 ---
 description: "Test email_verified false with you+unverified@example.com in Playwright."
-title: "Test Unverified email address · Mockatoo"
 ---
 
 # Unverified email address
@@ -9,15 +8,21 @@ Check that your app preserves the provider verification status. Email is reporte
 
 Use your own Mockatoo address with unverified and your usual password. Combine tags with a dot, for example `you+unverified.noname@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Email is reported as unverified.
 
 <TagProviders tag="unverified" />
 
+<TagSpokes tag="unverified" />
+
 ## Test it with Playwright
 
 This test signs in with Google as `you+unverified.unverified@example.com` and checks that your app completes sign in. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`unverified.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/unverified.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -45,5 +50,3 @@ test("+unverified: keeps an unverified email unverified", async ({ page }) => {
 	});
 });
 ```
-
-It runs in CI as [tests/tags/unverified.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/unverified.spec.ts) in the Better Auth + Next.js example.

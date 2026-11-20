@@ -200,6 +200,8 @@ export function createAddress(tag = ""): string {
 
 ## Test edge cases
 
+[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to cover. The [Better Auth `invalid_code` walkthrough](https://mockatoo.globalunderdog.com/blog/better-auth-invalid-code) tests a Google outage and checks the retry message.
+
 Special tags change what the provider does. The example has one self-contained
 spec per tag in [`tests/tags`](https://github.com/mockatoo/examples/tree/main/better-auth-next/tests/tags).
 For example, [`unverified.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/unverified.spec.ts)

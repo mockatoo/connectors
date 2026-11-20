@@ -1,6 +1,5 @@
 ---
 description: "Test OAuth 503 with you+down@example.com in Playwright."
-title: "Test Token endpoint outage · Mockatoo"
 ---
 
 # Token endpoint outage
@@ -9,15 +8,21 @@ Check your callback behavior when the token endpoint is unavailable. Sign in as 
 
 Use your own Mockatoo address with down and your usual password. Combine tags with a dot, for example `you+down.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 The token endpoint returns 503 Service Unavailable during code exchange.
 
 <TagProviders tag="down" />
 
+<TagSpokes tag="down" />
+
 ## Test it with Playwright
 
 This test signs in with Google as `you+down@example.com` and checks the app's retry response after code exchange fails. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`down.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/down.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -52,5 +57,3 @@ test("+down: tells the user to retry when sign-in cannot finish", async ({
 	await expect(page.getByText("You are logged in")).toBeHidden();
 });
 ```
-
-It runs in CI as [tests/tags/down.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/down.spec.ts) in the Better Auth + Next.js example.

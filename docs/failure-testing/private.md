@@ -1,6 +1,5 @@
 ---
 description: "Test email null with you+private@example.com in Playwright."
-title: "Test Private GitHub email · Mockatoo"
 ---
 
 # Private GitHub email
@@ -9,15 +8,21 @@ Check how your app retrieves a private GitHub email. Sign in as `you+private@exa
 
 Use your own Mockatoo address with private and your usual password. Combine tags with a dot, for example `you+private.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 GitHub returns no email from /user; the app must request user:email and read /user/emails.
 
 <TagProviders tag="private" />
 
+<TagSpokes tag="private" />
+
 ## Test it with Playwright
 
 This test signs in with GitHub as `you+private@example.com` and checks that sign-in completes. It reads MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD from the environment.
+
+[`private.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/private.spec.ts)
 
 ```ts
 import { expect, test } from "@playwright/test";
@@ -46,5 +51,3 @@ test("+private: signs in with a private GitHub email", async ({ page }) => {
 	});
 });
 ```
-
-It runs in CI as [tests/tags/private.spec.ts](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/private.spec.ts) in the Better Auth + Next.js example.

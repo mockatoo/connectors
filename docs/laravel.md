@@ -216,6 +216,8 @@ email and password. To sign in as another user, add a tag to the email, e.g.
 
 ## Test with Playwright
 
+To cover failures after setting up sign-in, see [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing).
+
 The example tests the Laravel app with Playwright, which only needs a running
 server. [`playwright.config.ts`](https://github.com/mockatoo/examples/blob/main/socialite-laravel/playwright.config.ts)
 installs the app and starts it, or tests a deployment when
