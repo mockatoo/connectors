@@ -19,6 +19,7 @@ Use Mockatoo only outside production. Select its connector behind a non-producti
 - [Flask](flask.md): Point Authlib's Flask clients at the mock with one switch, no connector needed
 - [Laravel](laravel.md): Point Laravel Socialite's drivers at the mock with one switch, no connector needed
 - [Django](django.md): Point django-allauth's providers at the mock with small subclasses, no connector needed
+- [Nuxt](nuxt.md): Run Auth.js in a Nitro server route and swap each provider for its Mockatoo helper
 - [Run in CI](ci.md): GitHub Actions secrets, workflow, and parallel workers
 
 ## Failure testing
