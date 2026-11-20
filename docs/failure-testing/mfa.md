@@ -1,6 +1,5 @@
 ---
 description: "Test AADSTS50076 with you+mfa@example.com in Playwright."
-title: "Test Microsoft refresh requires MFA · Mockatoo"
 ---
 
 # Microsoft refresh requires MFA
@@ -9,11 +8,15 @@ Check how your app responds when Microsoft refresh requires MFA. Sign in as `you
 
 Use your own Mockatoo address with mfa and your usual password. Combine tags with a dot, for example `you+mfa.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Sign-in succeeds, but refresh returns invalid_grant with AADSTS50076 and a claims challenge.
 
 <TagProviders tag="mfa" />
+
+<TagSpokes tag="mfa" />
 
 ## Test it with Playwright
 

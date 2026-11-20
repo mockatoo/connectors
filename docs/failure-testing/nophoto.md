@@ -1,6 +1,5 @@
 ---
 description: "Test missing profile photo with you+nophoto@example.com in Playwright."
-title: "Test Missing profile photo · Mockatoo"
 ---
 
 # Missing profile photo
@@ -9,11 +8,15 @@ Check that your app accepts a profile without a photo. Sign in as `you+nophoto@e
 
 Use your own Mockatoo address with nophoto and your usual password. Combine tags with a dot, for example `you+nophoto.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 LinkedIn returns no picture claim in the ID token or userinfo response.
 
 <TagProviders tag="nophoto" />
+
+<TagSpokes tag="nophoto" />
 
 ## Test it with Playwright
 

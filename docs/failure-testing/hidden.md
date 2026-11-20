@@ -1,6 +1,5 @@
 ---
 description: "Test Hide My Email with you+hidden@example.com in Playwright."
-title: "Test Apple private relay address · Mockatoo"
 ---
 
 # Apple private relay address
@@ -9,11 +8,15 @@ Check that your app accepts Apple relay addresses. Apple returns a stable privat
 
 Use your own Mockatoo address with hidden and your usual password. Combine tags with a dot, for example `you+hidden.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Apple returns a stable private relay address.
 
 <TagProviders tag="hidden" />
+
+<TagSpokes tag="hidden" />
 
 ## Test it with Playwright
 

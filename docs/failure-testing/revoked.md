@@ -1,6 +1,5 @@
 ---
 description: "Test refresh token invalid_grant with you+revoked@example.com in Playwright."
-title: "Test Revoked provider access · Mockatoo"
 ---
 
 # Revoked provider access
@@ -9,11 +8,15 @@ Check how your app responds when a refresh token stops working. Sign in as `you+
 
 Use your own Mockatoo address with revoked and your usual password. Combine tags with a dot, for example `you+revoked.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Sign-in succeeds, but every refresh returns invalid_grant, as if access was revoked.
 
 <TagProviders tag="revoked" />
+
+<TagSpokes tag="revoked" />
 
 ## Test it with Playwright
 

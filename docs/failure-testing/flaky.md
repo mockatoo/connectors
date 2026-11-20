@@ -1,6 +1,5 @@
 ---
 description: "Test OAuth 503 retry with you+flaky@example.com in Playwright."
-title: "Test Intermittent token endpoint failure · Mockatoo"
 ---
 
 # Intermittent token endpoint failure
@@ -9,11 +8,15 @@ Check how your app handles a temporary token exchange failure. Sign in as `you+f
 
 Use your own Mockatoo address with flaky and your usual password. Combine tags with a dot, for example `you+flaky.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 The first code exchange returns 503; retrying with the same code succeeds.
 
 <TagProviders tag="flaky" />
+
+<TagSpokes tag="flaky" />
 
 ## Test it with Playwright
 

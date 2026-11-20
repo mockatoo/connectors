@@ -1,6 +1,5 @@
 ---
 description: "Test missing family name with you+firstname@example.com in Playwright."
-title: "Test First name without family name · Mockatoo"
 ---
 
 # First name without family name
@@ -9,11 +8,15 @@ Check that your app handles a profile with only a first name. Sign in as `you+fi
 
 Use your own Mockatoo address with firstname and your usual password. Combine tags with a dot, for example `you+firstname.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 Google returns a first name but no family name.
 
 <TagProviders tag="firstname" />
+
+<TagSpokes tag="firstname" />
 
 ## Test it with Playwright
 

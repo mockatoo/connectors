@@ -204,6 +204,8 @@ test("signs in as a tagged address", async (t) => {
 
 ## Test edge cases
 
+[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to test and what your app should do for each.
+
 Use `+unverified` to check how the app handles an unverified email. Use `+down` to simulate a failing token endpoint and check that the app shows a retry message.
 
 ```ts

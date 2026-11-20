@@ -1,6 +1,5 @@
 ---
 description: "Test changed email with you+renamed@example.com in Playwright."
-title: "Test Changed provider email · Mockatoo"
 ---
 
 # Changed provider email
@@ -9,11 +8,15 @@ Check account linking after a user changes their provider email. The provider re
 
 Use your own Mockatoo address with renamed and your usual password. Combine tags with a dot, for example `you+renamed.unverified@example.com`; see [Email tags](../email-tags.md).
 
+See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
+
 ## What each provider returns
 
 The provider returns the same user ID with a different email.
 
 <TagProviders tag="renamed" />
+
+<TagSpokes tag="renamed" />
 
 ## Test it with Playwright
 
