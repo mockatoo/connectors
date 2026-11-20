@@ -1,5 +1,6 @@
 ---
 description: "Test email_verified false with you+unverified@example.com in Playwright."
+title: "Test Unverified email address · Mockatoo"
 ---
 
 # Unverified email address
@@ -8,15 +9,11 @@ Check that your app preserves the provider verification status. Email is reporte
 
 Use your own Mockatoo address with unverified and your usual password. Combine tags with a dot, for example `you+unverified.noname@example.com`; see [Email tags](../email-tags.md).
 
-See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
-
 ## What each provider returns
 
 Email is reported as unverified.
 
 <TagProviders tag="unverified" />
-
-<TagSpokes tag="unverified" />
 
 ## Test it with Playwright
 

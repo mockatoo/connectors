@@ -1,5 +1,6 @@
 ---
 description: "Test missing email with you+noemail@example.com in Playwright."
+title: "Test Provider account without email · Mockatoo"
 ---
 
 # Provider account without email
@@ -8,15 +9,11 @@ Check what your app does when a provider returns no email. Sign in as `you+noema
 
 Use your own Mockatoo address with noemail and your usual password. Combine tags with a dot, for example `you+noemail.unverified@example.com`; see [Email tags](../email-tags.md).
 
-See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
-
 ## What each provider returns
 
 Discord returns no email even when the app requests the email scope.
 
 <TagProviders tag="noemail" />
-
-<TagSpokes tag="noemail" />
 
 ## Test it with Playwright
 

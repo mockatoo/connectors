@@ -1,5 +1,6 @@
 ---
 description: "Test OAuth 503 with you+down@example.com in Playwright."
+title: "Test Token endpoint outage · Mockatoo"
 ---
 
 # Token endpoint outage
@@ -8,15 +9,11 @@ Check your callback behavior when the token endpoint is unavailable. Sign in as 
 
 Use your own Mockatoo address with down and your usual password. Combine tags with a dot, for example `you+down.unverified@example.com`; see [Email tags](../email-tags.md).
 
-See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
-
 ## What each provider returns
 
 The token endpoint returns 503 Service Unavailable during code exchange.
 
 <TagProviders tag="down" />
-
-<TagSpokes tag="down" />
 
 ## Test it with Playwright
 

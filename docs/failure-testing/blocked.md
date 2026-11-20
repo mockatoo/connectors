@@ -1,5 +1,6 @@
 ---
 description: "Test admin_policy_enforced with you+blocked@example.com in Playwright."
+title: "Test Provider admin policy blocks sign-in · Mockatoo"
 ---
 
 # Provider admin policy blocks sign-in
@@ -8,15 +9,11 @@ Check what users see when an organization blocks your app. Sign in as `you+block
 
 Use your own Mockatoo address with blocked and your usual password. Combine tags with a dot, for example `you+blocked.unverified@example.com`; see [Email tags](../email-tags.md).
 
-See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
-
 ## What each provider returns
 
 Google shows an Access blocked page with admin_policy_enforced instead of consent.
 
 <TagProviders tag="blocked" />
-
-<TagSpokes tag="blocked" />
 
 ## Test it with Playwright
 

@@ -258,8 +258,6 @@ it("signs in as a tagged address", () => {
 
 ## Test edge cases
 
-[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to test and what your app should do for each.
-
 Special tags change what the provider does. Combine them with dots, e.g.
 `you+2.unverified@example.com`.
 [`edge-cases.cy.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/cypress/e2e/edge-cases.cy.ts):

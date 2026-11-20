@@ -1,5 +1,6 @@
 ---
 description: "Test how your app handles a rejected OAuth authorization code (invalid_grant) in Playwright by signing in as you+badcode@example.com with Mockatoo."
+title: "Test a rejected OAuth code (invalid_grant) · Mockatoo"
 ---
 
 # Rejected authorization code
@@ -13,8 +14,6 @@ Use your own Mockatoo address with `+badcode` and your usual password. You can
 combine it with other tags, e.g. `you+badcode.unverified@example.com`; see
 [Email tags](../email-tags.md).
 
-See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
-
 ## What each provider returns
 
 Every provider rejects the code with its own error:
@@ -23,10 +22,11 @@ Every provider rejects the code with its own error:
 
 ## When it happens in production
 
-A code is rejected in production when it was already used, for example after
-the user reloaded the callback page, or when it expired.
-
-<TagSpokes tag="badcode" />
+An authorization code can be used once, and only for a short time. The provider
+rejects the exchange when the code was already used, for example because the
+user reloaded the callback page or the browser sent the request twice. It also
+rejects a code that expired, or one sent with a different `redirect_uri` or PKCE
+verifier than the authorization request.
 
 ## Test it with Playwright
 

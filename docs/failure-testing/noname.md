@@ -1,5 +1,6 @@
 ---
 description: "Test missing name with you+noname@example.com in Playwright."
+title: "Test Missing profile name · Mockatoo"
 ---
 
 # Missing profile name
@@ -8,15 +9,11 @@ Check that your app accepts profiles without a name. No name, given_name, or fam
 
 Use your own Mockatoo address with noname and your usual password. Combine tags with a dot, for example `you+noname.unverified@example.com`; see [Email tags](../email-tags.md).
 
-See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
-
 ## What each provider returns
 
 No name, given_name, or family_name claims are sent.
 
 <TagProviders tag="noname" />
-
-<TagSpokes tag="noname" />
 
 ## Test it with Playwright
 

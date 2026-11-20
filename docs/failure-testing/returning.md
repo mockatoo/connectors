@@ -1,5 +1,6 @@
 ---
 description: "Test returning user with you+returning@example.com in Playwright."
+title: "Test Returning provider account · Mockatoo"
 ---
 
 # Returning provider account
@@ -8,15 +9,11 @@ Check repeat sign-in behavior and refresh token handling. Sign in as `you+return
 
 Use your own Mockatoo address with returning and your usual password. Combine tags with a dot, for example `you+returning.unverified@example.com`; see [Email tags](../email-tags.md).
 
-See [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) for the four steps where sign-in fails and how to test each one.
-
 ## What each provider returns
 
 Google may omit the refresh token on repeat authorization unless the app sends prompt=consent.
 
 <TagProviders tag="returning" />
-
-<TagSpokes tag="returning" />
 
 ## Test it with Playwright
 
