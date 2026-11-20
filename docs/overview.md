@@ -21,6 +21,31 @@ Use Mockatoo only outside production. Select its connector behind a non-producti
 - [Django](django.md): Point django-allauth's providers at the mock with small subclasses, no connector needed
 - [Run in CI](ci.md): GitHub Actions secrets, workflow, and parallel workers
 
+## Failure testing
+
+- [Rejected authorization code](failure-testing/badcode.md): Make the code exchange fail with each provider's `invalid_grant` error, using `you+badcode@example.com`
+- [Apple boolean claims as strings](failure-testing/strings.md): Test string boolean claims with `you+strings@example.com`
+- [Private GitHub email](failure-testing/private.md): Test email null with `you+private@example.com`
+- [Personal Microsoft account](failure-testing/personal.md): Test personal account with `you+personal@example.com`
+- [Provider account without email](failure-testing/noemail.md): Test missing email with `you+noemail@example.com`
+- [Missing profile photo](failure-testing/nophoto.md): Test missing profile photo with `you+nophoto@example.com`
+- [Microsoft guest account](failure-testing/guest.md): Test guest account with `you+guest@example.com`
+- [Microsoft user outside the tenant](failure-testing/outsider.md): Test AADSTS50020 with `you+outsider@example.com`
+- [First name without family name](failure-testing/firstname.md): Test missing family name with `you+firstname@example.com`
+- [Returning provider account](failure-testing/returning.md): Test returning user with `you+returning@example.com`
+- [Revoked provider access](failure-testing/revoked.md): Test refresh token invalid_grant with `you+revoked@example.com`
+- [Microsoft refresh requires MFA](failure-testing/mfa.md): Test AADSTS50076 with `you+mfa@example.com`
+- [Microsoft token refresh throttled](failure-testing/throttled.md): Test 429 Too Many Requests with `you+throttled@example.com`
+- [Token endpoint outage](failure-testing/down.md): Test OAuth 503 with `you+down@example.com`
+- [Intermittent token endpoint failure](failure-testing/flaky.md): Test OAuth 503 retry with `you+flaky@example.com`
+- [Slow token endpoint](failure-testing/slow.md): Test OAuth timeout with `you+slow@example.com`
+- [Provider admin policy blocks sign-in](failure-testing/blocked.md): Test admin_policy_enforced with `you+blocked@example.com`
+- [Google Workspace account](failure-testing/hd.md): Test Workspace domain claim with `you+hd@example.com`
+- [Unverified email address](failure-testing/unverified.md): Test email_verified false with `you+unverified@example.com`
+- [Changed provider email](failure-testing/renamed.md): Test changed email with `you+renamed@example.com`
+- [Missing profile name](failure-testing/noname.md): Test missing name with `you+noname@example.com`
+- [Apple private relay address](failure-testing/hidden.md): Test Hide My Email with `you+hidden@example.com`
+
 ## Providers
 
 - [Google](providers/google.md): Implemented flow, test addresses, and known differences

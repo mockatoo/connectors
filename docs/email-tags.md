@@ -48,18 +48,18 @@ You can also mix a special tag with an ordinary one, e.g.
 from `you+unverified@example.com`.
 
 Every different address is a different user, including the same tags in
-another order: `you+hd.unverified@…` and `you+unverified.hd@…` are two users.
+another order: `you+hd.unverified@example.com` and `you+unverified.hd@example.com` are two users.
 
 ## Same user again
 
 `+renamed` and `+returning` are the only tags that don't make a new user. They
-keep the provider user ID of the address without them, so `you+hd.renamed@…`
-and `you+hd.returning@…` are both the same user as `you+hd@…`.
+keep the provider user ID of the address without them, so `you+hd.renamed@example.com`
+and `you+hd.returning@example.com` are both the same user as `you+hd@example.com`.
 
 | Address | Email your app receives | Tests |
 | --- | --- | --- |
-| `you+renamed@…` | `you+renamed@…` | The user changed their email. |
-| `you+returning@…` | `you@…` | The user signs in again with the same email. |
+| `you+renamed@example.com` | `you+renamed@example.com` | The user changed their email. |
+| `you+returning@example.com` | `you@example.com` | The user signs in again with the same email. |
 
 `+returning` is the one tag your app never sees in the email, because a
 returning user still has the email they had before. With Google and Apple it

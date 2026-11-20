@@ -200,39 +200,34 @@ export function createAddress(tag = ""): string {
 
 ## Test edge cases
 
-Special tags change what the provider does. The example has one spec per tag in
-[`tests/tags`](https://github.com/mockatoo/examples/tree/main/better-auth-next/tests/tags).
-[`unverified.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/unverified.spec.ts):
+Special tags change what the provider does. The example has one self-contained
+spec per tag in [`tests/tags`](https://github.com/mockatoo/examples/tree/main/better-auth-next/tests/tags).
+For example, [`unverified.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/unverified.spec.ts)
+signs in with the tagged address:
 
 ```ts
-test("+unverified: keeps an unverified email unverified", async ({ page }) => {
-	const address = createAddress("unverified");
-	// Sign-in is allowed, but an app must not treat this address as verified.
-	await signIn(page, "Google", address);
-	expect(await sessionUser(page)).toMatchObject({
-		email: address,
-		emailVerified: false,
-	});
+const email = process.env.MOCKATOO_TEST_EMAIL ?? "";
+const password = process.env.MOCKATOO_TEST_PASSWORD ?? "";
+
+test("checks unverified with Google", async ({ page }) => {
+	const address = email.replace("@", "+unverified@");
+	await page.goto("/");
+	await page.getByRole("button", { name: "Sign in with Google" }).click();
+	await page.getByLabel("Email", { exact: true }).fill(address);
+	await page.getByLabel("Password", { exact: true }).fill(password);
+	await page.getByRole("button", { name: "Log in with password" }).click();
+	await page.getByRole("button", { name: "Authorize" }).click();
+	await expect(page.getByRole("heading", { name: "Your session" })).toBeVisible({ timeout: 20_000 });
 });
 ```
 
 [`down.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/down.spec.ts)
-checks the error your app shows when the token endpoint is down:
+checks that the token endpoint error returns the browser to an error URL:
 
 ```ts
-	const address = createAddress("down");
-	// A provider outage also becomes invalid_code in Better Auth. The app
-	// cannot distinguish it from a bad code, so it offers the same retry advice.
-	await signIn(page, "Google", address);
-	await signInError(
-		page,
-		"invalid_code",
-		"Sign-in failed before it finished. Try again in a minute.",
-	);
+	await page.getByRole("button", { name: "Authorize" }).click();
+	await expect(page).toHaveURL((url) => url.searchParams.has("error"));
 ```
-
-`signInError()` in `helpers.ts` asserts the `error` query parameter, the alert
-text, and that no session was created.
 
 Clicking **Deny** returns `access_denied` with the original `state`, as the real
 providers do. From `sign-in.spec.ts`:
@@ -247,7 +242,7 @@ providers do. From `sign-in.spec.ts`:
 
 Some other tags the example tests:
 
-| Tag | Tests |
+| Tag | Behavior |
 | --- | --- |
 | `+returning` | A returning Apple user, without the name Apple sends only on first consent |
 | `+blocked` | An admin blocks consent, so there's no **Authorize** button and no session |
@@ -262,8 +257,8 @@ Each provider supports its own tags. See its page, e.g.
 
 `page.request` sends the browser's cookies, so a test can call your app's
 API as the signed-in user. With `+revoked`, sign-in succeeds but the refresh
-fails.
-[`revoked.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/revoked.spec.ts):
+fails. The [`revoked.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/revoked.spec.ts)
+checks sign-in. Add a refresh request to test that behavior in your app:
 
 ```ts
 	const address = createAddress("revoked");
