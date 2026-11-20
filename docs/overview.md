@@ -14,6 +14,7 @@ Use Mockatoo only outside production. Select its connector behind a non-producti
 - [Email tags](email-tags.md): Sign in as other users with `you+<tag>@example.com`, and the tags that trigger edge cases
 - [Playwright](playwright.md): Sign in from Playwright with every provider, a fresh user per test, edge-case tags, and token refresh
 - [Cypress](cypress.md): Sign in from Cypress with `cy.origin`, cached sessions, every provider, and edge-case tags
+- [Selenium](selenium.md): Sign in with Selenium WebDriver, restore sessions, and test all eight providers and edge-case tags
 - [Spring Boot](spring-boot.md): Point Spring Security's OAuth2 client at the mock with a Spring profile, no connector needed
 - [Flask](flask.md): Point Authlib's Flask clients at the mock with one switch, no connector needed
 - [Laravel](laravel.md): Point Laravel Socialite's drivers at the mock with one switch, no connector needed

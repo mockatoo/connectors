@@ -7,9 +7,8 @@ description: "Run OAuth sign-in tests in GitHub Actions with Mockatoo: store the
 ## Add Test Credentials as GitHub secrets
 
 Create `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` as repository or environment secrets in
-GitHub. Use the email and password from your Mockatoo dashboard. The Playwright
-workflow passes those secrets to the tests as they are, and the Cypress workflow
-maps them to the `CYPRESS_` names ([below](#workflow)):
+GitHub. Use the email and password from your Mockatoo dashboard. The Next.js examples use the same two environment variables in Playwright, Cypress,
+and Selenium.
 
 ```yaml
 env:
@@ -19,7 +18,7 @@ env:
 
 ## Workflow
 
-The [Playwright workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/better-auth-next.yml) just installs the browser dependencies and runs the Playwright tests:
+The [Next.js workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml) runs both the Better Auth and Auth.js examples with all three runners. For Playwright, install Chromium before running the tests.
 
 ```yaml
 - run: pnpm --dir better-auth-next exec playwright install --with-deps chromium
@@ -29,17 +28,17 @@ The [Playwright workflow](https://github.com/mockatoo/examples/blob/main/.github
     MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
 
-The [Cypress workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/cypress.yml) installs the Cypress binary,
-then runs the test, which serves the app through a local HTTPS proxy so that
-Secure cookies survive the OAuth redirect:
+Install the Cypress binary before running its tests. The test command serves the app through a local HTTPS proxy so Secure cookies survive the OAuth redirect.
 
 ```yaml
-- run: pnpm --dir cypress exec cypress install
-- run: pnpm --dir cypress test
+- run: pnpm --dir better-auth-next exec cypress install
+- run: pnpm --dir better-auth-next test:cypress
   env:
-    CYPRESS_MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
-    CYPRESS_MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
+    MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
+    MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
+
+For [Selenium](selenium.md), run `pnpm --dir better-auth-next test:selenium` with the same environment variables. The workflow uses Chrome on the Ubuntu runner, and Selenium Manager resolves ChromeDriver.
 
 ## Parallel workers
 
@@ -54,5 +53,4 @@ See [Email tags](email-tags.md) for more ways to create distinct users.
 
 Regenerating your Mockatoo password invalidates other password sessions. After
 a regeneration, update the `MOCKATOO_TEST_PASSWORD` GitHub secret before the next CI
-run. The Cypress test receives that same updated value as
-`CYPRESS_MOCKATOO_TEST_PASSWORD`.
+run.

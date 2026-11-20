@@ -307,7 +307,7 @@ provider setup.
 
 Store the dashboard credentials as `MOCKATOO_TEST_EMAIL` and
 `MOCKATOO_TEST_PASSWORD` secrets. From the example's
-[workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/better-auth-next.yml):
+[workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml):
 
 ```yaml
 - name: Generate Better Auth runtime secret
@@ -340,5 +340,5 @@ Store the dashboard credentials as `MOCKATOO_TEST_EMAIL` and
 ## Next steps
 
 - [All examples](https://github.com/mockatoo/examples): Auth.js, Better Auth, SvelteKit, Nuxt and Hono, each with a Playwright suite
-- [Cypress](cypress.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Cypress](cypress.md) · [Selenium](selenium.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
 - Use Mockatoo only outside production, and never commit its credentials.

@@ -7,7 +7,7 @@ description: "Test Google, GitHub, Apple and other OAuth sign-in with Cypress: c
 Sign in through OAuth from a Cypress test, locally and in CI, with any of the
 eight providers Mockatoo mocks.
 
-**Example on GitHub:** [`mockatoo/examples/cypress`](https://github.com/mockatoo/examples/tree/main/cypress).
+**Example on GitHub:** [`mockatoo/examples/better-auth-next`](https://github.com/mockatoo/examples/tree/main/better-auth-next).
 
 ## Why real providers break Cypress tests
 
@@ -45,19 +45,28 @@ your auth code doesn't change.
 - **The credentials in the environment**:
 
 ```sh
-CYPRESS_MOCKATOO_TEST_EMAIL=<your Mockatoo test email>
-CYPRESS_MOCKATOO_TEST_PASSWORD=<your Mockatoo test password>
+MOCKATOO_TEST_EMAIL=<your Mockatoo test email>
+MOCKATOO_TEST_PASSWORD=<your Mockatoo test password>
 ```
 
 ## Configure Cypress
 
-[`cypress.config.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress.config.ts):
+[`cypress.config.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/cypress.config.ts):
 
 ```ts
+import { MOCKATOO_URL } from "@mockatoo/connect-better-auth";
+import nextEnv from "@next/env";
 import { defineConfig } from "cypress";
+
+nextEnv.loadEnvConfig(process.cwd());
 
 export default defineConfig({
 	defaultCommandTimeout: 10000,
+	expose: { mockatooUrl: MOCKATOO_URL },
+	env: {
+		MOCKATOO_TEST_EMAIL: process.env.MOCKATOO_TEST_EMAIL,
+		MOCKATOO_TEST_PASSWORD: process.env.MOCKATOO_TEST_PASSWORD,
+	},
 	e2e: {
 		baseUrl: "https://localhost:3443",
 		supportFile: "cypress/support/e2e.ts",
@@ -71,12 +80,12 @@ export default defineConfig({
 
 The login page is on a different origin from your app, so its commands run
 inside `cy.origin`. Values reach that callback only through `args`.
-Import `MOCKATOO_URL` from your app's connector (`@mockatoo/connect-authjs` for Auth.js); the snippets below use Better Auth.
+The Cypress config imports `MOCKATOO_URL` from the app’s connector and exposes the public URL to the browser tests. The Auth.js example uses `@mockatoo/connect-authjs` in its config.
 
-[`sign-in.cy.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress/e2e/sign-in.cy.ts):
+[`sign-in.cy.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/cypress/e2e/sign-in.cy.ts):
 
 ```ts
-import { MOCKATOO_URL } from "@mockatoo/connect-better-auth";
+const mockatooUrl: string = Cypress.expose("mockatooUrl");
 
 type Credentials = { MOCKATOO_TEST_EMAIL?: string; MOCKATOO_TEST_PASSWORD?: string };
 const credentialKeys = ["MOCKATOO_TEST_EMAIL", "MOCKATOO_TEST_PASSWORD"];
@@ -84,7 +93,7 @@ const credentialKeys = ["MOCKATOO_TEST_EMAIL", "MOCKATOO_TEST_PASSWORD"];
 beforeEach(() => {
 	cy.env<Credentials>(credentialKeys).then(({ MOCKATOO_TEST_EMAIL, MOCKATOO_TEST_PASSWORD }) => {
 		if (!MOCKATOO_TEST_EMAIL || !MOCKATOO_TEST_PASSWORD)
-			throw new Error("Set CYPRESS_MOCKATOO_TEST_EMAIL and CYPRESS_MOCKATOO_TEST_PASSWORD.");
+			throw new Error("Set MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD in .env.local or the environment.");
 	});
 });
 
@@ -95,11 +104,11 @@ it("signs in with Google", () => {
 		const email = MOCKATOO_TEST_EMAIL as string;
 		const password = MOCKATOO_TEST_PASSWORD as string;
 		cy.origin(
-			MOCKATOO_URL,
+			mockatooUrl,
 			{ args: { email, password } },
 			({ email, password }) => {
-				cy.get("#email").type(email);
-				cy.get("#password").type(password, { log: false });
+				cy.get("#email").type(email, { log: false, parseSpecialCharSequences: false });
+				cy.get("#password").type(password, { log: false, parseSpecialCharSequences: false });
 				cy.contains("button", "Log in with password").click();
 				cy.contains("button", "Authorize").click();
 			},
@@ -123,10 +132,10 @@ The login and consent pages are the same for every provider:
 ## Reuse it: `cy.mockatooSignIn()`
 
 Move the flow into a custom command, so each spec needs one line.
-[`support/commands.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress/support/commands.ts):
+[`support/commands.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/cypress/support/commands.ts):
 
 ```ts
-import { MOCKATOO_URL } from "@mockatoo/connect-better-auth";
+const mockatooUrl: string = Cypress.expose("mockatooUrl");
 
 Cypress.Commands.add(
 	"mockatooSignIn",
@@ -137,17 +146,17 @@ Cypress.Commands.add(
 				({ MOCKATOO_TEST_EMAIL: email, MOCKATOO_TEST_PASSWORD: password }) => {
 					if (!email || !password)
 						throw new Error(
-							"Set CYPRESS_MOCKATOO_TEST_EMAIL and CYPRESS_MOCKATOO_TEST_PASSWORD.",
+							"Set MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD in .env.local or the environment.",
 						);
 					const address = tag ? email.replace("@", `+${tag}@`) : email;
 					cy.visit("/");
 					cy.contains("button", `Sign in with ${provider}`).click();
 					cy.origin(
-						MOCKATOO_URL,
+						mockatooUrl,
 						{ args: { address, password, consent } },
 						({ address, password, consent }) => {
-							cy.get("#email").type(address);
-							cy.get("#password").type(password, { log: false });
+							cy.get("#email").type(address, { log: false, parseSpecialCharSequences: false });
+							cy.get("#password").type(password, { log: false, parseSpecialCharSequences: false });
 							cy.contains("button", "Log in with password").click();
 							cy.contains("button", consent).click();
 						},
@@ -168,7 +177,7 @@ Cypress.Commands.add(
 
 `cy.session` caches the cookies after the first sign-in and restores them
 before each later test, so a suite signs in once per user instead of once per test.
-[`session.cy.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress/e2e/session.cy.ts):
+[`session.cy.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/cypress/e2e/session.cy.ts):
 
 ```ts
 // Signs in once, then restores the cached cookies before each later test.
@@ -208,7 +217,7 @@ own (Auth.js uses `/api/auth/session`).
 ## Test every provider with one loop
 
 The labels don't change between providers, so only the button text does.
-[`all-providers.cy.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress/e2e/all-providers.cy.ts):
+[`all-providers.cy.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/cypress/e2e/all-providers.cy.ts):
 
 ```ts
 const providers: Provider[] = [
@@ -251,7 +260,7 @@ it("signs in as a tagged address", () => {
 
 Special tags change what the provider does. Combine them with dots, e.g.
 `you+2.unverified@example.com`.
-[`edge-cases.cy.ts`](https://github.com/mockatoo/examples/blob/main/cypress/cypress/e2e/edge-cases.cy.ts):
+[`edge-cases.cy.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/cypress/e2e/edge-cases.cy.ts):
 
 ```ts
 it("+unverified: keeps an unverified email unverified", () => {
@@ -303,32 +312,32 @@ origins, even `localhost`, so the callback loses the state cookie and sign-in fa
 with `state_mismatch`.
 
 Fix: put a local HTTPS proxy in front of the app. The example's
-[`package.json`](https://github.com/mockatoo/examples/blob/main/cypress/package.json)
+[`package.json`](https://github.com/mockatoo/examples/blob/main/better-auth-next/package.json)
 builds and starts the app, proxies `https://localhost:3443` to it with
 [`local-ssl-proxy`](https://www.npmjs.com/package/local-ssl-proxy), and runs Cypress:
 
 ```sh
 START_SERVER_AND_TEST_INSECURE=1 start-server-and-test \
-  'pnpm --dir ../better-auth-next build && pnpm --dir ../better-auth-next start' http://localhost:3000 \
+  'pnpm build && PORT=3000 pnpm start' http://localhost:3000 \
   'local-ssl-proxy --source 3443 --target 3000' https://localhost:3443 \
   'cypress run'
 ```
 
-Details: [Why Cypress needs HTTPS](https://github.com/mockatoo/examples/blob/main/cypress/README.md#why-cypress-needs-https).
+Details: [Why Cypress needs HTTPS](https://github.com/mockatoo/examples/blob/main/better-auth-next/README.md#why-cypress-needs-https).
 
 ## Run in CI
 
 Store the dashboard credentials as `MOCKATOO_TEST_EMAIL` and
-`MOCKATOO_TEST_PASSWORD` secrets, then map them to the `CYPRESS_` names.
+`MOCKATOO_TEST_PASSWORD` secrets. Cypress reads them through the example’s config.
 From the examples'
-[Cypress workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/cypress.yml):
+[Cypress workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml):
 
 ```yaml
-- run: pnpm --dir cypress exec cypress install
-- run: pnpm --dir cypress test
+- run: pnpm --dir better-auth-next exec cypress install
+- run: pnpm --dir better-auth-next test:cypress
   env:
-    CYPRESS_MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
-    CYPRESS_MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
+    MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
+    MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
 
 - Regenerating the password on the dashboard ends other password sessions.
@@ -339,7 +348,7 @@ From the examples'
 | Symptom | Fix |
 | --- | --- |
 | `state_mismatch`, `auth state cookie not found` | Serve the app over HTTPS ([above](#serve-the-app-over-https)) |
-| `Set CYPRESS_MOCKATOO_TEST_EMAIL and …` | Export both variables, or map the CI secrets to the `CYPRESS_` names |
+| `Set MOCKATOO_TEST_EMAIL and …` | Set both variables in `.env.local`, your shell, or the CI test step |
 | `cy.origin` times out on the login page | Make sure the url matches the origin your app redirects to |
 | A test times out with `+slow` | Raise `defaultCommandTimeout` for that test |
 | Login fails after a password change | Copy the new password from the dashboard into your env and secrets |
@@ -347,5 +356,5 @@ From the examples'
 ## Next steps
 
 - [All examples](https://github.com/mockatoo/examples): Auth.js, Better Auth, SvelteKit, Nuxt and Hono, each with a Playwright suite
-- [Playwright](playwright.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Playwright](playwright.md) · [Selenium](selenium.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
 - Use Mockatoo only outside production, and never commit its credentials.
