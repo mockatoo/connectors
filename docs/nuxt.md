@@ -275,5 +275,5 @@ More in [Run in CI](ci.md).
 ## Next steps
 
 - [All examples](https://github.com/mockatoo/examples): Auth.js, Better Auth, SvelteKit, Nuxt, Hono, Django, Flask, Laravel and Spring Boot
-- [Playwright](playwright.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Playwright](playwright.md) · [SvelteKit](sveltekit.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
 - Use Mockatoo only outside production, and never commit its credentials.
