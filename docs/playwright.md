@@ -337,5 +337,5 @@ Store the dashboard credentials as `MOCKATOO_TEST_EMAIL` and
 ## Next steps
 
 - [All examples](https://github.com/mockatoo/examples): Auth.js, Better Auth, SvelteKit, Nuxt and Hono, each with a Playwright suite
-- [Cypress](cypress.md) · [Selenium](selenium.md) · [Nuxt](nuxt.md) · [Remix](remix.md) · [SvelteKit](sveltekit.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Cypress](cypress.md) · [Selenium](selenium.md) · [Nuxt](nuxt.md) · [Remix](remix.md) · [SvelteKit](sveltekit.md) · [Hono](hono.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
 - Use Mockatoo only outside production, and never commit its credentials.
