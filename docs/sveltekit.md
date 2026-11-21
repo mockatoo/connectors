@@ -15,7 +15,43 @@ production build uses the real providers.
 
 **Examples on GitHub:** [`mockatoo/examples/better-auth-sveltekit`](https://github.com/mockatoo/examples/tree/main/better-auth-sveltekit)
 and [`mockatoo/examples/authjs-sveltekit`](https://github.com/mockatoo/examples/tree/main/authjs-sveltekit).
-The Auth.js setup is the same as in the [Nuxt guide](nuxt.md).
+The Better Auth setup is the same as in
+[`better-auth-next`](https://github.com/mockatoo/examples/tree/main/better-auth-next),
+and the Auth.js setup as in
+[`authjs-next`](https://github.com/mockatoo/examples/tree/main/authjs-next) and
+[`authjs-nuxt`](https://github.com/mockatoo/examples/tree/main/authjs-nuxt).
+
+## How it works
+
+1. Your sign-in button calls the library's sign-in endpoint
+   (`/api/auth/sign-in/social` for Better Auth, `/auth/signin/<provider>` for
+   Auth.js), which sends the browser to the mock on the provider's real paths:
+   `accounts.google.com/o/oauth2/v2/auth` becomes
+   `app.mockatoo.globalunderdog.com/google/o/oauth2/v2/auth`.
+2. You (or a test) fill in the login page and click **Authorize**.
+3. The mock redirects back to `/api/auth/callback/<provider>` (Better Auth) or
+   `/auth/callback/<provider>` (Auth.js). The library exchanges the code for
+   provider-shaped tokens, reads the profile or the ID token, and sets the
+   session cookie, as it would in production.
+
+Your routes, buttons and session handling don't change. Only the provider
+list does, and only when the mock is on.
+
+## Prerequisites
+
+- **Node.js 24 and SvelteKit 3** (`@sveltejs/kit` 3.2 or later). The examples
+  import `dev` from `$app/env` and secrets from `$app/env/private`. On
+  SvelteKit 2, import them from `$app/environment` and `$env/dynamic/private`.
+- **Better Auth:** `better-auth` 1.7.25 and `@mockatoo/connect-better-auth`
+  ([`package.json`](https://github.com/mockatoo/examples/blob/main/better-auth-sveltekit/package.json)).
+- **Auth.js:** `@auth/core` 0.41.3 and `@mockatoo/connect-authjs`
+  ([`package.json`](https://github.com/mockatoo/examples/blob/main/authjs-sveltekit/package.json)).
+- **A Mockatoo test account, with its credentials in `.env.local`**
+  (git-ignored). `npx -y @mockatoo/mockatoo@latest init` installs the
+  matching connector and writes `MOCKATOO_TEST_EMAIL` and
+  `MOCKATOO_TEST_PASSWORD` there. Or sign up at
+  [app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com)
+  and copy the email and password from the dashboard.
 
 ## Start a new app with the Svelte CLI
 
@@ -31,38 +67,11 @@ It pulls in the official `better-auth` add-on with its GitHub demo (and
 Drizzle, if the app has no database), adds `@mockatoo/connect-better-auth`,
 and gates GitHub on `dev`. The [add-on's README](https://github.com/mockatoo/sv#readme)
 shows the exact diff and how to try the demo at `/demo/better-auth/login`. It
-works on SvelteKit 2 and 3. On an app that already has auth, it changes
-nothing and points you to the examples on this page.
+works on SvelteKit 2 and 3, and its CI signs in on a fresh app. On an app
+that already has auth, it changes nothing and points you to the examples on
+this page.
 
-The rest of this guide sets up all eight providers by hand, in an existing app.
-
-## How it works
-
-1. Your sign-in button calls the library's sign-in endpoint
-   (`/api/auth/sign-in/social` for Better Auth, `/auth/signin/<provider>` for
-   Auth.js), which redirects to the mock on the provider's real paths:
-   `accounts.google.com/o/oauth2/v2/auth` becomes
-   `app.mockatoo.globalunderdog.com/google/o/oauth2/v2/auth`.
-2. You (or a test) fill in the login page and click **Authorize**.
-3. The mock redirects back to `/api/auth/callback/<provider>` (Better Auth) or
-   `/auth/callback/<provider>` (Auth.js). The library exchanges the code for
-   provider-shaped tokens, reads the profile or the ID token, and sets the
-   session cookie, as it would in production.
-
-Your routes, buttons and session handling don't change. Only the provider
-list does, and only when the mock is on.
-
-## Prerequisites
-
-- **Node.js 24 and SvelteKit 3.** The examples import `dev` from `$app/env`.
-  On SvelteKit 2, import it from `$app/environment`.
-- **Better Auth:** `better-auth` and `@mockatoo/connect-better-auth`
-  ([`package.json`](https://github.com/mockatoo/examples/blob/main/better-auth-sveltekit/package.json)).
-- **Auth.js:** `@auth/core` and `@mockatoo/connect-authjs`
-  ([`package.json`](https://github.com/mockatoo/examples/blob/main/authjs-sveltekit/package.json)).
-- **A Mockatoo test account.** Sign up at
-  [app.mockatoo.globalunderdog.com](https://app.mockatoo.globalunderdog.com),
-  then copy the email and password from the dashboard.
+The sections below set up all eight providers by hand, in an existing app.
 
 ## Set up Better Auth
 
@@ -78,12 +87,18 @@ import { betterAuth } from "better-auth";
 import { dev } from "$app/env";
 import * as env from "$app/env/private";
 
+// …the BETTER_AUTH_SECRET check
+
 // Your app would switch on dev, so production uses the real providers:
 //   const useMock = dev;   // import { dev } from "$app/env";
+// This demo also runs the mock in production on Vercel, where dev is
+// always false, so its committed .env sets MOCKATOO_FORCE=true.
+// Delete that line from .env before you ship.
 const useMock = dev || __MOCKATOO_FORCE__;
 
 export const auth = betterAuth({
 	secret: env.BETTER_AUTH_SECRET,
+	// …baseURL, account linking and rate limits
 	socialProviders: useMock
 		? {}
 		: {
@@ -133,9 +148,7 @@ export const POST: RequestHandler = ({ request }) => auth.handler(request);
 ### Sign in and read the session
 
 [`src/lib/SignIn.svelte`](https://github.com/mockatoo/examples/blob/main/better-auth-sveltekit/src/lib/SignIn.svelte)
-signs in with Better Auth's Svelte client, and
-[`src/routes/+page.server.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-sveltekit/src/routes/%2Bpage.server.ts)
-reads the session during server rendering:
+signs in with Better Auth's Svelte client:
 
 ```ts
 const result = await authClient.signIn.social({
@@ -145,15 +158,18 @@ const result = await authClient.signIn.social({
 });
 ```
 
+`errorCallbackURL` sends a failed sign-in, such as denied consent, back to `/`
+with `?error=`.
+[`src/routes/+page.server.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-sveltekit/src/routes/%2Bpage.server.ts)
+reads the session and that error during server rendering:
+
 ```ts
 export const load: PageServerLoad = async ({ request, url }) => ({
+	mockatooUrl: MOCKATOO_URL,
 	session: await auth.api.getSession({ headers: request.headers }),
 	error: url.searchParams.get("error"),
 });
 ```
-
-`errorCallbackURL` sends a failed sign-in, such as denied consent, back to `/`
-with `?error=`, which the page shows as an alert.
 
 ## Set up Auth.js
 
@@ -173,10 +189,11 @@ import { providers } from "./providers";
 const useMock = dev || __MOCKATOO_FORCE__;
 
 export function authConfig(): AuthConfig {
+	// …the AUTH_SECRET check
 	const options = (index: number) => ({
 		authorization: { params: { scope: providers[index].scope } },
 	});
-	// …the AUTH_SECRET check and the Microsoft options
+	// …the Microsoft options (see Handle provider differences)
 	return {
 		secret: env.AUTH_SECRET,
 		trustHost: true,
@@ -206,6 +223,8 @@ export function authConfig(): AuthConfig {
   which also lists the buttons.
 - `trustHost: true` stops Auth.js from rejecting the request's host with
   `UntrustedHost`.
+- The example sets `useMock` the same way as the Better Auth one: use `dev`
+  alone in your app.
 
 ### Mount Auth.js
 
@@ -228,12 +247,14 @@ fetches a CSRF token and posts to the sign-in endpoint:
 
 ```ts
 const csrf = await fetch("/auth/csrf");
+if (!csrf.ok) throw new Error("Could not load CSRF token");
 const { csrfToken } = await csrf.json();
 const response = await fetch(provider ? `/auth/signin/${provider}` : "/auth/signout", {
 	method: "POST",
 	headers: { "X-Auth-Return-Redirect": "1" },
 	body: new URLSearchParams({ csrfToken, callbackUrl: "/" }),
 });
+if (!response.ok) throw new Error("Auth action failed");
 const { url } = await response.json();
 window.location.assign(url);
 ```
@@ -280,9 +301,25 @@ Apple's.
 | Apple | The trusted origin above. With Auth.js in `pnpm dev`, HTTPS: run `HTTPS=true pnpm dev` and open `https://localhost:3000` (the example adds `@vitejs/plugin-basic-ssl`). With the real provider, a signed client secret |
 | Discord | Auth.js: `issuer: "https://discord.com"` on both the real and the mock provider, because Discord sends `iss` on every sign-in. `MockDiscord` swaps in the mock's issuer |
 | Microsoft | Auth.js: a `profile` that skips the photo request to `graph.microsoft.com`, which the mock can't serve. Better Auth: `tenantId: "common"` on the real provider |
-| X | The `users.read tweet.read` scope. X's OAuth 2.0 API has no email, so the session shows the name |
+| X | Auth.js: the `users.read tweet.read` scope. X's OAuth 2.0 API has no email, so the session shows the name |
 
-See each provider's page, e.g. [Apple](providers/apple.md) or
+The Microsoft options, from
+[`src/lib/auth.server.ts`](https://github.com/mockatoo/examples/blob/main/authjs-sveltekit/src/lib/auth.server.ts):
+
+```ts
+const microsoft = {
+	...options(6),
+	profile: (profile: { sub: string; name?: string; email?: string }) => ({
+		id: profile.sub,
+		name: profile.name,
+		email: profile.email,
+		image: null,
+	}),
+};
+```
+
+Both `MockMicrosoftEntraID(microsoft)` and the real `MicrosoftEntraID` get
+these options. See each provider's page, e.g. [Apple](providers/apple.md) or
 [Microsoft](providers/microsoft.md), for its flow and known differences.
 
 ## Run it
@@ -311,7 +348,10 @@ Object.assign(process.env, loadEnv("development", process.cwd(), ""));
 
 export default defineConfig({
 	testDir: "./tests",
-	use: { baseURL: "http://localhost:3000" },
+	// …parallelism, reporter, trace and projects
+	use: {
+		baseURL: "http://localhost:3000",
+	},
 	webServer: {
 		command: "pnpm build && pnpm preview",
 		url: "http://localhost:3000",
@@ -344,8 +384,8 @@ await expect(page.locator(".email")).toHaveText(email as string);
 The Auth.js example's
 [spec](https://github.com/mockatoo/examples/blob/main/authjs-sveltekit/tests/sign-in.spec.ts)
 runs the same flow for all eight providers over HTTPS, and declines consent
-with Google. Add `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` to
-`.env.local` or the environment, then run:
+with Google. With `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` in
+`.env.local` or the environment, run:
 
 ```sh
 pnpm exec playwright install chromium
@@ -379,7 +419,8 @@ More in [Run in CI](ci.md).
 
 | Symptom | Fix |
 | --- | --- |
-| `BETTER_AUTH_SECRET is required. Set it in .env.local or your deployment environment.` (or `AUTH_SECRET is required…` with Auth.js) | Add a random secret to `.env.local`, or to the deployment's environment |
+| `BETTER_AUTH_SECRET is required. Set it in .env.local or your deployment environment.` | Add a random secret to `.env.local`, or to the deployment's environment |
+| `AUTH_SECRET is required. Set it in .env.local or your deployment environment.` | The same, for Auth.js |
 | `Cross-site POST form submissions are forbidden` on the Apple callback | Add the sending origin to `csrf.trustedOrigins` (see [Trust Apple's callback](#trust-apples-callback)) |
 | The real provider's login page opens | The mock isn't on: `dev` is false in `pnpm build`. Run `pnpm dev`, or set `MOCKATOO_FORCE=true` before building. Vite reads it at build time |
 | Better Auth redirects back with `state_mismatch` | Open the app on the same host as its configured origin (`ORIGIN` in an app made with `sv`): `localhost` and `127.0.0.1` keep separate cookies, so the state cookie is missing at the callback |
@@ -388,5 +429,6 @@ More in [Run in CI](ci.md).
 ## Next steps
 
 - [All examples](https://github.com/mockatoo/examples): Auth.js, Better Auth, SvelteKit, Nuxt, Hono, Django, Flask, Laravel and Spring Boot
-- [`@mockatoo/sv`](https://github.com/mockatoo/sv) · [Playwright](playwright.md) · [Nuxt](nuxt.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [`@mockatoo/sv`](https://github.com/mockatoo/sv) · [Playwright](playwright.md) · [Nuxt](nuxt.md) · [Run in CI](ci.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Apple](providers/apple.md)
+- [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing): test what your app does when sign-in fails
 - Use Mockatoo only outside production, and never commit its credentials.
