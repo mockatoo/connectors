@@ -358,5 +358,5 @@ From the examples'
 ## Next steps
 
 - [All examples](https://github.com/mockatoo/examples): Auth.js, Better Auth, SvelteKit, Nuxt and Hono, each with a Playwright suite
-- [Playwright](playwright.md) · [Selenium](selenium.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Playwright](playwright.md) · [Selenium](selenium.md) · [Next.js](nextjs.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
 - Use Mockatoo only outside production, and never commit its credentials.

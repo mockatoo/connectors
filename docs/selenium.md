@@ -273,4 +273,4 @@ Create GitHub Actions secrets named `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PAS
 
 ## Next steps
 
-- [Cypress](cypress.md) · [Playwright](playwright.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Cypress](cypress.md) · [Playwright](playwright.md) · [Next.js](nextjs.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
