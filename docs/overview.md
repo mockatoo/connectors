@@ -19,7 +19,7 @@ Use Mockatoo only outside production. Select its connector behind a non-producti
 - [Flask](flask.md): Point Authlib's Flask clients at the mock with one switch, no connector needed
 - [Laravel](laravel.md): Point Laravel Socialite's drivers at the mock with one switch, no connector needed
 - [Django](django.md): Point django-allauth's providers at the mock with small subclasses, no connector needed
-- [Nuxt](nuxt.md): Run Auth.js in a Nitro server route and swap each provider for its Mockatoo helper
+- [Nuxt](nuxt.md): Point Auth.js or nuxt-auth-utils at the mock, with a connector or runtime config
 - [SvelteKit](sveltekit.md): Gate Better Auth or Auth.js on `dev`, or start a new app with `npx sv add @mockatoo`
 - [Remix](remix.md): Run Auth.js in a resource route and sign in with plain HTML forms
 - [Hono](hono.md): Point oauth4webapi's discovery at the mock's issuers, no connector needed
