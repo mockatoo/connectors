@@ -10,7 +10,7 @@ any of the eight providers Mockatoo mocks.
 There's no Auth.js adapter package for Remix, and you don't need one. A
 resource route hands each request to `@auth/core`, and
 `@mockatoo/connect-authjs` swaps each Auth.js provider for one pointed at the
-mock. The example runs Remix 2.16 with Vite. There's no example yet for
+mock. The example runs Remix 2.17 with Vite. There's no example yet for
 React Router 7, Remix's successor.
 
 **Example on GitHub:** [`mockatoo/examples/authjs-remix`](https://github.com/mockatoo/examples/tree/main/authjs-remix).
