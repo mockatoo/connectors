@@ -1,5 +1,5 @@
 ---
-description: "Test missing email with you+noemail@example.com in Playwright."
+description: "Test sign-in without an email: you+noemail@example.com gets none from Microsoft, Discord, LinkedIn, X or Facebook, even with the email scope."
 ---
 
 # Provider account without email

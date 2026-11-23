@@ -1,5 +1,6 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Remix with Mockatoo: Auth.js in a resource route, Playwright tests and CI."
+title: "Test OAuth login in Remix with Auth.js · Mockatoo"
 ---
 
 # Remix

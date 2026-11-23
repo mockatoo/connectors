@@ -1,5 +1,5 @@
 ---
-description: "Test OAuth 503 retry with you+flaky@example.com in Playwright."
+description: "Test retries for an intermittent token endpoint failure: you+flaky@example.com makes the first code exchange return 503, and a retry with the same code works."
 ---
 
 # Intermittent token endpoint failure

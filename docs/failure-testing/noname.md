@@ -1,5 +1,5 @@
 ---
-description: "Test missing name with you+noname@example.com in Playwright."
+description: "Test profiles without a name: you+noname@example.com sends no name claims from Google or Microsoft, and a null name or global_name from GitHub and Discord."
 ---
 
 # Missing profile name

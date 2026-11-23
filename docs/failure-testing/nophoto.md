@@ -1,5 +1,5 @@
 ---
-description: "Test missing profile photo with you+nophoto@example.com in Playwright."
+description: "Test profiles without a photo: you+nophoto@example.com returns no LinkedIn picture claim and a silhouette Facebook profile picture."
 ---
 
 # Missing profile photo

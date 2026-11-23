@@ -1,5 +1,5 @@
 ---
-description: "Test returning user with you+returning@example.com in Playwright."
+description: "Test repeat sign-in: you+returning@example.com gets no Google refresh token without prompt=consent, and no name from Apple, like a user who signed in before."
 ---
 
 # Returning provider account

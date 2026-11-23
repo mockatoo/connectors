@@ -1,5 +1,5 @@
 ---
-description: "Test 429 Too Many Requests with you+throttled@example.com in Playwright."
+description: "Test Microsoft refresh throttling: after sign-in as you+throttled@example.com, every refresh returns 429 Too Many Requests with a Retry-After header."
 ---
 
 # Microsoft token refresh throttled

@@ -1,5 +1,5 @@
 ---
-description: "Test a Microsoft user outside a tenant with you+outsider@example.com in Playwright."
+description: "Test a Microsoft user outside your tenant: a single-tenant app refuses you+outsider@example.com with AADSTS50020, as for a user who isn't a member or guest."
 ---
 
 # Microsoft user outside the tenant

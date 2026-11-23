@@ -1,5 +1,5 @@
 ---
-description: "Test email null with you+private@example.com in Playwright."
+description: "Test a GitHub user with a private email: you+private@example.com gets email: null from /user, so your app must request user:email and read /user/emails."
 ---
 
 # Private GitHub email

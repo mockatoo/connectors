@@ -1,5 +1,6 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in with Cypress: cy.origin, cached sessions, all 8 providers, email tags and edge cases, locally and in CI."
+title: "Mock OAuth login in Cypress tests · Mockatoo"
 ---
 
 # Cypress

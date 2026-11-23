@@ -1,5 +1,6 @@
 ---
 description: "Sign in as many test users with one Mockatoo account by tagging its email, and use special tags to test edge cases such as unverified emails."
+title: "Email tags: many test users from one account · Mockatoo"
 ---
 
 # Email tags

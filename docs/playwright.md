@@ -1,5 +1,6 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in with Playwright: all 8 providers, a fresh user per test, edge-case tags and token refresh, locally and in CI."
+title: "Mock OAuth login in Playwright tests · Mockatoo"
 ---
 
 # Playwright

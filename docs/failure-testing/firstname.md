@@ -1,5 +1,5 @@
 ---
-description: "Test missing family name with you+firstname@example.com in Playwright."
+description: "Test sign-in with a Google profile that has a first name but no family name: you+firstname@example.com sends name and given_name without family_name."
 ---
 
 # First name without family name

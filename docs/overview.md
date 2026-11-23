@@ -1,5 +1,6 @@
 ---
 description: "Mockatoo is a hosted OAuth provider for testing Google, GitHub, Apple and other social sign-in in CI, E2E tests and coding agents, with no bot checks."
+title: "Mockatoo docs: mock OAuth sign-in for tests and CI"
 ---
 
 # Mockatoo

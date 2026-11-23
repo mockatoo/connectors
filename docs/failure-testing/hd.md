@@ -1,5 +1,5 @@
 ---
-description: "Test Workspace domain claim with you+hd@example.com in Playwright."
+description: "Test domain restrictions against a Google Workspace account: you+hd@example.com returns an ID token with the hd claim set to the email's domain."
 ---
 
 # Google Workspace account

@@ -1,5 +1,5 @@
 ---
-description: "Test changed email with you+renamed@example.com in Playwright."
+description: "Test account linking after a user changes their email: you+renamed@example.com returns the same provider user ID as your address with a different email."
 ---
 
 # Changed provider email

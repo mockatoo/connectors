@@ -1,5 +1,5 @@
 ---
-description: "Test email_verified false with you+unverified@example.com in Playwright."
+description: "Test that your app keeps the email verification status: you+unverified@example.com reports the email as unverified for Google, GitHub, Discord and LinkedIn."
 ---
 
 # Unverified email address

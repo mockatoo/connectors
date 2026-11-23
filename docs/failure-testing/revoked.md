@@ -1,5 +1,5 @@
 ---
-description: "Test refresh token invalid_grant with you+revoked@example.com in Playwright."
+description: "Test a refresh token that stops working: after sign-in as you+revoked@example.com, every refresh returns invalid_grant (or the provider's own error code)."
 ---
 
 # Revoked provider access

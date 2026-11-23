@@ -1,5 +1,6 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Next.js with Mockatoo: Auth.js or Better Auth pointed at the mock, Playwright tests and CI."
+title: "Test Next.js OAuth login: Auth.js, Better Auth · Mockatoo"
 ---
 
 # Next.js

@@ -1,5 +1,5 @@
 ---
-description: "Test OAuth timeout with you+slow@example.com in Playwright."
+description: "Test callback and test timeouts against a slow token endpoint: with you+slow@example.com, the code exchange responds only after 10 seconds by default."
 ---
 
 # Slow token endpoint

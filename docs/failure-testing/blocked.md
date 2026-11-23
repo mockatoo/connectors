@@ -1,5 +1,5 @@
 ---
-description: "Test admin_policy_enforced with you+blocked@example.com in Playwright."
+description: "Test what users see when an organization blocks your app: you+blocked@example.com shows Google's admin_policy_enforced or Microsoft's admin approval page."
 ---
 
 # Provider admin policy blocks sign-in

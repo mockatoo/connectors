@@ -1,5 +1,5 @@
 ---
-description: "Test string boolean claims with you+strings@example.com in Playwright."
+description: "Test Apple's string booleans: you+strings@example.com returns email_verified and is_private_email as the strings \"true\" and \"false\" instead of booleans."
 ---
 
 # Apple boolean claims as strings

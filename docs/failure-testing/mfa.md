@@ -1,5 +1,5 @@
 ---
-description: "Test AADSTS50076 with you+mfa@example.com in Playwright."
+description: "Test a Microsoft refresh that requires MFA: after sign-in as you+mfa@example.com, every refresh returns invalid_grant with AADSTS50076 and a claims challenge."
 ---
 
 # Microsoft refresh requires MFA

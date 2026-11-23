@@ -1,5 +1,6 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Laravel with Mockatoo: Socialite drivers pointed at the mock, Playwright tests and CI."
+title: "Test Laravel Socialite OAuth login · Mockatoo"
 ---
 
 # Laravel

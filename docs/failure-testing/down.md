@@ -1,5 +1,5 @@
 ---
-description: "Test OAuth 503 with you+down@example.com in Playwright."
+description: "Test your OAuth callback when the token endpoint is down: you+down@example.com makes the code exchange return 503 Service Unavailable for every provider."
 ---
 
 # Token endpoint outage
