@@ -205,30 +205,42 @@ export function createAddress(tag = ""): string {
 Special tags change what the provider does. The example has one self-contained
 spec per tag in [`tests/tags`](https://github.com/mockatoo/examples/tree/main/better-auth-next/tests/tags).
 For example, [`unverified.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/unverified.spec.ts)
-signs in with the tagged address:
+signs in with the tagged address and checks that the session marks the email unverified:
 
 ```ts
 const email = process.env.MOCKATOO_TEST_EMAIL ?? "";
 const password = process.env.MOCKATOO_TEST_PASSWORD ?? "";
 
-test("checks unverified with Google", async ({ page }) => {
-	const address = email.replace("@", "+unverified@");
+test("+unverified: keeps an unverified email unverified", async ({ page }) => {
+	const address = email.replace("@", `+e2e-${crypto.randomUUID()}.unverified@`);
+	// Sign-in is allowed, but an app must not treat this address as verified.
 	await page.goto("/");
 	await page.getByRole("button", { name: "Sign in with Google" }).click();
 	await page.getByLabel("Email", { exact: true }).fill(address);
 	await page.getByLabel("Password", { exact: true }).fill(password);
 	await page.getByRole("button", { name: "Log in with password" }).click();
 	await page.getByRole("button", { name: "Authorize" }).click();
-	await expect(page.getByRole("heading", { name: "Your session" })).toBeVisible({ timeout: 20_000 });
+	await expect(page.getByRole("heading", { name: "Your session" })).toBeVisible(
+		{ timeout: 15_000 },
+	);
+	expect(
+		JSON.parse((await page.locator("pre code").textContent()) ?? "").user,
+	).toMatchObject({
+		email: address,
+		emailVerified: false,
+	});
 });
 ```
 
 [`down.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/down.spec.ts)
-checks that the token endpoint error returns the browser to an error URL:
+checks that a token endpoint outage returns the browser with `?error=invalid_code`:
 
 ```ts
 	await page.getByRole("button", { name: "Authorize" }).click();
-	await expect(page).toHaveURL((url) => url.searchParams.has("error"));
+	await expect(page).toHaveURL(
+		(url) =>
+			url.pathname === "/" && url.searchParams.get("error") === "invalid_code",
+	);
 ```
 
 Clicking **Deny** returns `access_denied` with the original `state`, as the real
@@ -259,21 +271,35 @@ Each provider supports its own tags. See its page, e.g.
 
 `page.request` sends the browser's cookies, so a test can call your app's
 API as the signed-in user. With `+revoked`, sign-in succeeds but the refresh
-fails. The [`revoked.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/revoked.spec.ts)
-checks sign-in. Add a refresh request to test that behavior in your app:
+fails. [`revoked.spec.ts`](https://github.com/mockatoo/examples/blob/main/better-auth-next/tests/tags/revoked.spec.ts)
+signs in, then asks the app to refresh the token:
 
 ```ts
-	const address = createAddress("revoked");
+	const address = email.replace("@", `+e2e-${crypto.randomUUID()}.revoked@`);
 	// Revoked access affects refresh, not initial sign-in. Better Auth reports
 	// a refresh failure to the app without exposing Microsoft's provider error.
-	await signIn(page, "Microsoft", address);
-	expect((await sessionUser(page)).email).toBe(address);
+	await page.goto("/");
+	await page.getByRole("button", { name: "Sign in with Microsoft" }).click();
+	await page.getByLabel("Email", { exact: true }).fill(address);
+	await page.getByLabel("Password", { exact: true }).fill(password);
+	await page.getByRole("button", { name: "Log in with password" }).click();
+	await page.getByRole("button", { name: "Authorize" }).click();
+	await expect(page.getByRole("heading", { name: "Your session" })).toBeVisible(
+		{ timeout: 15_000 },
+	);
+	expect(
+		JSON.parse((await page.locator("pre code").textContent()) ?? "").user.email,
+	).toBe(address);
 	// Exercise the app's public auth API with the browser's session cookies.
 	const response = await page.request.post("/api/auth/refresh-token", {
 		data: { useAccountCookie: true },
 		headers: { Origin: new URL(page.url()).origin },
 	});
 	expect(response.status()).toBe(400);
+	expect(await response.json()).toMatchObject({
+		code: "FAILED_TO_REFRESH_ACCESS_TOKEN",
+		message: "Failed to refresh access token",
+	});
 ```
 
 `/api/auth/refresh-token` is Better Auth's refresh endpoint. Use your
@@ -307,15 +333,18 @@ Store the dashboard credentials as `MOCKATOO_TEST_EMAIL` and
 [workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml):
 
 ```yaml
-- name: Generate Better Auth runtime secret
-  run: echo "BETTER_AUTH_SECRET=$(openssl rand -base64 32)" >> "$GITHUB_ENV"
-- run: pnpm --dir better-auth-next exec playwright install --with-deps chromium
-- run: pnpm --dir better-auth-next test
+- name: Generate runtime secret
+  run: echo "${{ matrix.secret_name }}=$(openssl rand -base64 32)" >> "$GITHUB_ENV"
+- if: matrix.runner == 'playwright'
+  run: pnpm --dir ${{ matrix.example }} exec playwright install --with-deps chromium
+- run: pnpm --dir ${{ matrix.example }} ${{ matrix.script }}
   env:
     MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
     MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
 
+- The workflow's matrix runs both Next.js examples with Playwright, Cypress
+  and Selenium; `secret_name` is `BETTER_AUTH_SECRET` or `AUTH_SECRET`.
 - `webServer` builds and starts the app, so the workflow only installs
   dependencies and Chromium.
 - `reuseExistingServer: !process.env.CI` starts a fresh server in CI.
