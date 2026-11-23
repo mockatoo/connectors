@@ -11,7 +11,6 @@ Use Mockatoo only outside production. Select its connector behind a non-producti
 ## Guides
 
 - [Account flow](account-flow.md): Sign-up, login, sessions, password regeneration, consent, and the stable form labels
-- [Email tags](email-tags.md): Sign in as other users with `you+<tag>@example.com`, and the tags that trigger edge cases
 - [Playwright](playwright.md): Sign in from Playwright with every provider, a fresh user per test, edge-case tags, and token refresh
 - [Cypress](cypress.md): Sign in from Cypress with `cy.origin`, cached sessions, every provider, and edge-case tags
 - [Selenium](selenium.md): Sign in with Selenium WebDriver, restore sessions, and test all eight providers and edge-case tags
@@ -28,6 +27,7 @@ Use Mockatoo only outside production. Select its connector behind a non-producti
 
 ## Failure testing
 
+- [Email tags](email-tags.md): Sign in as other users with `you+<tag>@example.com`, and the tags that trigger edge cases
 - [Apple boolean claims as strings](failure-testing/strings.md): Test string boolean claims with `you+strings@example.com`
 - [Apple private relay address](failure-testing/hidden.md): Test Hide My Email with `you+hidden@example.com`
 - [Changed provider email](failure-testing/renamed.md): Test changed email with `you+renamed@example.com`
