@@ -215,7 +215,7 @@ The Auth.js Microsoft options, from
 [`lib/auth.ts`](https://github.com/mockatoo/examples/blob/main/authjs-next/lib/auth.ts):
 
 ```ts
-const microsoft = {
+const microsoftOptions = {
 	...options(6),
 	profile: (profile: { sub: string; name?: string; email?: string }) => ({
 		id: profile.sub,
@@ -224,6 +224,9 @@ const microsoft = {
 		image: null,
 	}),
 };
+const microsoft = useMock
+	? MockMicrosoftEntraID(microsoftOptions)
+	: MicrosoftEntraID(microsoftOptions);
 ```
 
 See each provider's page, e.g. [Discord](providers/discord.md) or
@@ -272,14 +275,21 @@ await page.goto("/");
 await page
 	.getByRole("button", { name: `Sign in with ${provider}` })
 	.click();
-await page.locator("#email").fill(email as string);
+// A fresh address per test: the same email through two providers is
+// refused with OAuthAccountNotLinked (see account-linking.spec.ts).
+const address = (email as string).replace(
+	"@",
+	`+e2e-${crypto.randomUUID()}@`,
+);
+await page.locator("#email").fill(address);
 await page.locator("#password").fill(password as string);
 await page.getByRole("button", { name: "Log in with password" }).click();
 await page.getByRole("button", { name: decision }).click();
 ```
 
-The Better Auth example adds one spec per edge-case tag in
-[`tests/tags/`](https://github.com/mockatoo/examples/tree/main/better-auth-next/tests/tags),
+Both examples add one spec per edge-case tag in `tests/tags/`
+([Auth.js](https://github.com/mockatoo/examples/tree/main/authjs-next/tests/tags),
+[Better Auth](https://github.com/mockatoo/examples/tree/main/better-auth-next/tests/tags)),
 such as `you+down@example.com` for a token endpoint outage.
 
 Add `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD` to `.env.local` or the
