@@ -275,13 +275,7 @@ await page.goto("/");
 await page
 	.getByRole("button", { name: `Sign in with ${provider}` })
 	.click();
-// A fresh address per test: the same email through two providers is
-// refused with OAuthAccountNotLinked (see account-linking.spec.ts).
-const address = (email as string).replace(
-	"@",
-	`+e2e-${crypto.randomUUID()}@`,
-);
-await page.locator("#email").fill(address);
+await page.locator("#email").fill(email as string);
 await page.locator("#password").fill(password as string);
 await page.getByRole("button", { name: "Log in with password" }).click();
 await page.getByRole("button", { name: decision }).click();
