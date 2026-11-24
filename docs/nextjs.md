@@ -210,6 +210,7 @@ never reaches the callback, so there's no `?error=` to handle.
 | Provider | Auth.js | Better Auth |
 | --- | --- | --- |
 | Discord | `issuer: "https://discord.com"` on both the real and the mock provider: Discord sends `iss` on every sign-in, and Auth.js rejects it otherwise | No extra option in the example |
+| GitHub | The `read:user user:email` scope, so a private email is still found ([GitHub email null](https://mockatoo.globalunderdog.com/blog/github-email-null)) | No extra option in the example |
 | Microsoft | A `profile` that skips the photo request to `graph.microsoft.com`, which the mock can't serve | `tenantId: "common"` for the real provider. `mockMicrosoft` also takes `tenantId` |
 | X | The `users.read tweet.read` scope. X's OAuth 2.0 API has no email, so the session shows the name | The `twitter` provider ID |
 | Apple | With the real provider, a signed client secret | Same |
