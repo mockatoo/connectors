@@ -1,6 +1,7 @@
 ---
 description: "Run OAuth sign-in tests in GitHub Actions with Mockatoo: store the test credentials as secrets, add the workflow, and give parallel workers separate users."
 title: "Run OAuth login tests in GitHub Actions CI · Mockatoo"
+lastModified: 2026-11-20
 ---
 
 # Run in CI

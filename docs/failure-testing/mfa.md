@@ -1,5 +1,6 @@
 ---
 description: "Test a Microsoft refresh that requires MFA: after sign-in as you+mfa@example.com, every refresh returns invalid_grant with AADSTS50076 and a claims challenge."
+lastModified: 2026-11-20
 ---
 
 # Microsoft refresh requires MFA

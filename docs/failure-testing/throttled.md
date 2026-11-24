@@ -1,5 +1,6 @@
 ---
 description: "Test Microsoft refresh throttling: after sign-in as you+throttled@example.com, every refresh returns 429 Too Many Requests with a Retry-After header."
+lastModified: 2026-11-20
 ---
 
 # Microsoft token refresh throttled

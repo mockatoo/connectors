@@ -1,5 +1,6 @@
 ---
 description: "Test a GitHub user with a private email: you+private@example.com gets email: null from /user, so your app must request user:email and read /user/emails."
+lastModified: 2026-11-20
 ---
 
 # Private GitHub email

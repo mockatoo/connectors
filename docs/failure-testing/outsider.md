@@ -1,5 +1,6 @@
 ---
 description: "Test a Microsoft user outside your tenant: a single-tenant app refuses you+outsider@example.com with AADSTS50020, as for a user who isn't a member or guest."
+lastModified: 2026-11-20
 ---
 
 # Microsoft user outside the tenant

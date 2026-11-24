@@ -1,6 +1,7 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Django with Mockatoo: allauth providers pointed at the mock, Playwright tests and CI."
 title: "Test django-allauth social login in Django · Mockatoo"
+lastModified: 2026-11-20
 ---
 
 # Django

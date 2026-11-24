@@ -1,5 +1,6 @@
 ---
 description: "Test Sign in with Apple's Hide My Email: you+hidden@example.com returns a stable @privaterelay.appleid.com address with is_private_email set to true."
+lastModified: 2026-11-20
 ---
 
 # Apple private relay address
