@@ -1,6 +1,7 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Flask with Mockatoo: Authlib clients pointed at the mock, Playwright tests and CI."
 title: "Test OAuth login in Flask with Authlib · Mockatoo"
+datePublished: 2026-11-19
 lastModified: 2026-11-24
 ---
 

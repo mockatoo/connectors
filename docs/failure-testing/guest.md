@@ -1,5 +1,6 @@
 ---
 description: "Test how your app handles an invited Microsoft guest: you+guest@example.com signs in with tid naming your tenant and idp naming their home tenant."
+datePublished: 2026-11-20
 lastModified: 2026-11-24
 ---
 

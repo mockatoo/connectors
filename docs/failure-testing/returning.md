@@ -1,5 +1,6 @@
 ---
 description: "Test repeat sign-in: you+returning@example.com gets no Google refresh token without prompt=consent, and no name from Apple, like a user who signed in before."
+datePublished: 2026-11-20
 lastModified: 2026-11-24
 ---
 

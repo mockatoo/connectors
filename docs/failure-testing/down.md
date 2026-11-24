@@ -1,5 +1,6 @@
 ---
 description: "Test your OAuth callback when the token endpoint is down: you+down@example.com makes the code exchange return 503 Service Unavailable for every provider."
+datePublished: 2026-11-20
 lastModified: 2026-11-24
 ---
 

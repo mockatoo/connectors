@@ -1,6 +1,7 @@
 ---
 description: "Test OAuth sign-in with Selenium and Mockatoo. Cover eight providers, reuse browser sessions, and test email tags and denied consent locally and in CI."
 title: "Mock OAuth login in Selenium tests · Mockatoo"
+datePublished: 2026-11-20
 lastModified: 2026-11-24
 ---
 

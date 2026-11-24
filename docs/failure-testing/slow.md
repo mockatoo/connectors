@@ -1,5 +1,6 @@
 ---
 description: "Test callback and test timeouts against a slow token endpoint: with you+slow@example.com, the code exchange responds only after 10 seconds by default."
+datePublished: 2026-11-20
 lastModified: 2026-11-24
 ---
 

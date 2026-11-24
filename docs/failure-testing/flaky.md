@@ -1,5 +1,6 @@
 ---
 description: "Test retries for an intermittent token endpoint failure: you+flaky@example.com makes the first code exchange return 503, and a retry with the same code works."
+datePublished: 2026-11-20
 lastModified: 2026-11-24
 ---
 

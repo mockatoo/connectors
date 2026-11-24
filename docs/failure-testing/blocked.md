@@ -1,5 +1,6 @@
 ---
 description: "Test what users see when an organization blocks your app: you+blocked@example.com shows Google's admin_policy_enforced or Microsoft's admin approval page."
+datePublished: 2026-11-20
 lastModified: 2026-11-24
 ---
 

@@ -1,5 +1,6 @@
 ---
 description: "Test account linking after a user changes their email: you+renamed@example.com returns the same provider user ID as your address with a different email."
+datePublished: 2026-11-20
 lastModified: 2026-11-24
 ---
 
