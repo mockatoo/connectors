@@ -203,7 +203,7 @@ Failed sign-ins come back as `/?error=<code>`. The example shows a retry
 message for `invalid_code`, which Better Auth reports for any failed token
 exchange, and a cancel message for `access_denied`.
 [Better Auth invalid_code](https://mockatoo.globalunderdog.com/blog/better-auth-invalid-code)
-reproduces each cause with an email tag. A [Google `admin_policy_enforced` block](https://mockatoo.globalunderdog.com/blog/google-admin-policy-enforced)
+reproduces each cause with an email tag. A Google `admin_policy_enforced` block
 never reaches the callback, so there's no `?error=` to handle.
 
 ## Handle provider differences
@@ -211,7 +211,7 @@ never reaches the callback, so there's no `?error=` to handle.
 | Provider | Auth.js | Better Auth |
 | --- | --- | --- |
 | Discord | `issuer: "https://discord.com"` on both the real and the mock provider: Discord sends `iss` on every sign-in, and Auth.js rejects it otherwise | No extra option in the example |
-| GitHub | The `read:user user:email` scope, so a private email is still found ([GitHub email null](https://mockatoo.globalunderdog.com/blog/github-email-null)) | No extra option in the example |
+| GitHub | The `read:user user:email` scope, so a private email is still found | No extra option in the example |
 | Microsoft | A `profile` that skips the photo request to `graph.microsoft.com`, which the mock can't serve | `tenantId: "common"` for the real provider. `mockMicrosoft` also takes `tenantId` |
 | X | The `users.read tweet.read` scope. X's OAuth 2.0 API has no email, so the session shows the name | The `twitter` provider ID |
 | Apple | With the real provider, a signed client secret | Same |
@@ -301,8 +301,6 @@ pnpm test
 
 The [Playwright guide](playwright.md) covers fresh users per test, edge-case
 tags and token refresh.
-[Microsoft AADSTS50076](https://mockatoo.globalunderdog.com/blog/microsoft-aadsts50076)
-shows what both libraries do when a refresh needs MFA.
 
 ## Test with Cypress or Selenium
 

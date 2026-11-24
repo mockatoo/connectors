@@ -262,11 +262,11 @@ Some other tags the example tests:
 | Tag | Behavior |
 | --- | --- |
 | `+returning` | A returning Apple user, without the name Apple sends only on first consent |
-| `+blocked` | An admin blocks consent, so there's no **Authorize** button and no session ([Google `admin_policy_enforced`](https://mockatoo.globalunderdog.com/blog/google-admin-policy-enforced)) |
+| `+blocked` | An admin blocks consent, so there's no **Authorize** button and no session (Google `admin_policy_enforced`) |
 | `+slow` | A slow token endpoint, to check your timeouts and loading states |
-| `+private` | A GitHub user whose `/user` email is null ([GitHub email null](https://mockatoo.globalunderdog.com/blog/github-email-null)) |
+| `+private` | A GitHub user whose `/user` email is null |
 | `+hd` | A Google Workspace account (`hd` claim) |
-| `+revoked`, `+mfa` | A refresh token the provider rejects ([below](#test-token-refresh)), such as Microsoft's [AADSTS50076](https://mockatoo.globalunderdog.com/blog/microsoft-aadsts50076) when MFA is newly required |
+| `+revoked`, `+mfa` | A refresh token the provider rejects ([below](#test-token-refresh)), such as Microsoft's `AADSTS50076` when MFA is newly required |
 
 Each provider supports its own tags. See its page, e.g.
 [Google](providers/google.md), for the full list.
