@@ -202,7 +202,8 @@ Failed sign-ins come back as `/?error=<code>`. The example shows a retry
 message for `invalid_code`, which Better Auth reports for any failed token
 exchange, and a cancel message for `access_denied`.
 [Better Auth invalid_code](https://mockatoo.globalunderdog.com/blog/better-auth-invalid-code)
-reproduces each cause with an email tag.
+reproduces each cause with an email tag. A [Google `admin_policy_enforced` block](https://mockatoo.globalunderdog.com/blog/google-admin-policy-enforced)
+never reaches the callback, so there's no `?error=` to handle.
 
 ## Handle provider differences
 

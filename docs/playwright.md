@@ -261,7 +261,7 @@ Some other tags the example tests:
 | Tag | Behavior |
 | --- | --- |
 | `+returning` | A returning Apple user, without the name Apple sends only on first consent |
-| `+blocked` | An admin blocks consent, so there's no **Authorize** button and no session |
+| `+blocked` | An admin blocks consent, so there's no **Authorize** button and no session ([Google `admin_policy_enforced`](https://mockatoo.globalunderdog.com/blog/google-admin-policy-enforced)) |
 | `+slow` | A slow token endpoint, to check your timeouts and loading states |
 | `+hd` | A Google Workspace account (`hd` claim) |
 | `+revoked`, `+mfa` | A refresh token the provider rejects ([below](#test-token-refresh)) |
