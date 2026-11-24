@@ -299,6 +299,8 @@ pnpm test
 
 The [Playwright guide](playwright.md) covers fresh users per test, edge-case
 tags and token refresh.
+[Microsoft AADSTS50076](https://mockatoo.globalunderdog.com/blog/microsoft-aadsts50076)
+shows what both libraries do when a refresh needs MFA.
 
 ## Test with Cypress or Selenium
 
