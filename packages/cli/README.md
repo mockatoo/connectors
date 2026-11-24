@@ -45,3 +45,9 @@ Options: `-e, --env-file <path>` picks the env file (default `.env.local`).
 The CLI uses the hosted service automatically. For Mockatoo's own development, set `MOCKATOO_URL` before running the CLI and starting your app; both connector packages read the same environment override.
 
 Production code must not use Mockatoo. Keep the connector behind a non-production check.
+
+## Telemetry
+
+Anonymous CLI usage telemetry (`cli_command_run` with `command`, `framework`, `success`, `error_kind`, `cli_version`, `node_version`, `os`, `agent`, and a random install ID in `~/.config/mockatoo/telemetry.json`) is sent only after you confirm on `/cli` or opt in. It never includes emails, passwords, login codes, file paths, or `.env` contents.
+
+Manage with `mockatoo telemetry status|enable|disable`. Always off when `DO_NOT_TRACK=1`, `MOCKATOO_TELEMETRY_DISABLED=1`, or `CI` is set; opt in via env with `MOCKATOO_TELEMETRY=1`.

@@ -17,6 +17,28 @@ describe("decodeLoginCode", () => {
 		).toEqual(credentials);
 	});
 
+	it("reads an optional telemetry boolean when present", () => {
+		expect(
+			decodeLoginCode(
+				code({ email: "a@example.com", password: "pw-123", telemetry: true }),
+			),
+		).toEqual({ email: "a@example.com", password: "pw-123", telemetry: true });
+		expect(
+			decodeLoginCode(
+				code({ email: "a@example.com", password: "pw-123", telemetry: false }),
+			),
+		).toEqual({ email: "a@example.com", password: "pw-123", telemetry: false });
+		expect(
+			decodeLoginCode(
+				code({
+					email: "a@example.com",
+					password: "pw-123",
+					telemetry: "yes",
+				}),
+			),
+		).toEqual({ email: "a@example.com", password: "pw-123" });
+	});
+
 	it("rejects anything that is not a code", () => {
 		expect(decodeLoginCode("hello")).toBeUndefined();
 		expect(decodeLoginCode(code({ email: "a@example.com" }))).toBeUndefined();

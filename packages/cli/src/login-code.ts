@@ -1,10 +1,15 @@
 /**
  * The login code: `mka_` followed by base64url JSON with the test account's
- * email and password. The mock's dashboard produces the same format.
+ * email, password, and optional telemetry preference. The mock's dashboard
+ * produces the same format.
  */
 export const LOGIN_CODE_PREFIX = "mka_";
 
-export type Credentials = { email: string; password: string };
+export type Credentials = {
+	email: string;
+	password: string;
+	telemetry?: boolean;
+};
 
 /**
  * Reads a code from a pasted code or from a whole pasted command. Returns
@@ -17,8 +22,19 @@ export function decodeLoginCode(input: string): Credentials | undefined {
 		const value = JSON.parse(
 			Buffer.from(code.slice(LOGIN_CODE_PREFIX.length), "base64url").toString(),
 		);
-		if (typeof value?.email === "string" && typeof value?.password === "string")
-			return { email: value.email, password: value.password };
+		if (
+			typeof value?.email === "string" &&
+			typeof value?.password === "string"
+		) {
+			const credentials: Credentials = {
+				email: value.email,
+				password: value.password,
+			};
+			if (typeof value.telemetry === "boolean") {
+				credentials.telemetry = value.telemetry;
+			}
+			return credentials;
+		}
 	} catch {}
 	return undefined;
 }

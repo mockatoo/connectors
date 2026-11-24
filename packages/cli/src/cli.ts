@@ -15,12 +15,32 @@ import {
 	decodeLoginCode,
 	LOGIN_CODE_PREFIX,
 } from "./login-code";
+import {
+	resolveTelemetryStatus,
+	sendTelemetryEvent,
+	writeTelemetryConfig,
+} from "./telemetry";
 
 const ORIGIN = (
 	process.env.MOCKATOO_URL ?? "https://app.mockatoo.globalunderdog.com"
 ).replace(/\/$/, "");
 const LOGIN_URL = `${ORIGIN}/cli`;
+const LOGIN_URL_TELEMETRY_SET = `${LOGIN_URL}?telemetry=set`;
 const DEFAULT_ENV_FILE = ".env.local";
+
+function readCliVersion(): string {
+	try {
+		const raw = readFileSync(
+			new URL("../package.json", import.meta.url),
+			"utf8",
+		);
+		const parsed = JSON.parse(raw);
+		if (typeof parsed?.version === "string") return parsed.version;
+	} catch {}
+	return "unknown";
+}
+
+const CLI_VERSION = readCliVersion();
 
 const CONNECTORS = {
 	"better-auth": "@mockatoo/connect-better-auth",
@@ -28,32 +48,65 @@ const CONNECTORS = {
 } as const;
 type Framework = keyof typeof CONNECTORS;
 
-class CliError extends Error {}
+type ErrorKind =
+	| "invalid_code"
+	| "missing_env_dir"
+	| "missing_package_json"
+	| "unknown_framework"
+	| "ambiguous_framework"
+	| "framework_not_detected"
+	| "install_failed"
+	| "unknown_command"
+	| "invalid_args";
+
+class CliError extends Error {
+	constructor(
+		message: string,
+		readonly errorKind: ErrorKind,
+	) {
+		super(message);
+	}
+}
 
 const USAGE = `Usage:
   mockatoo init [--framework better-auth|authjs] [-e <env-file>]
       Install the Mockatoo connector for this app, then log in.
   mockatoo login [code] [-e <env-file>]
       Write the test account's MOCKATOO_TEST_EMAIL and MOCKATOO_TEST_PASSWORD to the env file.
+  mockatoo telemetry <status|enable|disable>
+      Show or update anonymous CLI usage telemetry preference.
 
-  -e, --env-file  env file to write (default ${DEFAULT_ENV_FILE})`;
+Options:
+  -e, --env-file  env file to write (default ${DEFAULT_ENV_FILE})
+
+Environment variables:
+  MOCKATOO_TELEMETRY=1           enable anonymous CLI telemetry
+  MOCKATOO_TELEMETRY_DISABLED=1  disable anonymous CLI telemetry
+  DO_NOT_TRACK=1                 disable anonymous CLI telemetry`;
 
 // ---------------------------------------------------------------------------
 // login
 
+function loginUrlForMachine(): string {
+	return resolveTelemetryStatus().configured
+		? LOGIN_URL_TELEMETRY_SET
+		: LOGIN_URL;
+}
+
 async function login(code: string | undefined, envFile: string): Promise<void> {
 	if (code === undefined) {
+		const url = loginUrlForMachine();
 		if (!process.stdin.isTTY) {
 			// Under an agent: print the link and exit. The person pastes the
 			// command the page shows, and the agent runs it.
-			console.log(`Sign in here: ${LOGIN_URL}`);
+			console.log(`Sign in here: ${url}`);
 			console.log(
 				"Then paste the code shown on that page into the chat, and run: npx -y @mockatoo/mockatoo@latest login <code>",
 			);
 			return;
 		}
-		openBrowser(LOGIN_URL);
-		console.log(`Sign in here: ${LOGIN_URL}`);
+		openBrowser(url);
+		console.log(`Sign in here: ${url}`);
 		const readline = createInterface({
 			input: process.stdin,
 			output: process.stdout,
@@ -66,7 +119,11 @@ async function login(code: string | undefined, envFile: string): Promise<void> {
 	if (!credentials)
 		throw new CliError(
 			`That is not a Mockatoo login code. It starts with ${LOGIN_CODE_PREFIX} and comes from ${LOGIN_URL}.`,
+			"invalid_code",
 		);
+	if (typeof credentials.telemetry === "boolean") {
+		writeTelemetryConfig(credentials.telemetry);
+	}
 	writeCredentials(envFile, credentials);
 }
 
@@ -75,6 +132,7 @@ function writeCredentials(envFile: string, credentials: Credentials): void {
 	if (!existsSync(dirname(path)))
 		throw new CliError(
 			`The directory ${dirname(envFile)} does not exist. Check the --env-file path.`,
+			"missing_env_dir",
 		);
 	const source = existsSync(path) ? readFileSync(path, "utf8") : "";
 	writeFileSync(
@@ -128,12 +186,16 @@ function openBrowser(url: string): void {
 // ---------------------------------------------------------------------------
 // init
 
-async function init(options: {
-	framework?: string;
-	envFile: string;
-}): Promise<void> {
+async function init(
+	options: {
+		framework?: string;
+		envFile: string;
+	},
+	onFramework?: (framework: Framework) => void,
+): Promise<void> {
 	const pkg = readPackageJson();
 	const framework = parseFramework(options.framework) ?? detectFramework(pkg);
+	onFramework?.(framework);
 	const connector = CONNECTORS[framework];
 	const manager = detectPackageManager();
 
@@ -148,7 +210,10 @@ async function init(options: {
 			shell: process.platform === "win32",
 		});
 		if (result.status !== 0)
-			throw new CliError(`${manager} could not install ${connector}.`);
+			throw new CliError(
+				`${manager} could not install ${connector}.`,
+				"install_failed",
+			);
 	}
 
 	console.log("");
@@ -162,6 +227,7 @@ function readPackageJson(): {
 	if (!existsSync("package.json"))
 		throw new CliError(
 			"No package.json here. Run mockatoo init in the app's directory.",
+			"missing_package_json",
 		);
 	return JSON.parse(readFileSync("package.json", "utf8"));
 }
@@ -171,6 +237,7 @@ function parseFramework(value: string | undefined): Framework | undefined {
 	if (value === "better-auth" || value === "authjs") return value;
 	throw new CliError(
 		`Unknown framework "${value}". Use better-auth or authjs.`,
+		"unknown_framework",
 	);
 }
 
@@ -187,11 +254,13 @@ function detectFramework(pkg: {
 	if (betterAuth && authjs)
 		throw new CliError(
 			"This app uses both Better Auth and Auth.js. Pass --framework better-auth or --framework authjs.",
+			"ambiguous_framework",
 		);
 	if (betterAuth) return "better-auth";
 	if (authjs) return "authjs";
 	throw new CliError(
 		"Could not find Better Auth or Auth.js in package.json. Pass --framework better-auth or --framework authjs.",
+		"framework_not_detected",
 	);
 }
 
@@ -208,6 +277,34 @@ function installArgs(manager: string, name: string): string[] {
 }
 
 // ---------------------------------------------------------------------------
+// telemetry
+
+function telemetry(action: string | undefined): void {
+	if (action === "status") {
+		const { enabled, reason } = resolveTelemetryStatus();
+		console.log(
+			`Telemetry is ${enabled ? "enabled" : "disabled"} (${reason}).`,
+		);
+		return;
+	}
+	if (action === "enable" || action === "disable") {
+		const enabled = action === "enable";
+		writeTelemetryConfig(enabled);
+		const status = resolveTelemetryStatus();
+		console.log(
+			enabled && !status.enabled
+				? `Saved telemetry preference as enabled, but it is currently disabled (${status.reason}).`
+				: `Telemetry ${enabled ? "enabled" : "disabled"}.`,
+		);
+		return;
+	}
+	throw new CliError(
+		`Unknown telemetry action "${action ?? ""}". Run: mockatoo telemetry status|enable|disable`,
+		"unknown_command",
+	);
+}
+
+// ---------------------------------------------------------------------------
 // entry point
 
 async function main(argv: string[]): Promise<void> {
@@ -220,16 +317,49 @@ async function main(argv: string[]): Promise<void> {
 			help: { type: "boolean", short: "h" },
 		},
 	});
-	const [command, code] = positionals;
+	const [command, arg] = positionals;
 	const envFile = values["env-file"] ?? DEFAULT_ENV_FILE;
 
 	if (values.help || command === undefined || command === "help") {
 		console.log(USAGE);
 		return;
 	}
-	if (command === "login") return login(code, envFile);
-	if (command === "init") return init({ framework: values.framework, envFile });
-	throw new CliError(`Unknown command "${command}".\n\n${USAGE}`);
+	if (command === "telemetry") {
+		telemetry(arg);
+		return;
+	}
+	if (command === "login" || command === "init") {
+		let framework: Framework | undefined;
+		try {
+			if (command === "login") {
+				await login(arg, envFile);
+			} else {
+				await init({ framework: values.framework, envFile }, (detected) => {
+					framework = detected;
+				});
+			}
+			await sendTelemetryEvent({
+				command,
+				framework,
+				success: true,
+				cliVersion: CLI_VERSION,
+			});
+		} catch (error) {
+			await sendTelemetryEvent({
+				command,
+				framework,
+				success: false,
+				errorKind: error instanceof CliError ? error.errorKind : "unexpected",
+				cliVersion: CLI_VERSION,
+			});
+			throw error;
+		}
+		return;
+	}
+	throw new CliError(
+		`Unknown command "${command}".\n\n${USAGE}`,
+		"unknown_command",
+	);
 }
 
 main(process.argv.slice(2)).catch((error: unknown) => {
