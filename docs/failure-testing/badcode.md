@@ -1,6 +1,6 @@
 ---
 description: "Test how your app handles a rejected OAuth authorization code (invalid_grant) in Playwright by signing in as you+badcode@example.com with Mockatoo."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Rejected authorization code

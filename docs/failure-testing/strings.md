@@ -1,6 +1,6 @@
 ---
 description: "Test Apple's string booleans: you+strings@example.com returns email_verified and is_private_email as the strings \"true\" and \"false\" instead of booleans."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Apple boolean claims as strings

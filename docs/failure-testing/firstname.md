@@ -1,6 +1,6 @@
 ---
 description: "Test sign-in with a Google profile that has a first name but no family name: you+firstname@example.com sends name and given_name without family_name."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # First name without family name

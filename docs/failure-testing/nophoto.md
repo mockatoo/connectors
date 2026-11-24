@@ -1,6 +1,6 @@
 ---
 description: "Test profiles without a photo: you+nophoto@example.com returns no LinkedIn picture claim and a silhouette Facebook profile picture."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Missing profile photo

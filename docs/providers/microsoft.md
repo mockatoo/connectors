@@ -1,7 +1,7 @@
 ---
 description: "Test Microsoft and Entra ID sign-in in CI: Mockatoo mocks the identity platform v2.0 flow with OIDC, tenants, and work, personal and guest users."
 title: "Mock Microsoft OAuth sign-in for tests · Mockatoo"
-lastModified: 2026-11-23
+lastModified: 2026-11-24
 ---
 
 # Microsoft

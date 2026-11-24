@@ -1,7 +1,7 @@
 ---
 description: "Test Google sign-in in CI without bot checks: Mockatoo mocks Google's OAuth 2.0 and OpenID Connect flow, ID tokens, PKCE and refresh tokens."
 title: "Mock Google OAuth sign-in for Playwright and CI · Mockatoo"
-lastModified: 2026-11-23
+lastModified: 2026-11-24
 ---
 
 # Google

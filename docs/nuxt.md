@@ -1,7 +1,7 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Nuxt with Mockatoo: Auth.js or nuxt-auth-utils pointed at the mock, Playwright tests and CI."
 title: "Test Nuxt OAuth login: Auth.js, nuxt-auth-utils · Mockatoo"
-lastModified: 2026-11-21
+lastModified: 2026-11-24
 ---
 
 # Nuxt

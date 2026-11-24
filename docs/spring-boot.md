@@ -1,7 +1,7 @@
 ---
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Spring Boot with Mockatoo: a Spring profile for Spring Security's OAuth2 client, Playwright tests and CI."
 title: "Test Spring Boot OAuth2 login · Mockatoo"
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Spring Boot

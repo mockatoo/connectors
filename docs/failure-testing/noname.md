@@ -1,6 +1,6 @@
 ---
 description: "Test profiles without a name: you+noname@example.com sends no name claims from Google or Microsoft, and a null name or global_name from GitHub and Discord."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Missing profile name

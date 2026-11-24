@@ -1,6 +1,6 @@
 ---
 description: "Test that your app keeps the email verification status: you+unverified@example.com reports the email as unverified for Google, GitHub, Discord and LinkedIn."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Unverified email address

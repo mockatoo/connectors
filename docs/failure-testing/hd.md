@@ -1,6 +1,6 @@
 ---
 description: "Test domain restrictions against a Google Workspace account: you+hd@example.com returns an ID token with the hd claim set to the email's domain."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Google Workspace account

@@ -1,7 +1,7 @@
 ---
 description: "How Mockatoo test accounts work: magic-link sign-up, password login, sessions, password regeneration, the consent screen, and stable form labels."
 title: "Test account flow for OAuth sign-in · Mockatoo"
-lastModified: 2026-11-17
+lastModified: 2026-11-24
 ---
 
 # Account flow

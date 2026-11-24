@@ -1,6 +1,6 @@
 ---
 description: "Test a refresh token that stops working: after sign-in as you+revoked@example.com, every refresh returns invalid_grant (or the provider's own error code)."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Revoked provider access

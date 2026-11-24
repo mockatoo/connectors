@@ -1,6 +1,6 @@
 ---
 description: "Test personal Microsoft accounts: you+personal@example.com signs in with the consumer tenant ID, which an organizations or single-tenant app refuses."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Personal Microsoft account

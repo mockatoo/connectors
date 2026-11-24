@@ -1,6 +1,6 @@
 ---
 description: "Test sign-in without an email: you+noemail@example.com gets none from Microsoft, Discord, LinkedIn, X or Facebook, even with the email scope."
-lastModified: 2026-11-20
+lastModified: 2026-11-24
 ---
 
 # Provider account without email

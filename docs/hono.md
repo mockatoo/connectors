@@ -1,7 +1,7 @@
 ---
 description: "Test Google, Apple, Microsoft and other OAuth sign-in in Hono with Mockatoo: oauth4webapi pointed at the mock's issuers, Playwright tests and CI."
 title: "Test OAuth login in Hono with oauth4webapi · Mockatoo"
-lastModified: 2026-11-21
+lastModified: 2026-11-24
 ---
 
 # Hono
