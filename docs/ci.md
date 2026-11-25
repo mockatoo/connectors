@@ -2,7 +2,7 @@
 description: "Run OAuth sign-in tests in GitHub Actions with Mockatoo: store the test credentials as secrets, add the workflow, and give parallel workers separate users."
 title: "Run OAuth login tests in GitHub Actions CI · Mockatoo"
 datePublished: 2026-11-05
-lastModified: 2026-11-24
+lastModified: 2026-11-25
 ---
 
 # Run in CI
@@ -21,7 +21,7 @@ env:
 
 ## Workflow
 
-The [Next.js workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml) runs both the Better Auth and Auth.js examples with all three runners. For Playwright, install Chromium before running the tests.
+The [Better Auth + Next.js](https://github.com/mockatoo/examples/blob/main/.github/workflows/better-auth-next.yml) and [Auth.js + Next.js](https://github.com/mockatoo/examples/blob/main/.github/workflows/authjs-next.yml) workflows each run their example with all three runners. For Playwright, install Chromium before running the tests.
 
 ```yaml
 - run: pnpm --dir better-auth-next exec playwright install --with-deps chromium

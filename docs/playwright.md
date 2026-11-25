@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in with Playwright: all 8 providers, a fresh user per test, edge-case tags and token refresh, locally and in CI."
 title: "Mock OAuth login in Playwright tests · Mockatoo"
 datePublished: 2026-11-05
-lastModified: 2026-11-24
+lastModified: 2026-11-25
 ---
 
 # Playwright
@@ -334,21 +334,20 @@ provider setup.
 
 Store the dashboard credentials as `MOCKATOO_TEST_EMAIL` and
 `MOCKATOO_TEST_PASSWORD` secrets. From the example's
-[workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml):
+[workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/better-auth-next.yml):
 
 ```yaml
 - name: Generate runtime secret
-  run: echo "${{ matrix.secret_name }}=$(openssl rand -base64 32)" >> "$GITHUB_ENV"
-- if: matrix.runner == 'playwright'
-  run: pnpm --dir ${{ matrix.example }} exec playwright install --with-deps chromium
-- run: pnpm --dir ${{ matrix.example }} ${{ matrix.script }}
+  run: echo "BETTER_AUTH_SECRET=$(openssl rand -base64 32)" >> "$GITHUB_ENV"
+- run: pnpm --dir better-auth-next exec playwright install --with-deps chromium
+- run: pnpm --dir better-auth-next test
   env:
     MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
     MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
 ```
 
-- The workflow's matrix runs both Next.js examples with Playwright, Cypress
-  and Selenium; `secret_name` is `BETTER_AUTH_SECRET` or `AUTH_SECRET`.
+- The workflow's `ci` script runs Playwright, then Cypress and Selenium. The
+  Auth.js example's workflow sets `AUTH_SECRET` instead.
 - `webServer` builds and starts the app, so the workflow only installs
   dependencies and Chromium.
 - `reuseExistingServer: !process.env.CI` starts a fresh server in CI.

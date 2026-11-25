@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in with Cypress: cy.origin, cached sessions, all 8 providers, email tags and edge cases, locally and in CI."
 title: "Mock OAuth login in Cypress tests · Mockatoo"
 datePublished: 2026-11-05
-lastModified: 2026-11-24
+lastModified: 2026-11-25
 ---
 
 # Cypress
@@ -335,7 +335,7 @@ Details: [Why Cypress needs HTTPS](https://github.com/mockatoo/examples/blob/mai
 Store the dashboard credentials as `MOCKATOO_TEST_EMAIL` and
 `MOCKATOO_TEST_PASSWORD` secrets. Cypress reads them through the example’s config.
 From the examples'
-[Cypress workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml):
+[Better Auth + Next.js workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/better-auth-next.yml):
 
 ```yaml
 - run: pnpm --dir better-auth-next exec cypress install

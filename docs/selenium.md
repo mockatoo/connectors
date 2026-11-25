@@ -2,7 +2,7 @@
 description: "Test OAuth sign-in with Selenium and Mockatoo. Cover eight providers, reuse browser sessions, and test email tags and denied consent locally and in CI."
 title: "Mock OAuth login in Selenium tests · Mockatoo"
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-25
 ---
 
 # Selenium
@@ -256,7 +256,7 @@ Run `pnpm test:selenium` from the example directory. The command builds and star
 
 ## Run in CI
 
-Create GitHub Actions secrets named `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD`. The examples workflow generates the runtime secret separately in each job and runs Selenium with Chrome on the Ubuntu runner. [Run in CI](ci.md) · [Next.js workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml)
+Create GitHub Actions secrets named `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PASSWORD`. The examples workflow generates the runtime secret and runs Selenium with Chrome on the Ubuntu runner. [Run in CI](ci.md) · [Better Auth + Next.js workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/better-auth-next.yml)
 
 ```yaml
 - run: pnpm --dir better-auth-next test:selenium

@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Next.js with Mockatoo: Auth.js or Better Auth pointed at the mock, Playwright tests and CI."
 title: "Test Next.js OAuth login: Auth.js, Better Auth · Mockatoo"
 datePublished: 2026-11-21
-lastModified: 2026-11-24
+lastModified: 2026-11-25
 ---
 
 # Next.js
@@ -322,27 +322,20 @@ and the token exchange. See the [Cypress](cypress.md) and
 
 ## Run in CI
 
-The [workflow](https://github.com/mockatoo/examples/blob/main/.github/workflows/nextjs.yml)
-runs both examples with all three runners, generating each library's secret
-per job:
+Each example has its own workflow,
+[Better Auth](https://github.com/mockatoo/examples/blob/main/.github/workflows/better-auth-next.yml) and [Auth.js](https://github.com/mockatoo/examples/blob/main/.github/workflows/authjs-next.yml). It generates the library's secret
+and runs the `ci` script: lint, typecheck, then Playwright, Cypress and Selenium
+one after another.
 
 ```yaml
-strategy:
-  fail-fast: false
-  matrix:
-    example: [better-auth-next, authjs-next]
-    runner: [playwright, cypress, selenium]
-    include:
-      - example: better-auth-next
-        secret_name: BETTER_AUTH_SECRET
-      - example: authjs-next
-        secret_name: AUTH_SECRET
-      # …the script for each runner
 steps:
-  # …checkout, pnpm, Node.js 24 and install
+  # …checkout, pnpm and Node.js 24
+  - run: pnpm --dir better-auth-next install --frozen-lockfile
   - name: Generate runtime secret
-    run: echo "${{ matrix.secret_name }}=$(openssl rand -base64 32)" >> "$GITHUB_ENV"
-  - run: pnpm --dir ${{ matrix.example }} ${{ matrix.script }}
+    run: echo "BETTER_AUTH_SECRET=$(openssl rand -base64 32)" >> "$GITHUB_ENV"
+  - run: pnpm --dir better-auth-next exec playwright install --with-deps chromium
+  - run: pnpm --dir better-auth-next exec cypress install
+  - run: pnpm --dir better-auth-next run ci
     env:
       MOCKATOO_TEST_EMAIL: ${{ secrets.MOCKATOO_TEST_EMAIL }}
       MOCKATOO_TEST_PASSWORD: ${{ secrets.MOCKATOO_TEST_PASSWORD }}
