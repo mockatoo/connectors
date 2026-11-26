@@ -2,7 +2,7 @@
 description: "Test OAuth sign-in with Selenium and Mockatoo. Cover eight providers, reuse browser sessions, and test email tags and denied consent locally and in CI."
 title: "Mock OAuth login in Selenium tests · Mockatoo"
 datePublished: 2026-11-20
-lastModified: 2026-11-25
+lastModified: 2026-11-26
 ---
 
 # Selenium
@@ -207,7 +207,7 @@ test("signs in as a tagged address", async (t) => {
 
 ## Test edge cases
 
-[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to test and what your app should do for each.
+[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to test and what your app should do for each. If sign-in passes locally and fails in CI, [why OAuth E2E tests are flaky](https://mockatoo.globalunderdog.com/learn/why-oauth-e2e-tests-are-flaky) covers the causes and the fix for each.
 
 Use `+unverified` to check how the app handles an unverified email. Use `+down` to simulate a failing token endpoint and check that the app shows a retry message.
 

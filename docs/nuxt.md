@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Nuxt with Mockatoo: Auth.js or nuxt-auth-utils pointed at the mock, Playwright tests and CI."
 title: "Test Nuxt OAuth login: Auth.js, nuxt-auth-utils · Mockatoo"
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
 ---
 
 # Nuxt
@@ -354,7 +354,7 @@ email and password. To sign in as another user, add a tag to the email, e.g.
 
 ## Test with Playwright
 
-To cover failures after setting up sign-in, see [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing).
+To cover failures after setting up sign-in, see [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing). If sign-in passes locally and fails in CI, [why OAuth E2E tests are flaky](https://mockatoo.globalunderdog.com/learn/why-oauth-e2e-tests-are-flaky) covers the causes and the fix for each.
 
 [`playwright.config.ts`](https://github.com/mockatoo/examples/blob/main/authjs-nuxt/playwright.config.ts)
 builds and starts the production server, or tests a deployed app when

@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in with Cypress: cy.origin, cached sessions, all 8 providers, email tags and edge cases, locally and in CI."
 title: "Mock OAuth login in Cypress tests · Mockatoo"
 datePublished: 2026-11-05
-lastModified: 2026-11-25
+lastModified: 2026-11-26
 ---
 
 # Cypress
@@ -261,7 +261,7 @@ it("signs in as a tagged address", () => {
 
 ## Test edge cases
 
-[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to test and what your app should do for each.
+[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to test and what your app should do for each. If sign-in passes locally and fails in CI, [why OAuth E2E tests are flaky](https://mockatoo.globalunderdog.com/learn/why-oauth-e2e-tests-are-flaky) covers the causes and the fix for each.
 
 Special tags change what the provider does. Combine them with dots, e.g.
 `you+2.unverified@example.com`.

@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in with Playwright: all 8 providers, a fresh user per test, edge-case tags and token refresh, locally and in CI."
 title: "Mock OAuth login in Playwright tests · Mockatoo"
 datePublished: 2026-11-05
-lastModified: 2026-11-25
+lastModified: 2026-11-26
 ---
 
 # Playwright
@@ -203,7 +203,7 @@ export function createAddress(tag = ""): string {
 
 ## Test edge cases
 
-[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to cover. The [Better Auth `invalid_code` walkthrough](https://mockatoo.globalunderdog.com/blog/better-auth-invalid-code) tests a Google outage and checks the retry message.
+[OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing) explains which sign-in failures to cover. The [Better Auth `invalid_code` walkthrough](https://mockatoo.globalunderdog.com/blog/better-auth-invalid-code) tests a Google outage and checks the retry message. If sign-in passes locally and fails in CI, [why OAuth E2E tests are flaky](https://mockatoo.globalunderdog.com/learn/why-oauth-e2e-tests-are-flaky) covers the causes and the fix for each.
 
 Special tags change what the provider does. The example has one self-contained
 spec per tag in [`tests/tags`](https://github.com/mockatoo/examples/tree/main/better-auth-next/tests/tags).

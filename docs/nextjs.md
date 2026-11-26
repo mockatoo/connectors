@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Next.js with Mockatoo: Auth.js or Better Auth pointed at the mock, Playwright tests and CI."
 title: "Test Next.js OAuth login: Auth.js, Better Auth · Mockatoo"
 datePublished: 2026-11-21
-lastModified: 2026-11-25
+lastModified: 2026-11-26
 ---
 
 # Next.js
@@ -254,7 +254,7 @@ email and password. To sign in as another user, add a tag to the email, e.g.
 
 ## Test with Playwright
 
-To cover failures after setting up sign-in, see [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing).
+To cover failures after setting up sign-in, see [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing). If sign-in passes locally and fails in CI, [why OAuth E2E tests are flaky](https://mockatoo.globalunderdog.com/learn/why-oauth-e2e-tests-are-flaky) covers the causes and the fix for each.
 
 Both examples' `playwright.config.ts` build and start the production server
 ([`authjs-next/playwright.config.ts`](https://github.com/mockatoo/examples/blob/main/authjs-next/playwright.config.ts)):

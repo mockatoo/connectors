@@ -2,7 +2,7 @@
 description: "Run OAuth sign-in tests in GitHub Actions with Mockatoo: store the test credentials as secrets, add the workflow, and give parallel workers separate users."
 title: "Run OAuth login tests in GitHub Actions CI · Mockatoo"
 datePublished: 2026-11-05
-lastModified: 2026-11-25
+lastModified: 2026-11-26
 ---
 
 # Run in CI
@@ -50,7 +50,7 @@ When running tests in parallel, give each worker a distinct tagged address:
 worker uses the base account's password. This keeps users and their app state
 separate while preserving the same GitHub secrets setup.
 
-See [Email tags](email-tags.md) for more ways to create distinct users. To test provider errors in CI, choose a case from [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing).
+See [Email tags](email-tags.md) for more ways to create distinct users. To test provider errors in CI, choose a case from [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing). If sign-in passes locally and fails in CI, [why OAuth E2E tests are flaky](https://mockatoo.globalunderdog.com/learn/why-oauth-e2e-tests-are-flaky) covers the causes and the fix for each.
 
 ## Regenerated password
 
