@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Spring Boot with Mockatoo: a Spring profile for Spring Security's OAuth2 client, Playwright tests and CI."
 title: "Test Spring Boot OAuth2 login · Mockatoo"
 datePublished: 2026-11-18
-lastModified: 2026-11-24
+lastModified: 2026-11-26
 ---
 
 # Spring Boot
@@ -236,4 +236,5 @@ More in [Run in CI](ci.md).
 
 - [All examples](https://github.com/mockatoo/examples): Spring Boot, Flask, Laravel, Django, Auth.js, Better Auth, SvelteKit, Nuxt and Hono
 - [Playwright](playwright.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in): have Claude Code, Codex or Cursor set up sign-in and verify it with a passing test
 - Use Mockatoo only outside production, and never commit its credentials.

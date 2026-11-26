@@ -53,7 +53,7 @@ When running tests in parallel, give each worker a distinct tagged address:
 worker uses the base account's password. This keeps users and their app state
 separate while preserving the same GitHub secrets setup.
 
-See [Email tags](email-tags.md) for more ways to create distinct users. To test provider errors in CI, choose a case from [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing). If sign-in passes locally and fails in CI, [why OAuth E2E tests are flaky](https://mockatoo.globalunderdog.com/learn/why-oauth-e2e-tests-are-flaky) covers the causes and the fix for each.
+See [Email tags](email-tags.md) for more ways to create distinct users. To test provider errors in CI, choose a case from [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing). If sign-in passes locally and fails in CI, [why OAuth E2E tests are flaky](https://mockatoo.globalunderdog.com/learn/why-oauth-e2e-tests-are-flaky) covers the causes and the fix for each. To let a coding agent run the same sign-in test while it builds, see [let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in).
 
 ## Regenerated password
 

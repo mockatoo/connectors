@@ -362,4 +362,5 @@ More in [Run in CI](ci.md).
 - [All examples](https://github.com/mockatoo/examples): Auth.js, Better Auth, SvelteKit, Nuxt, Hono, Django, Flask, Laravel and Spring Boot
 - [Playwright](playwright.md) · [Cypress](cypress.md) · [Selenium](selenium.md) · [Nuxt](nuxt.md) · [Email tags](email-tags.md) · [Run in CI](ci.md)
 - [Better Auth invalid_code](https://mockatoo.globalunderdog.com/blog/better-auth-invalid-code): reproduce a failed token exchange with an email tag
+- [Let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in): have Claude Code, Codex or Cursor set up sign-in and verify it with a passing test
 - Use Mockatoo only outside production, and never commit its credentials.

@@ -328,4 +328,5 @@ More in [Run in CI](ci.md).
 
 - [All examples](https://github.com/mockatoo/examples): Hono, Auth.js, Better Auth, SvelteKit, Nuxt, Django, Flask, Laravel and Spring Boot
 - [Playwright](playwright.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in): have Claude Code, Codex or Cursor set up sign-in and verify it with a passing test
 - Use Mockatoo only outside production, and never commit its credentials.

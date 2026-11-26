@@ -364,4 +364,5 @@ From the examples'
 
 - [All examples](https://github.com/mockatoo/examples): Auth.js, Better Auth, SvelteKit, Nuxt and Hono, each with a Playwright suite
 - [Playwright](playwright.md) · [Selenium](selenium.md) · [Next.js](nextjs.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in): have Claude Code, Codex or Cursor set up sign-in and verify it with a passing test
 - Use Mockatoo only outside production, and never commit its credentials.

@@ -2,7 +2,7 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Laravel with Mockatoo: Socialite drivers pointed at the mock, Playwright tests and CI."
 title: "Test Laravel Socialite OAuth login · Mockatoo"
 datePublished: 2026-11-19
-lastModified: 2026-11-24
+lastModified: 2026-11-26
 ---
 
 # Laravel
@@ -306,4 +306,5 @@ More in [Run in CI](ci.md).
 
 - [All examples](https://github.com/mockatoo/examples): Laravel, Flask, Spring Boot, Auth.js, Better Auth, SvelteKit, Nuxt and Hono
 - [Playwright](playwright.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
+- [Let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in): have Claude Code, Codex or Cursor set up sign-in and verify it with a passing test
 - Use Mockatoo only outside production, and never commit its credentials.
