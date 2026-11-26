@@ -1,7 +1,9 @@
 ---
 description: "Test a GitHub user with a private email: you+private@example.com gets email: null from /user, so your app must request user:email and read /user/emails."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Private GitHub email

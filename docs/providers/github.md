@@ -2,7 +2,10 @@
 description: "Test GitHub sign-in in CI without bot checks: Mockatoo mocks the OAuth App flow with PKCE, the /user profile and /user/emails."
 title: "Mock GitHub OAuth sign-in for tests · Mockatoo"
 datePublished: 2026-10-16
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, "@mockatoo/connect-better-auth@0.3.0"]
+  authjs-next: [next-auth@5.0.0-beta.32, "@mockatoo/connect-authjs@0.2.0"]
 ---
 
 # GitHub

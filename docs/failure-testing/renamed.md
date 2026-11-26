@@ -1,7 +1,9 @@
 ---
 description: "Test account linking after a user changes their email: you+renamed@example.com returns the same provider user ID as your address with a different email."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Changed provider email

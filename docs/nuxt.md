@@ -3,6 +3,9 @@ description: "Test Google, GitHub, Apple and other OAuth sign-in in Nuxt with Mo
 title: "Test Nuxt OAuth login: Auth.js, nuxt-auth-utils · Mockatoo"
 datePublished: 2026-11-20
 lastModified: 2026-11-26
+tested:
+  authjs-nuxt: [nuxt@3.21.11, "@auth/core@0.41.3", next-auth@5.0.0-beta.32, "@mockatoo/connect-authjs@0.2.0", "@playwright/test@1.64.1"]
+  nuxt-auth-utils-nuxt: [nuxt@4.6.4, nuxt-auth-utils@0.6.2, "@playwright/test@1.64.1"]
 ---
 
 # Nuxt

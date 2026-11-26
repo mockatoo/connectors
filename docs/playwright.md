@@ -3,6 +3,9 @@ description: "Test Google, GitHub, Apple and other OAuth sign-in with Playwright
 title: "Mock OAuth login in Playwright tests · Mockatoo"
 datePublished: 2026-11-05
 lastModified: 2026-11-26
+tested:
+  better-auth-next: ["@playwright/test@1.64.1"]
+  authjs-nuxt: ["@playwright/test@1.64.1"]
 ---
 
 # Playwright

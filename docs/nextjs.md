@@ -3,6 +3,9 @@ description: "Test Google, GitHub, Apple and other OAuth sign-in in Next.js with
 title: "Test Next.js OAuth login: Auth.js, Better Auth · Mockatoo"
 datePublished: 2026-11-21
 lastModified: 2026-11-26
+tested:
+  authjs-next: [next-auth@5.0.0-beta.32, next@16.4.6, "@playwright/test@1.64.1"]
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Next.js

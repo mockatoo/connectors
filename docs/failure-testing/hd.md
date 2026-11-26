@@ -1,7 +1,9 @@
 ---
 description: "Test domain restrictions against a Google Workspace account: you+hd@example.com returns an ID token with the hd claim set to the email's domain."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Google Workspace account

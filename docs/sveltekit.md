@@ -3,6 +3,9 @@ description: "Test Google, GitHub, Apple and other OAuth sign-in in SvelteKit wi
 title: "Test SvelteKit OAuth login: Better Auth, Auth.js · Mockatoo"
 datePublished: 2026-11-21
 lastModified: 2026-11-26
+tested:
+  better-auth-sveltekit: [better-auth@1.7.25, "@mockatoo/connect-better-auth@0.3.0", "@sveltejs/kit@3.2.0", "@playwright/test@1.64.1"]
+  authjs-sveltekit: ["@auth/core@0.41.3", "@mockatoo/connect-authjs@0.2.1", "@sveltejs/kit@3.2.0", "@playwright/test@1.64.1"]
 ---
 
 # SvelteKit

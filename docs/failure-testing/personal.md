@@ -1,7 +1,9 @@
 ---
 description: "Test personal Microsoft accounts: you+personal@example.com signs in with the consumer tenant ID, which an organizations or single-tenant app refuses."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Personal Microsoft account

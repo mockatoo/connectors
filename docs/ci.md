@@ -3,6 +3,9 @@ description: "Run OAuth sign-in tests in GitHub Actions with Mockatoo: store the
 title: "Run OAuth login tests in GitHub Actions CI · Mockatoo"
 datePublished: 2026-11-05
 lastModified: 2026-11-26
+tested:
+  better-auth-next: ["@playwright/test@1.64.1", cypress@16.2.0, selenium-webdriver@4.53.0]
+  authjs-next: ["@playwright/test@1.64.1", cypress@16.2.0, selenium-webdriver@4.53.0]
 ---
 
 # Run in CI

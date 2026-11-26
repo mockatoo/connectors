@@ -2,7 +2,10 @@
 description: "Test X (Twitter) sign-in in CI: Mockatoo mocks X's OAuth 2.0 authorization code flow with PKCE, /2/users/me, refresh and revocation."
 title: "Mock X OAuth sign-in for tests and CI · Mockatoo"
 datePublished: 2026-10-16
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, "@mockatoo/connect-better-auth@0.3.0"]
+  authjs-next: [next-auth@5.0.0-beta.32, "@mockatoo/connect-authjs@0.2.0"]
 ---
 
 # X

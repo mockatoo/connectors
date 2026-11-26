@@ -1,7 +1,9 @@
 ---
 description: "Test callback and test timeouts against a slow token endpoint: with you+slow@example.com, the code exchange responds only after 10 seconds by default."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Slow token endpoint

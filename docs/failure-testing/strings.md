@@ -1,7 +1,9 @@
 ---
 description: "Test Apple's string booleans: you+strings@example.com returns email_verified and is_private_email as the strings \"true\" and \"false\" instead of booleans."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Apple boolean claims as strings

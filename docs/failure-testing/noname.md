@@ -1,7 +1,9 @@
 ---
 description: "Test profiles without a name: you+noname@example.com sends no name claims from Google or Microsoft, and a null name or global_name from GitHub and Discord."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Missing profile name

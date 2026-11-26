@@ -1,7 +1,9 @@
 ---
 description: "Test that your app keeps the email verification status: you+unverified@example.com reports the email as unverified for Google, GitHub, Discord and LinkedIn."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Unverified email address

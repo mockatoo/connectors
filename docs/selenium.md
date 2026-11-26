@@ -3,6 +3,9 @@ description: "Test OAuth sign-in with Selenium and Mockatoo. Cover eight provide
 title: "Mock OAuth login in Selenium tests · Mockatoo"
 datePublished: 2026-11-20
 lastModified: 2026-11-26
+tested:
+  authjs-next: [selenium-webdriver@4.53.0]
+  better-auth-next: [selenium-webdriver@4.53.0]
 ---
 
 # Selenium

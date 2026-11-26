@@ -1,7 +1,9 @@
 ---
 description: "Test a refresh token that stops working: after sign-in as you+revoked@example.com, every refresh returns invalid_grant (or the provider's own error code)."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # Revoked provider access

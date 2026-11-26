@@ -2,7 +2,9 @@
 description: "Test Google, GitHub, Apple and other OAuth sign-in in Remix with Mockatoo: Auth.js in a resource route, Playwright tests and CI."
 title: "Test OAuth login in Remix with Auth.js · Mockatoo"
 datePublished: 2026-11-21
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  authjs-remix: ["@remix-run/node@2.17.5", "@auth/core@0.41.3", "@mockatoo/connect-authjs@0.2.1", "@playwright/test@1.64.1"]
 ---
 
 # Remix

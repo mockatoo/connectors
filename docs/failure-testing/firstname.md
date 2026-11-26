@@ -1,7 +1,9 @@
 ---
 description: "Test sign-in with a Google profile that has a first name but no family name: you+firstname@example.com sends name and given_name without family_name."
 datePublished: 2026-11-20
-lastModified: 2026-11-24
+lastModified: 2026-11-26
+tested:
+  better-auth-next: [better-auth@1.7.25, next@16.4.6, "@playwright/test@1.64.1"]
 ---
 
 # First name without family name

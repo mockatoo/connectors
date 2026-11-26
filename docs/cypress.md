@@ -3,6 +3,8 @@ description: "Test Google, GitHub, Apple and other OAuth sign-in with Cypress: c
 title: "Mock OAuth login in Cypress tests · Mockatoo"
 datePublished: 2026-11-05
 lastModified: 2026-11-26
+tested:
+  better-auth-next: [cypress@16.2.0]
 ---
 
 # Cypress
