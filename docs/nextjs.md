@@ -363,4 +363,5 @@ More in [Run in CI](ci.md).
 - [Playwright](playwright.md) · [Cypress](cypress.md) · [Selenium](selenium.md) · [Nuxt](nuxt.md) · [Email tags](email-tags.md) · [Run in CI](ci.md)
 - [Better Auth invalid_code](https://mockatoo.globalunderdog.com/blog/better-auth-invalid-code): reproduce a failed token exchange with an email tag
 - [Let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in): have Claude Code, Codex or Cursor set up sign-in and verify it with a passing test
+- [OAuth on localhost, previews and CI](https://mockatoo.globalunderdog.com/learn/oauth-localhost-preview-ci): why each new URL needs a registered redirect URI, and how to sign in without one
 - Use Mockatoo only outside production, and never commit its credentials.

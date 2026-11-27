@@ -23,7 +23,7 @@ The connector uses shared mock credentials in place of Apple's signed client
 secret; successful mock sign-in cannot validate your Apple key or Services ID.
 
 Sources: [Sign in with Apple REST API](https://developer.apple.com/documentation/signinwithapplerestapi),
-[authorization response](https://developer.apple.com/documentation/signinwithapplerestapi/request-an-authorization-to-the-sign-in-with-apple-server).
+[authorization response](https://developer.apple.com/documentation/signinwithapplerestapi/request-an-authorization-to-the-sign-in-with-apple-server.).
 
 ## OpenID Connect (OIDC)
 

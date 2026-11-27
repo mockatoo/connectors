@@ -438,4 +438,5 @@ More in [Run in CI](ci.md).
 - [`@mockatoo/sv`](https://github.com/mockatoo/sv) · [Playwright](playwright.md) · [Nuxt](nuxt.md) · [Run in CI](ci.md) · [Email tags](email-tags.md) · [Account flow](account-flow.md) · [Apple](providers/apple.md)
 - [OAuth failure testing](https://mockatoo.globalunderdog.com/learn/oauth-failure-testing): test what your app does when sign-in fails
 - [Let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in): have Claude Code, Codex or Cursor set up sign-in and verify it with a passing test
+- [OAuth on localhost, previews and CI](https://mockatoo.globalunderdog.com/learn/oauth-localhost-preview-ci): why each new URL needs a registered redirect URI, and how to sign in without one
 - Use Mockatoo only outside production, and never commit its credentials.

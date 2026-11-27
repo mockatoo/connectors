@@ -281,3 +281,4 @@ Create GitHub Actions secrets named `MOCKATOO_TEST_EMAIL` and `MOCKATOO_TEST_PAS
 
 - [Cypress](cypress.md) · [Playwright](playwright.md) · [Next.js](nextjs.md) · [Account flow](account-flow.md) · [Run in CI](ci.md)
 - [Let your coding agent sign in](https://mockatoo.globalunderdog.com/learn/coding-agent-sign-in): have Claude Code, Codex or Cursor set up sign-in and verify it with a passing test
+- [OAuth on localhost, previews and CI](https://mockatoo.globalunderdog.com/learn/oauth-localhost-preview-ci): why each new URL needs a registered redirect URI, and how to sign in without one
